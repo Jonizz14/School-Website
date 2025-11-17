@@ -25,7 +25,8 @@ import Chat from "./components/Chat/Chat";
 import TalentedStudents from "./pages/TalentedS/TalentedStudents";
 import AboutSchool from "./pages/AboutSchool/AboutSchool";
 import Principals from "./pages/Principals/Principals";
-import ScientificWorks from "./pages/ScientificWorks/ScientificWorks";
+import Meetings from "./pages/Meeting/Meetings";
+import ScientistWork from "./pages/ScientistWork/ScientistWork";
 import Documentation from "./pages/Documentation/Documentation";
 import ScrollTop from "./components/ScrollTop/ScrollTop";
 
@@ -44,7 +45,8 @@ function App() {
     "/talentedstudents",
     "/aboutschool",
     "/principals",
-    "/scientificworks",
+    "/meeting",
+    "/scientistwork",
     "/documentation",
   ];
 
@@ -152,7 +154,8 @@ function App() {
         <Route path="/talentedstudents" element={<Layout><TalentedStudents /></Layout>} />
         <Route path="/aboutschool" element={<Layout><AboutSchool /></Layout>} />
         <Route path="/principals" element={<Layout><Principals /></Layout>} />
-        <Route path="/scientificworks" element={<Layout><ScientificWorks /></Layout>} />
+        <Route path="/meeting" element={<Layout><Meetings /></Layout>} />
+        <Route path="/scientistwork" element={<Layout><ScientistWork /></Layout>} />
         <Route path="/documentation" element={<Layout><Documentation /></Layout>} />
 
       </Routes>

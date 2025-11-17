@@ -1,0 +1,98 @@
+.scientist-work {
+  background: #f9fafb;
+  padding: 80px 20px;
+  color: #1e3a8a;
+}
+
+.scientist-work__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.scientist-work__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.scientist-work__title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #3b82f6;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.scientist-work__subtitle {
+  color: #334155;
+  font-size: 1.1rem;
+  max-width: 750px;
+  margin: 0 auto 50px;
+  line-height: 1.7;
+}
+
+.scientist-work__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.scientist-work__card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.scientist-work__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15);
+}
+
+.scientist-work__video {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.scientist-work__card-title {
+  font-size: 1.3rem;
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+
+.scientist-work__card-student {
+  color: #475569;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.scientist-work__card-description {
+  color: #475569;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+
+@media (max-width: 768px) {
+  .scientist-work__title {
+    font-size: 1.8rem;
+  }
+  .scientist-work__subtitle {
+    font-size: 1rem;
+  }
+  .scientist-work__grid {
+    gap: 15px;
+  }
+}

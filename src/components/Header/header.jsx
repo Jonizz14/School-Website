@@ -151,7 +151,7 @@ function Header() {
             <ul className={`header__dropdown-menu ${aboutDropdownOpen ? "header__dropdown-menu--show" : ""}`}>
               <li><NavLink to="/aboutschool" onClick={closeAllDropdowns}>Maktab tarixi</NavLink></li>
               <li><NavLink to="/principals" onClick={closeAllDropdowns}>Rahbariyat</NavLink></li>
-              <li><NavLink to="/scientificworks" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
+              <li><NavLink to="/scientistwork" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
             </ul>
           </div>
 
@@ -176,6 +176,7 @@ function Header() {
             <ul className={`header__dropdown-menu ${mediaDropdownOpen ? "header__dropdown-menu--show" : ""}`}>
               <li><NavLink to="/news" onClick={closeAllDropdowns}>Yangiliklar</NavLink></li>
               <li><NavLink to="/announcements" onClick={closeAllDropdowns}>E'lonlar</NavLink></li>
+              <li><NavLink to="/meeting" onClick={closeAllDropdowns}>Uchrashuvlar</NavLink></li>
             </ul>
           </div>
 
@@ -221,7 +222,7 @@ function Header() {
               <ul className={`header__mobile-dropdown-menu ${mobileAboutDropdownOpen ? "header__mobile-dropdown-menu--show" : ""}`}>
                 <li><NavLink to="/aboutschool" onClick={closeAllDropdowns}>Maktab Tarixi</NavLink></li>
                 <li><NavLink to="/principals" onClick={closeAllDropdowns}>Rahbariyat</NavLink></li>
-                <li><NavLink to="/scientificworks" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
+                <li><NavLink to="/meeting" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
                 <li><NavLink to="/schedule" onClick={closeAllDropdowns}>Dars Jadvali</NavLink></li>
               </ul>
             </li>
@@ -244,6 +245,7 @@ function Header() {
               <ul className={`header__mobile-dropdown-menu ${mobileMediaDropdownOpen ? "header__mobile-dropdown-menu--show" : ""}`}>
                 <li><NavLink to="/news" onClick={closeAllDropdowns}>Yangiliklar</NavLink></li>
                 <li><NavLink to="/announcements" onClick={closeAllDropdowns}>E'lonlar</NavLink></li>
+                <li><NavLink to="/scientistwork" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
               </ul>
             </li>
             <li><NavLink to="/contact" onClick={closeAllDropdowns}>Bog'lanish</NavLink></li>
