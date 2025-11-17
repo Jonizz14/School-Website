@@ -176,7 +176,7 @@ for (let i = 1; i <= 10; i++) {
 for (let i = 1; i <= 4; i++) {
   scientificWorks.push({
     id: i,
-    video: `https://sample-videos.com/video123/mp4/720/sample_640x360_${i}.mp4`,
+    image: faker.image.urlPicsumPhotos({ width: 800, height: 400 }),
     title: faker.lorem.words(3),
     description: faker.lorem.sentence(10),
     studentName: faker.person.fullName(),

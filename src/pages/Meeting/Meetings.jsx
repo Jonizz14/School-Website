@@ -13,36 +13,39 @@ function Meetings() {
     fetch('http://localhost:3000/meetings')
       .then(response => response.json())
       .then(data => setWorks(data))
-      .catch(error => console.error('Error fetching scientific works:', error));
+      .catch(error => console.error('Error fetching meetings:', error));
   }, []);
 
   return (
-    <section className="meeting">
-      <div className="meeting__container">
-        <h2 data-aos="fade-up" className="meeting__title">
-          Ilmiy Ishlar
-        </h2>
+    <div data-aos="fade-up" className="news-section">
+      <p className="news-section-p1">Ilmiy Ishlar</p>
+      <p className="news-section-p2">
+        Maktabimizda o‘quvchilarning ilmiy faoliyati va tadqiqotlari rivojlantiriladi.
+        Bu bo‘limda ilmiy ishlar, loyihalar va yutuqlar haqida ma’lumotlar beriladi.
+      </p>
 
-        <p data-aos="fade-up" className="meeting__subtitle">
-          Maktabimizda o‘quvchilarning ilmiy faoliyati va tadqiqotlari rivojlantiriladi.
-          Bu bo‘limda ilmiy ishlar, loyihalar va yutuqlar haqida ma’lumotlar beriladi.
-        </p>
+      <div data-aos="fade-up" className="news-list">
+        {works.map(work => (
+          <div key={work.id} className="news-card">
+            <video controls style={{ width: '100%', height: '220px', objectFit: 'cover' }}>
+              <source src={work.video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
 
-        <div data-aos="fade-up" className="meeting__grid">
-          {works.map(work => (
-            <div key={work.id} className="meeting__card">
-              <video controls className="meeting__video">
-                <source src={work.video} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <h3 className="meeting__card-title">{work.title}</h3>
-              <p className="meeting__card-student">O‘quvchi: {work.studentName}</p>
-              <p className="meeting__card-description">{work.description}</p>
+            <div className="news-card-header">
+              <h3>{work.title}</h3>
             </div>
-          ))}
-        </div>
+
+            <p>O‘quvchi: {work.studentName}</p>
+            <p>{work.description}</p>
+          </div>
+        ))}
       </div>
-    </section>
+
+      {works.length === 0 && (
+        <p className="no-news">Ma'lumot topilmadi.</p>
+      )}
+    </div>
   );
 }
 

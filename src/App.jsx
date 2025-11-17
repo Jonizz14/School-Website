@@ -27,6 +27,7 @@ import AboutSchool from "./pages/AboutSchool/AboutSchool";
 import Principals from "./pages/Principals/Principals";
 import Meetings from "./pages/Meeting/Meetings";
 import ScientistWork from "./pages/ScientistWork/ScientistWork";
+import ScientistWorkDetails from "./pages/ScientistWorkDetails/ScientistWorkDetails";
 import Documentation from "./pages/Documentation/Documentation";
 import ScrollTop from "./components/ScrollTop/ScrollTop";
 
@@ -156,6 +157,7 @@ function App() {
         <Route path="/principals" element={<Layout><Principals /></Layout>} />
         <Route path="/meeting" element={<Layout><Meetings /></Layout>} />
         <Route path="/scientistwork" element={<Layout><ScientistWork /></Layout>} />
+        <Route path="/scientistwork/:id" element={<Layout><ScientistWorkDetails /></Layout>} />
         <Route path="/documentation" element={<Layout><Documentation /></Layout>} />
 
       </Routes>
