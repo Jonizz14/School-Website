@@ -65,18 +65,18 @@ function ScientistWorkDetails() {
             {/* Breadcrumb */}
             <div className="breadcrumb">
               <Link to="/scientistwork" className="breadcrumb-link">
-                Fanlar Ishlari
+                Ilmiy Ishlar
               </Link>
               <span className="breadcrumb-separator">/</span>
               <span className="breadcrumb-current">{work.title}</span>
             </div>
 
-            {work.video && (
-              <video
-                src={work.video}
-                controls
-                className="scientistworkdetails-video"
-                onClick={() => openModal({ type: "video", src: work.video })}
+            {work.image && (
+              <img
+                src={work.image}
+                alt={work.title}
+                className="scientistworkdetails-img"
+                onClick={() => openModal({ type: "image", src: work.image })}
               />
             )}
 
@@ -118,11 +118,10 @@ function ScientistWorkDetails() {
       {modalOpen && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <video
+            <img
               src={selectedMedia.src}
-              controls
-              autoPlay
-              className="modal-video"
+              alt="Full view"
+              className="modal-img"
             />
             <button className="details-close-btn" onClick={closeModal}>
               ×

@@ -27,29 +27,22 @@ function ScientistWork() {
 
       <div data-aos="fade-up" className="news-list">
         {works.map(work => (
-          <div key={work.id} className="news-card">
-            <video controls style={{ width: '100%', height: '220px', objectFit: 'cover' }}>
-              <source src={work.video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+          <Link key={work.id} to={`/scientistwork/${work.id}`} state={{ work }} className="news-card-link">
+            <div className="news-card">
+              <img src={work.image} alt={work.title} style={{ width: '100%', height: '220px', objectFit: 'cover' }} />
 
-            <div className="news-card-header">
-              <h3>{work.title}</h3>
+              <div className="news-card-header">
+                <h3>{work.title}</h3>
+              </div>
+
+              <p>O'quvchi: {work.studentName}</p>
+              <p>{work.description}</p>
+
+              <div className="news-card-footer">
+                <span className="detail-link">Batafsil</span>
+              </div>
             </div>
-
-            <p>O'quvchi: {work.studentName}</p>
-            <p>{work.description}</p>
-
-            <div className="news-card-footer">
-              <Link
-                to={`/scientistwork/${work.id}`}
-                state={{ work }}
-                className="detail-link"
-              >
-                Batafsil
-              </Link>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
 

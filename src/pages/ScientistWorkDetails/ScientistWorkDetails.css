@@ -11,7 +11,7 @@
   line-height: 1.7;
 }
 
-.scientistworkdetails-video {
+.scientistworkdetails-img {
   width: 100%;
   max-height: 420px;
   object-fit: cover;
@@ -176,7 +176,7 @@
     padding: 20px;
   }
 
-  .scientistworkdetails-video {
+  .scientistworkdetails-img {
     max-height: 320px;
   }
 
@@ -213,7 +213,7 @@
     font-size: 0.85rem;
   }
 
-  .scientistworkdetails-video {
+  .scientistworkdetails-img {
     height: 190px;
   }
 

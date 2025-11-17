@@ -1,3 +1,9 @@
+.news-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .news-section {
   text-align: center;
   margin: 50px auto 30px;
