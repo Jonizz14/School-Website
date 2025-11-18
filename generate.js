@@ -11,6 +11,7 @@ const classes = [];
 const teachers = [];
 const news = [];
 const anons = [];
+const meetings = [];
 const additions = [];
 const principals = [];
 const talentedStudents = [];
@@ -131,6 +132,18 @@ for (let i = 1; i <= 5; i++) {
   });
 }
 
+for (let i = 1; i <= 5; i++) {
+  meetings.push({
+    id: i,
+    image: faker.image.urlPicsumPhotos({ width: 800, height: 400 }),
+    video: `https://www.youtube.com/watch?v=${faker.string.alphanumeric(11)}`,
+    title: faker.lorem.words(5),
+    description: faker.lorem.sentence(10),
+    date: faker.date.recent({ days: 30 }).toISOString().split("T")[0],
+    time: "12:00 - 14:00",
+  });
+}
+
 const CLUB_NAMES = [
   "Robototexnika",
   "Ingliz tili speaking club",
@@ -193,6 +206,7 @@ const db = {
   students,
   news,
   anons,
+  meetings,
   additions,
   talentedStudents,
   scientificWorks,

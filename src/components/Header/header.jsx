@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import { NavLink, useLocation } from "react-router-dom";
+import { FiMenu, FiX, FiChevronDown, FiImage } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import "./header.css";
 import Logo from "./logo.svg";
 
 function Header() {
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [activityDropdownOpen, setActivityDropdownOpen] = useState(false);
@@ -252,6 +253,10 @@ function Header() {
           </ul>
         </div>
       </nav>
+
+      <NavLink to="/gallery" className="gallery-fixed-btn">
+        <FiImage size={24} />
+      </NavLink>
     </header>
   );
 }
