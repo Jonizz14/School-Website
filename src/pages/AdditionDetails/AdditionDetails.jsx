@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { FaInstagram, FaTelegram, FaFacebook } from "react-icons/fa";
 import "/src/pages/AdditionDetails/AdditionDetails.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -7,6 +8,7 @@ import "aos/dist/aos.css";
 function AdditionDetails() {
     const location = useLocation();
     const addition = location.state?.addition;
+    const teacher = location.state?.teacher;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -40,10 +42,50 @@ function AdditionDetails() {
             <h2 className="additiondetails-title">{addition.name}</h2>
             <p className="additiondetails-teacher">
                 <strong>Ustoz:</strong>{" "}
-                <Link to={`/addition/teacher/${addition.teacherId}`} className="teacher-link">
-                    {addition.teacherName}
-                </Link>
+                {teacher ? (
+                    <Link to={`/teachers/${addition.teacherId}`} state={{ teacher: teacher }} className="teacher-link">
+                        {teacher.firstName} {teacher.lastName}
+                    </Link>
+                ) : (
+                    "Yuklanmo..."
+                )}
             </p>
+
+            {teacher && (
+                <div className="teacher-social-wrapper">
+                    {teacher.social?.instagram && (
+                        <a
+                            href={teacher.social.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="social-btn instagram-btn"
+                        >
+                            <FaInstagram />
+                        </a>
+                    )}
+                    {teacher.social?.telegram && (
+                        <a
+                            href={teacher.social.telegram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="social-btn telegram-btn"
+                        >
+                            <FaTelegram />
+                        </a>
+                    )}
+                    {teacher.social?.facebook && (
+                        <a
+                            href={teacher.social.facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="social-btn facebook-btn"
+                        >
+                            <FaFacebook />
+                        </a>
+                    )}
+                </div>
+            )}
+
             <p className="additiondetails-desc">{addition.description}</p>
 
             <div className="additiondetails-footer">

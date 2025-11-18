@@ -102,32 +102,31 @@ for (let i = 1; i <= 10; i++) {
     faker.image.urlPicsumPhotos({ width: 800, height: 400 })
   );
 
+  const randomTeacher = faker.helpers.arrayElement(teachers);
   news.push({
     id: i,
     mainImage: images[0],
     gallery: images,
-    video: faker.helpers.arrayElement([
-      "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-      "https://sample-videos.com/video123/mp4/720/sample_960x540.mp4",
-      null,
-    ]),
     title: faker.lorem.sentence(5),
     description: faker.lorem.paragraphs({ min: 2, max: 4 }),
     date: faker.date.recent({ days: 30 }).toISOString().split("T")[0],
+    teacherId: randomTeacher.id,
   });
 }
 
 for (let i = 1; i <= 5; i++) {
-  const startDate = faker.date.recent({ days: 10 });
-  const endDate = faker.date.soon({ days: 10, refDate: startDate });
+  const imageCount = faker.number.int({ min: 2, max: 5 });
+  const images = Array.from({ length: imageCount }, () =>
+    faker.image.urlPicsumPhotos({ width: 800, height: 400 })
+  );
 
   anons.push({
     id: i,
-    image: faker.image.urlPicsumPhotos({ width: 800, height: 400 }),
+    image: images[0],
+    gallery: images,
     title: faker.lorem.words(5),
     description: faker.lorem.sentence(10),
-    startDate: startDate.toISOString().split("T")[0],
-    endDate: endDate.toISOString().split("T")[0],
+    date: faker.date.recent({ days: 30 }).toISOString().split("T")[0],
     time: "12:00 - 14:00",
   });
 }
@@ -150,16 +149,7 @@ for (let i = 1; i <= CLUB_NAMES.length; i++) {
     name: CLUB_NAMES[i - 1],
     description: faker.lorem.paragraph(3),
     teacherId: randomTeacher.id,
-    teacherName: randomTeacher.firstName + " " + randomTeacher.lastName,
-    teacherPhoto: randomTeacher.photo,
-    teacherSubject: randomTeacher.subject,
-    teacherBiography: randomTeacher.biography,
     image: faker.image.urlPicsumPhotos({ width: 800, height: 400 }),
-    social: {
-      instagram: randomTeacher.social.instagram,
-      telegram: randomTeacher.social.telegram,
-      facebook: randomTeacher.social.facebook,
-    },
   });
 }
 
@@ -174,12 +164,25 @@ for (let i = 1; i <= 10; i++) {
 }
 
 for (let i = 1; i <= 4; i++) {
+  const imageCount = faker.number.int({ min: 2, max: 5 });
+  const images = Array.from({ length: imageCount }, () =>
+    faker.image.urlPicsumPhotos({ width: 800, height: 400 })
+  );
+
   scientificWorks.push({
     id: i,
-    image: faker.image.urlPicsumPhotos({ width: 800, height: 400 }),
+    image: images[0],
+    gallery: images,
     title: faker.lorem.words(3),
     description: faker.lorem.sentence(10),
     studentName: faker.person.fullName(),
+    date: faker.date.recent({ days: 30 }).toISOString().split("T")[0],
+    files: {
+      pdf: faker.helpers.arrayElement([faker.internet.url(), null]),
+      xlsx: faker.helpers.arrayElement([faker.internet.url(), null]),
+      docx: faker.helpers.arrayElement([faker.internet.url(), null]),
+      pptx: faker.helpers.arrayElement([faker.internet.url(), null]),
+    },
   });
 }
 

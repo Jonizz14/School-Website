@@ -372,7 +372,7 @@ function Home () {
 
       <section data-aos='fade-up' className='bg-gray-900 py-14'>
         <div className='swiper-title-bottom'>
-          <p className='swiper-botto-p'>Maktab Fotogalareyasi</p>
+          <p className='swiper-botto-p'>Maktab Fotogalereyasi</p>
         </div>
         <div data-aos='fade-' className='w-[85%] mx-auto'>
           <Swiper

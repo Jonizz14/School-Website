@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IoTimeOutline } from "react-icons/io5";
+import { IoTimeOutline, IoCalendarNumber } from "react-icons/io5";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import "/src/pages/Announcements/announcements.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -49,7 +50,9 @@ function Announcements() {
     .filter((item) =>
       item.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    .filter((item) => (showOnlyBookmarked ? bookmarked.includes(item.id) : true));
+    .filter((item) =>
+      showOnlyBookmarked ? bookmarked.includes(item.id) : true
+    );
 
   return (
     <div data-aos="fade-up" className="anons-section">
@@ -73,7 +76,11 @@ function Announcements() {
           className={`bookmark-toggle ${showOnlyBookmarked ? "active" : ""}`}
           onClick={() => setShowOnlyBookmarked((prev) => !prev)}
         >
-          {showOnlyBookmarked ? <BsBookmarkFill size={20} /> : <BsBookmark size={20} />}
+          {showOnlyBookmarked ? (
+            <BsBookmarkFill size={20} />
+          ) : (
+            <BsBookmark size={20} />
+          )}
         </button>
       </div>
 
@@ -101,10 +108,25 @@ function Announcements() {
             <p>{item.description}</p>
 
             <div className="anons-card-footer">
-              <div className="anons-date">
-                <IoTimeOutline className="time-icon" />
-                <span className="date-text">{item.time}</span>
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <div className="anons-date">
+                  <IoCalendarNumber className="time-icon" />
+                  <span className="date-text">{item.date}</span>
+                </div>
+
+                <div className="anons-time">
+                  <IoTimeOutline className="time-icon" />
+                  <span className="time-text">{item.time}</span>
+                </div>
               </div>
+
+              <Link
+                to={`/announcements/${item.id}`}
+                state={{ announcement: item }}
+                className="anons-detail-link"
+              >
+                Batafsil
+              </Link>
             </div>
           </div>
         ))}

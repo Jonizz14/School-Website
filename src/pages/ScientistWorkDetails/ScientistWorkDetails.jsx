@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { IoCalendarNumber } from "react-icons/io5";
+import { FaFilePdf, FaFileExcel, FaFileWord, FaFilePowerpoint } from "react-icons/fa";
 import "./ScientistWorkDetails.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -35,7 +36,7 @@ function ScientistWorkDetails() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/scientistWorks")
+    fetch("http://localhost:3000/scientificWorks")
       .then((res) => res.json())
       .then((data) => setWorksList(data))
       .catch((err) => console.error("❌ Xatolik:", err));
@@ -62,32 +63,72 @@ function ScientistWorkDetails() {
       <div className="scientistworkdetails-layout">
         <div className="scientistworkdetails-main">
           <div data-aos="fade-up" className="scientistworkdetails">
-            {/* Breadcrumb */}
-            <div className="breadcrumb">
-              <Link to="/scientistwork" className="breadcrumb-link">
-                Ilmiy Ishlar
-              </Link>
-              <span className="breadcrumb-separator">/</span>
-              <span className="breadcrumb-current">{work.title}</span>
+        {/* Breadcrumb */}
+        <div className="breadcrumb">
+          <Link to="/scientistwork" className="breadcrumb-link">
+            Ilmiy Ishlar
+          </Link>
+          <span className="breadcrumb-separator">/</span>
+          <span className="breadcrumb-current">{work.title}</span>
+        </div>
+
+        {work.image && (
+          <img
+            src={work.image}
+            alt={work.title}
+            className="scientistworkdetails-img"
+            onClick={() => openModal({ type: "image", src: work.image })}
+          />
+        )}
+
+        {(work.gallery?.length > 1) && (
+          <div data-aos="fade-up" className="scientistworkdetails-gallery">
+            <div className="gallery-grid">
+              {work.gallery?.slice(1).map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img}
+                  alt={`Gallery ${idx + 2}`}
+                  className="gallery-img"
+                  onClick={() => openModal({ type: "image", src: img })}
+                />
+              ))}
             </div>
+          </div>
+        )}
 
-            {work.image && (
-              <img
-                src={work.image}
-                alt={work.title}
-                className="scientistworkdetails-img"
-                onClick={() => openModal({ type: "image", src: work.image })}
-              />
-            )}
+        <h2 className="scientistworkdetails-title">{work.title}</h2>
+        <p className="scientistworkdetails-desc"><strong>O'quvchi:</strong> {work.studentName}</p>
+        <p className="scientistworkdetails-desc">{work.description}</p>
 
-            <h2 className="scientistworkdetails-title">{work.title}</h2>
-            <p className="scientistworkdetails-desc">O'quvchi: {work.studentName}</p>
-            <p className="scientistworkdetails-desc">{work.description}</p>
-
-            <div className="scientistworkdetails-footer">
-              <IoCalendarNumber size={28} className="scientistworkdetails-icon" />
-              <span className="scientistworkdetails-date">{work.date || "Sana mavjud emas"}</span>
+        <div className="scientistworkdetails-footer">
+          <IoCalendarNumber size={28} className="scientistworkdetails-icon" />
+          <span className="scientistworkdetails-date">{work.date || "Sana mavjud emas"}</span>
+          {work.files && (
+            <div className="scientistworkdetails-downloads">
+              {work.files.pdf && (
+                <a href={work.files.pdf} download target="_blank" rel="noopener noreferrer" className="download-link">
+                  <FaFilePdf size={20} /> PDF
+                </a>
+              )}
+              {work.files.xlsx && (
+                <a href={work.files.xlsx} download target="_blank" rel="noopener noreferrer" className="download-link">
+                  <FaFileExcel size={20} /> XLSX
+                </a>
+              )}
+              {work.files.docx && (
+                <a href={work.files.docx} download target="_blank" rel="noopener noreferrer" className="download-link">
+                  <FaFileWord size={20} /> DOCX
+                </a>
+              )}
+              {work.files.pptx && (
+                <a href={work.files.pptx} download target="_blank" rel="noopener noreferrer" className="download-link">
+                  <FaFilePowerpoint size={20} /> PPTX
+                </a>
+              )}
             </div>
+          )}
+        </div>
           </div>
         </div>
 
@@ -95,10 +136,10 @@ function ScientistWorkDetails() {
           <h3 className="side-title">Qo'shimcha ishlar</h3>
           {worksList.slice(0, 14).map((item) => (
             <div key={item.id} className="side-card">
-              <video
-                src={item.video}
-                className="side-card__video"
-                muted
+              <img
+                src={item.image || item.gallery?.[0]}
+                alt={item.title}
+                className="side-card__img"
               />
               <div className="side-card__body">
                 <h4 className="side-card__title">{item.title}</h4>

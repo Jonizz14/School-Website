@@ -19,6 +19,7 @@
   border-radius: 8px;
   margin-bottom: -35px;
   border: 2px solid #0d2fa5;
+  cursor: pointer;
 }
 
 .newsdetails-title {
@@ -101,7 +102,7 @@
   height: fit-content;
   margin-top: 50px;
   position: sticky;
-  top: 90px;
+  top: 100px;
 }
 
 .side-title {
@@ -185,6 +186,7 @@
   border-radius: 8px;
   border: 1.5px solid #cfd8f5;
   transition: transform 0.25s ease;
+  cursor: pointer;
 }
 
 .gallery-video {
@@ -193,6 +195,7 @@
   border-radius: 8px;
   background: #000;
   border: 1.5px solid #cfd8f5;
+  cursor: pointer;
 }
 
 @media (max-width: 1024px) {

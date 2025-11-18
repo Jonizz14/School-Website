@@ -88,6 +88,42 @@
   color: #0d6efd;
 }
 
+.teacher-social-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 24px;
+  transition: 0.3s ease;
+  color: white;
+}
+
+.instagram-btn {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.telegram-btn {
+  background: #0088cc;
+}
+
+.facebook-btn {
+  background: #1877f2;
+}
+
+.social-btn:hover {
+  transform: scale(1.1);
+}
+
 
 @media (max-width: 992px) {
   .additiondetails {

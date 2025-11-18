@@ -17,7 +17,6 @@ import NewsDetails from "./pages/NewsDetails/NewsDetails";
 import Addition from "./pages/Addition/addition";
 import TeacherDetails from "./pages/TeachersDetails/TeachersDetails";
 import Noutfound from "./pages/Notfound/notfound";
-import TeachersAdditionsDetails from "./pages/TeachersAdditionsDetails/TeachersAdditionsDetails";
 import HomePrincipalsDetails from "./pages/HomePrincipalsDetails/HomePrincipalsDetails";
 import OurCommand from "./pages/OurCommand/OurCommand";
 import Contact from "./pages/Contact/contact";
@@ -28,6 +27,7 @@ import Principals from "./pages/Principals/Principals";
 import Meetings from "./pages/Meeting/Meetings";
 import ScientistWork from "./pages/ScientistWork/ScientistWork";
 import ScientistWorkDetails from "./pages/ScientistWorkDetails/ScientistWorkDetails";
+import AnnouncementDetails from "./pages/AnnouncementDetails/AnnouncementDetails";
 import Documentation from "./pages/Documentation/Documentation";
 import ScrollTop from "./components/ScrollTop/ScrollTop";
 
@@ -144,12 +144,12 @@ function App() {
         <Route path="/teachers" element={<Layout><Teachers /></Layout>} />
         <Route path="/teachers/:id" element={<Layout><TeacherDetails /></Layout>} />
         <Route path="/principals/:id" element={<Layout><HomePrincipalsDetails /></Layout>} />
-        <Route path="/addition/teacher/:id" element={<Layout><TeachersAdditionsDetails /></Layout>} />
         <Route path="/schedule" element={<Layout><Schedule /></Layout>} />
         <Route path="/ourcommand" element={<Layout><OurCommand /></Layout>} />
         <Route path="/addition/details" element={<Layout><AdditionDetails /></Layout>} />
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
         <Route path="/announcements" element={<Layout><Announcements /></Layout>} />
+        <Route path="/announcements/:id" element={<Layout><AnnouncementDetails /></Layout>} />
         <Route path="/addition" element={<Layout><Addition /></Layout>} />
         <Route path="*" element={<Layout><Noutfound /></Layout>} />
         <Route path="/talentedstudents" element={<Layout><TalentedStudents /></Layout>} />

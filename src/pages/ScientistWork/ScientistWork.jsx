@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { IoCalendarNumber } from "react-icons/io5";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { MdViewList, MdAccessTime, MdHistory } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./ScientistWork.css";
 import AOS from "aos";
@@ -6,16 +9,89 @@ import "aos/dist/aos.css";
 
 function ScientistWork() {
   const [works, setWorks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [bookmarked, setBookmarked] = useState(() => {
+    return JSON.parse(localStorage.getItem("bookmarkedWorks")) || [];
+  });
 
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-    window.scrollTo(0, 0);
+    localStorage.setItem("bookmarkedWorks", JSON.stringify(bookmarked));
+  }, [bookmarked]);
 
-    fetch('http://localhost:3000/scientificWorks')
-      .then(response => response.json())
-      .then(data => setWorks(data))
-      .catch(error => console.error('Error fetching scientist works:', error));
+  const sortOptions = ["all", "bookmarked", "recent", "oldest"];
+  const sortIcons = [<MdViewList />, <BsBookmark />, <MdAccessTime />, <MdHistory />];
+  const [sortOption, setSortOption] = useState("all");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const handleSortSelect = (option) => {
+    setSortOption(option);
+    setIsDropdownOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  useEffect(() => {
+    const fetchWorks = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/scientificWorks");
+        const data = await res.json();
+        setWorks(data);
+      } catch (err) {
+        console.error("Xato:", err);
+      }
+    };
+    fetchWorks();
   }, []);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true, offset: 100 });
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const toggleBookmark = (title) => {
+    setBookmarked((prev) =>
+      prev.includes(title)
+        ? prev.filter((t) => t !== title)
+        : [...prev, title]
+    );
+  };
+
+  let filteredWorks = works.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (sortOption === "bookmarked") {
+    filteredWorks = filteredWorks.filter((item) =>
+      bookmarked.includes(item.title)
+    );
+  } else if (sortOption === "recent") {
+    filteredWorks = [...filteredWorks].sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
+  } else if (sortOption === "oldest") {
+    filteredWorks = [...filteredWorks].sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
+  }
 
   return (
     <div data-aos="fade-up" className="news-section">
@@ -25,29 +101,81 @@ function ScientistWork() {
         Bu bo'limda fanlar ishlar, loyihalar va yutuqlar haqida ma'lumotlar beriladi.
       </p>
 
-      <div data-aos="fade-up" className="news-list">
-        {works.map(work => (
-          <Link key={work.id} to={`/scientistwork/${work.id}`} state={{ work }} className="news-card-link">
-            <div className="news-card">
-              <img src={work.image} alt={work.title} style={{ width: '100%', height: '220px', objectFit: 'cover' }} />
+      <div className="news-controls">
+        <form className="form" onSubmit={(e) => e.preventDefault()}>
+          <input
+            className="input"
+            placeholder="Ishlarni qidirish..."
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
 
-              <div className="news-card-header">
-                <h3>{work.title}</h3>
-              </div>
-
-              <p>O'quvchi: {work.studentName}</p>
-              <p>{work.description}</p>
-
-              <div className="news-card-footer">
-                <span className="detail-link">Batafsil</span>
-              </div>
+        <div className="sort-dropdown" ref={dropdownRef}>
+          <button className="sort-btn active" onClick={() => setIsDropdownOpen(!isDropdownOpen)} title={sortOption === 'all' ? 'Barchasi' : sortOption === 'bookmarked' ? 'Faqat saqlanganlar' : sortOption === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}>
+            {sortIcons[sortOptions.indexOf(sortOption)]}
+          </button>
+          {isDropdownOpen && (
+            <div className="sort-options">
+              {sortOptions.map((option, index) => (
+                <button
+                  key={option}
+                  className={`sort-option ${sortOption === option ? 'active' : ''}`}
+                  onClick={() => handleSortSelect(option)}
+                  title={option === 'all' ? 'Barchasi' : option === 'bookmarked' ? 'Faqat saqlanganlar' : option === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}
+                >
+                  {sortIcons[index]}
+                </button>
+              ))}
             </div>
-          </Link>
+          )}
+        </div>
+      </div>
+
+      <div data-aos="fade-up" className="news-list">
+        {filteredWorks.map((item) => (
+          <div key={item.title} className="news-card">
+            <div className="news-image-wrapper">
+              <img src={item.image} alt={item.title} />
+              <button
+                className="bookmark-btn"
+                onClick={() => toggleBookmark(item.title)}
+              >
+                {bookmarked.includes(item.title) ? (
+                  <BsBookmarkFill className="bookmark-icon active" />
+                ) : (
+                  <BsBookmark className="bookmark-icon" />
+                )}
+              </button>
+            </div>
+
+            <div className="news-card-header">
+              <h3>{item.title}</h3>
+            </div>
+
+            <p>{item.description}</p>
+
+            <div className="news-card-footer">
+              <div className="news-date">
+                <IoCalendarNumber className="calendar-icon" />
+                <span className="date-text">{item.date}</span>
+              </div>
+
+              <Link
+                to={`/scientistwork/${item.id}`}
+                state={{ work: item }}
+                className="detail-link"
+              >
+                Batafsil
+              </Link>
+            </div>
+          </div>
         ))}
       </div>
 
-      {works.length === 0 && (
-        <p className="no-news">Ma'lumot topilmadi.</p>
+      {filteredWorks.length === 0 && (
+        <p className="no-news">Ish topilmadi.</p>
       )}
     </div>
   );

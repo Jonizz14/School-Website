@@ -84,6 +84,133 @@
   color: #103da5;
 }
 
+.teacher-social-wrapper {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #f1f5f9;
+  color: #1e3a8a;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.social-btn:hover {
+  background: #1e3a8a;
+  color: white;
+}
+
+.teacherdetails-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 28px;
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .teacherdetails-main {
+    flex: 2;
+  }
+
+  .teacherdetails-side {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    height: fit-content;
+    margin-top: 50px;
+    position: sticky;
+    top: 90px;
+  }
+
+  .side-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0b2e84;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #0b2e84;
+    display: inline-block;
+    padding-bottom: 4px;
+  }
+
+  .side-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .side-card__img {
+    width: 85px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid #0b3390;
+  }
+
+  .side-card__body {
+    flex: 1;
+  }
+
+  .side-card__title {
+    font-size: 13.5px;
+    color: #1a2a4f;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .side-card__subject {
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  .side-card__btn {
+    font-size: 12px;
+    color: #0c2f82;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+  }
+
+  .side-card__btn:hover {
+    color: #071a4f;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1024px) {
+    .teacherdetails-layout {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .teacherdetails-side {
+      display: none;
+    }
+
+    .teacherdetails {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+  }
+
 @media (max-width: 992px) {
   .teacherdetails {
     max-width: 90%;
@@ -150,4 +277,5 @@
   .teacherdetails-info p {
     font-size: 13px;
   }
+
 }

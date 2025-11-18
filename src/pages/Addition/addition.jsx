@@ -8,6 +8,7 @@ import "aos/dist/aos.css";
 
 function Addition() {
     const [additions, setAdditions] = useState([]);
+    const [teachers, setTeachers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [showOnlyBookmarked, setShowOnlyBookmarked] = useState(false);
 
@@ -22,16 +23,21 @@ function Addition() {
     const [sortOption, setSortOption] = useState("all");
 
     useEffect(() => {
-        const fetchAdditions = async () => {
+        const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:3000/additions");
-                const data = await res.json();
-                setAdditions(data);
+                const [additionsRes, teachersRes] = await Promise.all([
+                    fetch("http://localhost:3000/additions"),
+                    fetch("http://localhost:3000/teachers")
+                ]);
+                const additionsData = await additionsRes.json();
+                const teachersData = await teachersRes.json();
+                setAdditions(additionsData);
+                setTeachers(teachersData);
             } catch (err) {
                 console.error("Xato:", err);
             }
         };
-        fetchAdditions();
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -113,17 +119,25 @@ function Addition() {
                         <div className="addition-card-footer">
                             <div className="addition-date">
                                 <FaChalkboardTeacher className="time-icon" />
-                                <Link
-                                    to={`/addition/teacher/${item.teacherId}`}
-                                    className="teacher-text"
-                                >
-                                    {item.teacherName}
-                                </Link>
+                                {(() => {
+                                    const teacher = teachers.find(t => t.id == item.teacherId);
+                                    return teacher ? (
+                                        <Link
+                                            to={`/teachers/${item.teacherId}`}
+                                            state={{ teacher: teacher }}
+                                            className="teacher-text"
+                                        >
+                                            {teacher.firstName} {teacher.lastName}
+                                        </Link>
+                                    ) : (
+                                        <span className="teacher-text">Yuklanmo...</span>
+                                    );
+                                })()}
                             </div>
 
                             <Link
                                 to="/addition/details"
-                                state={{ addition: item }}
+                                state={{ addition: item, teacher: teachers.find(t => t.id === item.teacherId) }}
                                 className="detail-link"
                             >
                                 Batafsil

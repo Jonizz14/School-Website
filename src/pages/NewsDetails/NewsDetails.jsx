@@ -9,6 +9,7 @@ function NewsDetails() {
   const location = useLocation();
   const news = location.state?.news;
   const [newsList, setNewsList] = useState([]);
+  const [teacher, setTeacher] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
 
