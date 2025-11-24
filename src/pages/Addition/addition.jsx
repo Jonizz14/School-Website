@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { Pagination } from "antd";
 import "/src/pages/Addition/addition.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -11,6 +12,8 @@ function Addition() {
     const [teachers, setTeachers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [showOnlyBookmarked, setShowOnlyBookmarked] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 8;
 
     const [bookmarked, setBookmarked] = useState(() => {
         return JSON.parse(localStorage.getItem("bookmarkedNews")) || [];
@@ -48,6 +51,10 @@ function Addition() {
         window.scrollTo(0, 0);
     }, []);
 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, showOnlyBookmarked]);
+
     const toggleBookmark = (id) => {
         setBookmarked((prev) =>
             prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
@@ -64,6 +71,12 @@ function Addition() {
         );
     }
 
+    const totalPages = Math.ceil(filteredAdditions.length / itemsPerPage);
+    const currentItems = filteredAdditions.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
     return (
         <div data-aos="fade-up" className="addition-section">
@@ -93,7 +106,7 @@ function Addition() {
             </div>
 
             <div data-aos="fade-up" className="addition-list">
-                {filteredAdditions.map((item) => (
+                {currentItems.map((item) => (
                     <div key={item.id} className="addition-card">
                         <div className="addition-image-wrapper">
                             <img src={item.image} alt={item.name} />
@@ -146,6 +159,16 @@ function Addition() {
                     </div>
                 ))}
             </div>
+
+            {totalPages > 1 && (
+                <Pagination
+                    current={currentPage}
+                    total={filteredAdditions.length}
+                    pageSize={itemsPerPage}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                />
+            )}
 
             {filteredAdditions.length === 0 && (
                 <p className="no-additions">To‘garak topilmadi.</p>

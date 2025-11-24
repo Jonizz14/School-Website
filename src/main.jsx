@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import "antd/dist/reset.css";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 
@@ -33,3 +34,4 @@ if (canHover) {
   document.body.classList.add("hover-disabled");
   document.body.classList.remove("hover-enabled");
 }
+

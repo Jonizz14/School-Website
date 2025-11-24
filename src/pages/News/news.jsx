@@ -3,6 +3,7 @@ import { IoCalendarNumber } from "react-icons/io5";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdViewList, MdAccessTime, MdHistory } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { Pagination } from "antd";
 import "/src/pages/News/news.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,6 +11,8 @@ import "aos/dist/aos.css";
 function News() {
   const [news, setNews] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   const [bookmarked, setBookmarked] = useState(() => {
     return JSON.parse(localStorage.getItem("bookmarkedNews")) || [];
@@ -67,6 +70,10 @@ function News() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, sortOption]);
+
   const toggleBookmark = (title) => {
     setBookmarked((prev) =>
       prev.includes(title)
@@ -92,6 +99,13 @@ function News() {
       (a, b) => new Date(a.date) - new Date(b.date)
     );
   }
+
+  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+  const currentItems = filteredNews.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div data-aos="fade-up" className="news-section">
@@ -133,7 +147,7 @@ function News() {
       </div>
 
       <div data-aos="fade-up" className="news-list">
-        {filteredNews.map((item) => (
+        {currentItems.map((item) => (
           <div key={item.title} className="news-card">
             <div className="news-image-wrapper">
               <img src={item.mainImage} alt={item.title} />
@@ -172,6 +186,16 @@ function News() {
           </div>
         ))}
       </div>
+
+      {totalPages > 1 && (
+        <Pagination
+          current={currentPage}
+          total={filteredNews.length}
+          pageSize={itemsPerPage}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+        />
+      )}
 
       {filteredNews.length === 0 && (
         <p className="no-news">Yangilik topilmadi.</p>

@@ -26,7 +26,6 @@ import AboutSchool from "./pages/AboutSchool/AboutSchool";
 import Principals from "./pages/Principals/Principals";
 import Meetings from "./pages/Meeting/Meetings";
 import MeetingDetails from "./pages/MeetingDetails/MeetingDetails";
-import Gallery from "./pages/Gallery/Gallery";
 import ScientistWork from "./pages/ScientistWork/ScientistWork";
 import ScientistWorkDetails from "./pages/ScientistWorkDetails/ScientistWorkDetails";
 import AnnouncementDetails from "./pages/AnnouncementDetails/AnnouncementDetails";
@@ -159,7 +158,6 @@ function App() {
         <Route path="/principals" element={<Layout><Principals /></Layout>} />
         <Route path="/meeting" element={<Layout><Meetings /></Layout>} />
         <Route path="/meeting/:id" element={<Layout><MeetingDetails /></Layout>} />
-        <Route path="/gallery" element={<Gallery />} />
         <Route path="/scientistwork" element={<Layout><ScientistWork /></Layout>} />
         <Route path="/scientistwork/:id" element={<Layout><ScientistWorkDetails /></Layout>} />
         <Route path="/documentation" element={<Layout><Documentation /></Layout>} />

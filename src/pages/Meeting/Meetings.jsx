@@ -3,6 +3,7 @@ import { IoCalendarNumber } from "react-icons/io5";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdViewList, MdAccessTime, MdHistory } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { Pagination } from "antd";
 import "./Meeting.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,6 +11,8 @@ import "aos/dist/aos.css";
 function Meetings() {
   const [meetings, setMeetings] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   const [bookmarked, setBookmarked] = useState(() => {
     return JSON.parse(localStorage.getItem("bookmarkedMeetings")) || [];
@@ -67,6 +70,10 @@ function Meetings() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, sortOption]);
+
   const toggleBookmark = (id) => {
     setBookmarked((prev) =>
       prev.includes(id)
@@ -92,6 +99,13 @@ function Meetings() {
       (a, b) => new Date(a.date) - new Date(b.date)
     );
   }
+
+  const totalPages = Math.ceil(filteredMeetings.length / itemsPerPage);
+  const currentItems = filteredMeetings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div data-aos="fade-up" className="news-section">
@@ -133,7 +147,7 @@ function Meetings() {
       </div>
 
       <div data-aos="fade-up" className="news-list">
-        {filteredMeetings.map((item) => (
+        {currentItems.map((item) => (
           <div key={item.id} className="news-card">
             <div className="news-image-wrapper">
               <img src={item.image} alt={item.title} />
@@ -172,6 +186,16 @@ function Meetings() {
           </div>
         ))}
       </div>
+
+      {totalPages > 1 && (
+        <Pagination
+          current={currentPage}
+          total={filteredMeetings.length}
+          pageSize={itemsPerPage}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+        />
+      )}
 
       {filteredMeetings.length === 0 && (
         <p className="no-news">Uchrashuv topilmadi.</p>

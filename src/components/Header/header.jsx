@@ -254,9 +254,6 @@ function Header() {
         </div>
       </nav>
 
-      <NavLink to="/gallery" className="gallery-fixed-btn">
-        <FiImage size={24} />
-      </NavLink>
     </header>
   );
 }

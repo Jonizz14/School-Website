@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoTimeOutline, IoCalendarNumber } from "react-icons/io5";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { Pagination } from "antd";
 import "/src/pages/Announcements/announcements.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -10,6 +11,8 @@ function Announcements() {
   const [anons, setAnons] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showOnlyBookmarked, setShowOnlyBookmarked] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   const [bookmarked, setBookmarked] = useState(() => {
     return JSON.parse(localStorage.getItem("bookmarkedNews")) || [];
@@ -40,6 +43,10 @@ function Announcements() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, showOnlyBookmarked]);
+
   const toggleBookmark = (id) => {
     setBookmarked((prev) =>
       prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
@@ -53,6 +60,13 @@ function Announcements() {
     .filter((item) =>
       showOnlyBookmarked ? bookmarked.includes(item.id) : true
     );
+
+  const totalPages = Math.ceil(filteredAnons.length / itemsPerPage);
+  const currentItems = filteredAnons.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div data-aos="fade-up" className="anons-section">
@@ -85,7 +99,7 @@ function Announcements() {
       </div>
 
       <div data-aos="fade-up" className="anons-list">
-        {filteredAnons.map((item) => (
+        {currentItems.map((item) => (
           <div key={item.id} className="anons-card">
             <div className="anons-image-wrapper">
               <img src={item.image} alt={item.title} />
@@ -131,6 +145,16 @@ function Announcements() {
           </div>
         ))}
       </div>
+
+      {totalPages > 1 && (
+        <Pagination
+          current={currentPage}
+          total={filteredAnons.length}
+          pageSize={itemsPerPage}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+        />
+      )}
 
       {filteredAnons.length === 0 && (
         <p className="no-anons">E'lon topilmadi.</p>
