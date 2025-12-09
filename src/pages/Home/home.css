@@ -178,111 +178,6 @@
   display: none !important;
 }
 
-.school-leadership-dashboard {
-  padding: 60px 20px;
-  background: #f8faff;
-}
-
-.leadership-section {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.leadership-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: #143d9c;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.leadership-director {
-  display: inline-block;
-  position: relative;
-  width: 220px;
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-  margin: 0 auto 50px auto;
-  background: #fff;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.leadership-director:hover {
-  transform: translateY(-5px);
-}
-
-.director-img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-}
-
-.leadership-director h3,
-.leadership-director p {
-  margin: 0;
-}
-
-.leadership-director .leadership-name,
-.leadership-director .leadership-position {
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  padding: 5px 0;
-  width: 100%;
-}
-
-.leadership-principals {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.leadership-principal {
-  position: relative;
-  width: 200px;
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.leadership-principal:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-.principal-img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  display: block;
-}
-
-.principal-name,
-.principal-position {
-  margin: 0;
-  color: #fff;
-}
-
-.leadership-principal .principal-text {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 10px 0;
-  text-align: center;
-}
-
-.leadership-principal .principal-text h4,
-.leadership-principal .principal-text p {
-  margin: 0;
-  color: #fff;
-  font-weight: 600;
-}
-
 .features-section {
   display: flex;
   gap: 20px;
@@ -651,7 +546,6 @@
   width: 100%;
 }
 
-
 .gallery-container {
   display: flex;
   flex-wrap: wrap;
@@ -785,13 +679,6 @@
     width: 240px;
     height: 280px;
   }
-.leadership-principals {
-    gap: 15px;
-    justify-content: center;
-  }
-  .leadership-name {
-    font-size: 2rem;
-  }
 
   .principal-img {
     width: 180px;
@@ -908,24 +795,11 @@
 }
   
 .info__container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
 }
-
-  .leadership-principals {
-    gap: 30px;
-  }
-
-  .leadership-principal {
-    width: 200px;
-    padding: 20px;
-  }
-
-  .leadership-title {
-    font-size: 36px;
-  }
 
 
   .feature-card-primary-card,
@@ -1008,18 +882,22 @@
   .home-card__img {
     height: 190px;
   }
+  
    .gallery-item {
     height: 300px;
   }
+
   .gallery-swiper {
     width: 95%;
   }
+
   .overlay {
     padding: 14px;
   }
+
   .swiper-button-prev,
   .swiper-button-next {
-    display: none; /* kichik ekranlarda tugmalarni yashiramiz */
+    display: none; 
   }
 }
 @media (max-width: 600px) {
@@ -1033,10 +911,6 @@
   }
   .overlay {
     padding: 12px;
-  }
-   .leadership-principal {
-    width: 100%;
-    max-width: 250px;
   }
    .info {
     padding: 60px 15px;
@@ -1083,41 +957,6 @@
   }
   .overlay p {
     font-size: 0.95rem;
-  }
-   .school-leadership-dashboard {
-    margin: 30px auto;
-    padding: 15px;
-  }
-
-  .leadership-section {
-    gap: 50px;
-  }
-
-  .director-img {
-    width: 180px;
-    height: 220px;
-  }
-
-  .leadership-principals {
-    margin-top: 20px;
-    flex-direction: column;
-    gap: 25px;
-    align-items: center;
-  }
-
-  .leadership-principal {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  .principal-img {
-    width: 160px;
-    height: 200px;
-  }
-
-  .leadership-title {
-    font-size: 28px;
-    letter-spacing: 1px;
   }
    .welcome-title {
     font-size: 20px;
@@ -1260,37 +1099,34 @@
   .home-card__body {
     padding: 14px 16px;
   }
-
-  .leadership-title {
-    font-size: 26px;
-  }
-
-  .director-img {
-    width: 200px;
-    height: 240px;
-  }
-
-  .leadership-principal {
-    width: 100%;
-    max-width: 280px;
-    padding: 20px;
-  }
-
-  .principal-img {
-    width: 160px;
-    height: 200px;
-  }
-
-  .leadership-name {
-    font-size: 1.5rem;
-  }
-
-  .leadership-position {
-    font-size: 1.1rem;
-  }
   
   .overlay p {
     font-size: 0.9rem;
+  }
+
+  .latest-announcement {
+    padding: 50px 10px;
+  }
+
+  .latest-announcement__content {
+    padding: 25px 15px;
+  }
+
+  .latest-announcement__title {
+    font-size: 22px;
+  }
+
+  .latest-announcement__announcement-title {
+    font-size: 18px;
+  }
+
+  .latest-announcement__description {
+    font-size: 14px;
+  }
+
+  .latest-announcement__meta {
+    flex-direction: column;
+    gap: 15px;
   }
 }
 

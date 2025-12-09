@@ -12,9 +12,9 @@ function Teachers() {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const res = await fetch("http://localhost:3000/teachers");
+        const res = await fetch("/api/teachers/");
         const data = await res.json();
-        setTeachers(data);
+        setTeachers(data.results);
       } catch (error) {
         console.error("Error fetching teachers:", error);
       }
@@ -23,10 +23,10 @@ function Teachers() {
   }, []);
 
   const filteredTeachers = teachers.filter((teacher) => {
-    const fullName = `${teacher.firstName} ${teacher.lastName}`.toLowerCase();
+    const fullName = `${teacher.first_name} ${teacher.last_name}`.toLowerCase();
     return (
       fullName.includes(searchTerm.toLowerCase()) ||
-      teacher.subject.toLowerCase().includes(searchTerm.toLowerCase())
+      teacher.profession.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
@@ -89,15 +89,13 @@ function Teachers() {
                 onKeyDown={(e) => handleKeyDown(e, teacher)}
               >
                 <img
-                  src={teacher.photo}
-                  alt={`${teacher.firstName} ${teacher.lastName}`}
+                  src={teacher.image}
+                  alt={`${teacher.first_name} ${teacher.last_name}`}
                 />
                 <h3>
-                  {teacher.firstName} {teacher.lastName}
+                  {teacher.first_name} {teacher.last_name}
                 </h3>
-                <p className="teachers__subject">{teacher.subject}</p>
-                <p>{teacher.email}</p>
-                <p>{teacher.phone}</p>
+                <p className="teachers__subject">{teacher.profession}</p>
               </div>
             ))
           ) : (

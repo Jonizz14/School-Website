@@ -128,9 +128,9 @@ function Header() {
         <NavLink to="/" onClick={closeAllDropdowns}>
           <div className="header__logo-div">
             <img className="header__logo" src={Logo} alt="logo" />
-            <div>
-              <p>Sergeli Tuman</p>
-              <p>Ixtisoslashtirilgan Maktab</p>
+            <div className="header__logo-text">
+              <p className="header__logo-text-tuman">Sergeli Tuman</p>
+              <p className="header__logo-text-maktab">Ixtisoslashtirilgan Maktab</p>
             </div>
           </div>
         </NavLink>

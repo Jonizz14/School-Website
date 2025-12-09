@@ -28,14 +28,13 @@ function Addition() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [additionsRes, teachersRes] = await Promise.all([
-                    fetch("http://localhost:3000/additions"),
-                    fetch("http://localhost:3000/teachers")
-                ]);
+                const additionsRes = await fetch("/api/course/");
                 const additionsData = await additionsRes.json();
+                setAdditions(additionsData.results || []);
+                // Keep teachers from local for now
+                const teachersRes = await fetch("/api/teachers/");
                 const teachersData = await teachersRes.json();
-                setAdditions(additionsData);
-                setTeachers(teachersData);
+                setTeachers(teachersData.results || []);
             } catch (err) {
                 console.error("Xato:", err);
             }
@@ -62,7 +61,7 @@ function Addition() {
     };
 
     let filteredAdditions = additions.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (showOnlyBookmarked) {
@@ -106,58 +105,58 @@ function Addition() {
             </div>
 
             <div data-aos="fade-up" className="addition-list">
-                {currentItems.map((item) => (
-                    <div key={item.id} className="addition-card">
-                        <div className="addition-image-wrapper">
-                            <img src={item.image} alt={item.name} />
+                {currentItems.map((item) => {
+                    const teacher = teachers.find(t => t.id == item.teacher);
+                    return (
+                        <div key={item.id} className="addition-card">
+                            <div className="addition-image-wrapper">
+                                <img src={item.image} alt={item.title} />
 
-                            <button
-                                className="bookmark-btn"
-                                onClick={() => toggleBookmark(item.id)}
-                            >
-                                {bookmarked.includes(item.id) ? (
-                                    <BsBookmarkFill className="bookmark-icon active" />
-                                ) : (
-                                    <BsBookmark className="bookmark-icon" />
-                                )}
-                            </button>
-                        </div>
+                                <button
+                                    className="bookmark-btn"
+                                    onClick={() => toggleBookmark(item.id)}
+                                >
+                                    {bookmarked.includes(item.id) ? (
+                                        <BsBookmarkFill className="bookmark-icon active" />
+                                    ) : (
+                                        <BsBookmark className="bookmark-icon" />
+                                    )}
+                                </button>
+                            </div>
 
-                        <div className="addition-card-header">
-                            <h3>{item.name}</h3>
-                        </div>
+                            <div className="addition-card-header">
+                                <h3>{item.title}</h3>
+                            </div>
 
-                        <p>{item.description}</p>
+                            <p>{item.description}</p>
 
-                        <div className="addition-card-footer">
-                            <div className="addition-date">
-                                <FaChalkboardTeacher className="time-icon" />
-                                {(() => {
-                                    const teacher = teachers.find(t => t.id == item.teacherId);
-                                    return teacher ? (
+                            <div className="addition-card-footer">
+                                <div className="addition-date">
+                                    <FaChalkboardTeacher className="time-icon" />
+                                    {teacher ? (
                                         <Link
-                                            to={`/teachers/${item.teacherId}`}
+                                            to={`/teachers/${teacher.id}`}
                                             state={{ teacher: teacher }}
                                             className="teacher-text"
                                         >
-                                            {teacher.firstName} {teacher.lastName}
+                                            {teacher.first_name} {teacher.last_name}
                                         </Link>
                                     ) : (
                                         <span className="teacher-text">Yuklanmo...</span>
-                                    );
-                                })()}
-                            </div>
+                                    )}
+                                </div>
 
-                            <Link
-                                to="/addition/details"
-                                state={{ addition: item, teacher: teachers.find(t => t.id === item.teacherId) }}
-                                className="detail-link"
-                            >
-                                Batafsil
-                            </Link>
+                                <Link
+                                    to="/addition/details"
+                                    state={{ addition: item, teacher: teacher }}
+                                    className="detail-link"
+                                >
+                                    Batafsil
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {totalPages > 1 && (

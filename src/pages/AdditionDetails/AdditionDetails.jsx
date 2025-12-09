@@ -34,17 +34,17 @@ function AdditionDetails() {
             <div className="breadcrumb">
                 <Link to="/addition" className="breadcrumb-link">To‘garaklar</Link>
                 <span className="breadcrumb-separator">/</span>
-                <span className="breadcrumb-current">{addition.name}</span>
+                <span className="breadcrumb-current">{addition.title}</span>
             </div>
 
-            <img src={addition.image} alt={addition.name} className="additiondetails-img" />
+            <img src={addition.image} alt={addition.title} className="additiondetails-img" />
 
-            <h2 className="additiondetails-title">{addition.name}</h2>
+            <h2 className="additiondetails-title">{addition.title}</h2>
             <p className="additiondetails-teacher">
                 <strong>Ustoz:</strong>{" "}
                 {teacher ? (
-                    <Link to={`/teachers/${addition.teacherId}`} state={{ teacher: teacher }} className="teacher-link">
-                        {teacher.firstName} {teacher.lastName}
+                    <Link to={`/teachers/${teacher.id}`} state={{ teacher: teacher }} className="teacher-link">
+                        {teacher.first_name} {teacher.last_name}
                     </Link>
                 ) : (
                     "Yuklanmo..."
@@ -53,9 +53,9 @@ function AdditionDetails() {
 
             {teacher && (
                 <div className="teacher-social-wrapper">
-                    {teacher.social?.instagram && (
+                    {teacher.instagram && (
                         <a
-                            href={teacher.social.instagram}
+                            href={teacher.instagram}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="social-btn instagram-btn"
@@ -63,9 +63,9 @@ function AdditionDetails() {
                             <FaInstagram />
                         </a>
                     )}
-                    {teacher.social?.telegram && (
+                    {teacher.telegram && (
                         <a
-                            href={teacher.social.telegram}
+                            href={teacher.telegram}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="social-btn telegram-btn"
@@ -73,9 +73,9 @@ function AdditionDetails() {
                             <FaTelegram />
                         </a>
                     )}
-                    {teacher.social?.facebook && (
+                    {teacher.facebook && (
                         <a
-                            href={teacher.social.facebook}
+                            href={teacher.facebook}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="social-btn facebook-btn"
@@ -89,7 +89,7 @@ function AdditionDetails() {
             <p className="additiondetails-desc">{addition.description}</p>
 
             <div className="additiondetails-footer">
-                <span className="additiondetails-date">{addition.date}</span>
+                <span className="additiondetails-date">{addition.subject}</span>
             </div>
         </div>
     );

@@ -6,9 +6,12 @@ import { Pagination } from "antd";
 import "/src/pages/Announcements/announcements.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Loader from "../../components/Loader/Loader";
 
 function Announcements() {
   const [anons, setAnons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [showOnlyBookmarked, setShowOnlyBookmarked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,16 +26,23 @@ function Announcements() {
   }, [bookmarked]);
 
   useEffect(() => {
-    const fetchAnons = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/anons");
-        const data = await res.json();
-        setAnons(data);
-      } catch (err) {
-        console.error("API xatosi:", err);
-      }
-    };
-    fetchAnons();
+    fetch("/api/event/", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("API DATA:", data);
+        setAnons(data.results || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        setError("Ma'lumotlarni yuklashda xatolik yuz berdi.");
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -55,18 +65,33 @@ function Announcements() {
 
   const filteredAnons = anons
     .filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      item.topic.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .filter((item) =>
       showOnlyBookmarked ? bookmarked.includes(item.id) : true
     );
 
   const totalPages = Math.ceil(filteredAnons.length / itemsPerPage);
-  const currentItems = filteredAnons.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const currentItems = filteredAnons.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return (
+      <div className="anons-section">
+        <p className="error-message">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div data-aos="fade-up" className="anons-section">
@@ -102,7 +127,7 @@ function Announcements() {
         {currentItems.map((item) => (
           <div key={item.id} className="anons-card">
             <div className="anons-image-wrapper">
-              <img src={item.image} alt={item.title} />
+              <img src={item.image} alt={item.topic} />
               <button
                 className="bookmark-btn"
                 onClick={() => toggleBookmark(item.id)}
@@ -116,21 +141,21 @@ function Announcements() {
             </div>
 
             <div className="anons-card-header">
-              <h3>{item.title}</h3>
+              <h3>{item.topic}</h3>
             </div>
 
             <p>{item.description}</p>
 
             <div className="anons-card-footer">
-              <div style={{ display: 'flex', gap: '16px' }}>
+              <div style={{ display: "flex", gap: "16px" }}>
                 <div className="anons-date">
                   <IoCalendarNumber className="time-icon" />
-                  <span className="date-text">{item.date}</span>
+                  <span className="date-text">{new Date(item.start_time).toLocaleDateString('uz-UZ')}</span>
                 </div>
 
                 <div className="anons-time">
                   <IoTimeOutline className="time-icon" />
-                  <span className="time-text">{item.time}</span>
+                  <span className="time-text">{new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })} - {new Date(item.end_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
               </div>
 
@@ -142,7 +167,7 @@ function Announcements() {
                 Batafsil
               </Link>
             </div>
-          </div>
+            </div>
         ))}
       </div>
 

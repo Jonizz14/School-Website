@@ -1,0 +1,48 @@
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.6) 0%, rgba(0, 102, 255, 0.2) 70%, transparent 100%);
+  border: 2px solid rgba(0, 102, 255, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  box-shadow: 0 0 12px rgba(0, 102, 255, 0.4);
+  transform: translate(-50%, -50%);
+}
+
+.cursor-hover {
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.7) 0%, rgba(0, 102, 255, 0.3) 70%, transparent 100%);
+  border: 3px solid rgba(0, 102, 255, 0.8);
+  box-shadow: 0 0 18px rgba(0, 102, 255, 0.5);
+  transform: translate(-50%, -50%);
+}
+
+a, button, [role="button"], input, textarea, select {
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+  
+  a, button, [role="button"], input, textarea, select {
+    cursor: auto;
+  }
+}
+
+/* Smooth cursor following */
+.custom-cursor {
+  animation: none !important;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+.cursor-hover {
+  animation: none !important;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}

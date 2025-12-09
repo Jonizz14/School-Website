@@ -1,0 +1,248 @@
+/* Principals Page Styles */
+.school-leadership-dashboard {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f8faff 0%, #e8f2ff 100%);
+  min-height: 100vh;
+}
+
+.leadership-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.leadership-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e3b8a;
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.leadership-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #1e3b8a, #3b82f6);
+  border-radius: 2px;
+}
+
+/* Director Section */
+.leadership-director {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 60px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.leadership-director:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.director-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.leadership-director:hover .director-img {
+  transform: scale(1.05);
+}
+
+.leadership-director .director-info {
+  padding: 30px;
+  text-align: center;
+  background: linear-gradient(135deg, #1e3b8a 0%, #3b82f6 100%);
+  color: #fff;
+  width: 100%;
+}
+
+.leadership-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.leadership-position {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.leadership-experience {
+  font-size: 1rem;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+/* Principals Grid */
+.leadership-principals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.leadership-principal {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.leadership-principal:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.principal-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.leadership-principal:hover .principal-img {
+  transform: scale(1.08);
+}
+
+.principal-info {
+  padding: 20px;
+  background: #fff;
+  position: relative;
+}
+
+.principal-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e3b8a;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.principal-position {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.principal-experience {
+  font-size: 0.9rem;
+  color: #888;
+  font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .school-leadership-dashboard {
+    padding: 60px 15px;
+  }
+
+  .leadership-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  .leadership-director {
+    max-width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .director-img {
+    height: 250px;
+  }
+
+  .leadership-director .director-info {
+    padding: 25px;
+  }
+
+  .leadership-name {
+    font-size: 1.5rem;
+  }
+
+  .leadership-principals {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .leadership-principal {
+    max-width: 100%;
+  }
+
+  .principal-img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .leadership-title {
+    font-size: 1.8rem;
+  }
+
+  .leadership-principals {
+    grid-template-columns: 1fr;
+  }
+
+  .leadership-principal {
+    max-width: 100%;
+  }
+
+  .director-img {
+    height: 220px;
+  }
+
+  .leadership-director .director-info {
+    padding: 20px;
+  }
+
+  .leadership-name {
+    font-size: 1.3rem;
+  }
+}
+
+/* Animation for AOS */
+[data-aos="fade-up"] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-aos="fade-up"].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-aos="zoom-in"] {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-aos="zoom-in"].aos-animate {
+  opacity: 1;
+  transform: scale(1);
+}

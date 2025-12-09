@@ -1,14 +1,40 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./contact.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Contact = () => {
     const form = useRef();
+    const [notification, setNotification] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form yuborildi!");
+        const formData = new FormData(form.current);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const response = await fetch('/api/contact/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            if (response.ok) {
+                console.log("Form yuborildi!");
+                setNotification({ type: 'success', message: 'Xabar yuborildi!' });
+                form.current.reset();
+                setTimeout(() => setNotification(null), 3000);
+            } else {
+                console.error("Xatolik:", response.status);
+                setNotification({ type: 'error', message: 'Xatolik yuz berdi!' });
+                setTimeout(() => setNotification(null), 3000);
+            }
+        } catch (error) {
+            console.error("Xatolik:", error);
+            setNotification({ type: 'error', message: 'Xatolik yuz berdi!' });
+            setTimeout(() => setNotification(null), 3000);
+        }
     };
 
     useEffect(() => {
@@ -22,6 +48,11 @@ const Contact = () => {
 
     return (
         <>
+            {notification && (
+                <div className={`notification ${notification.type}`}>
+                    {notification.message}
+                </div>
+            )}
             <div data-aos="fade-up" className="text-align-center">
                 <p className="news-section-p1">Biz bilan bog'lanish</p>
                 <p className="news-section-p2">
@@ -58,14 +89,14 @@ const Contact = () => {
 
                             <input
                                 type="text"
-                                name="user_name"
+                                name="full_name"
                                 placeholder="To‘liq ism-familyangiz"
                                 required
                             />
 
                             <input
                                 type="tel"
-                                name="user_phone"
+                                name="number"
                                 placeholder="Telefon raqamingiz"
                                 required
                             />
@@ -78,7 +109,7 @@ const Contact = () => {
                             />
 
                             <textarea
-                                name="message"
+                                name="text"
                                 placeholder="Savol va takliflaringizni yozing"
                                 rows="5"
                                 required

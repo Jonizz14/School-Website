@@ -16,9 +16,9 @@ function Principals() {
       disable: window.innerWidth <= 768 ? true : false,
     });
 
-    fetch("http://localhost:3000/principals")
+    fetch("/api/principal/")
       .then((res) => res.json())
-      .then((data) => setPrincipals(data));
+      .then((data) => setPrincipals(data.results || data));
   }, []);
 
   return (
@@ -27,46 +27,50 @@ function Principals() {
         <h2 className="leadership-title">Maktab Rahbariyati</h2>
 
         {principals.length > 0 && (
-          <div className="leadership-director" data-aos="zoom-in">
-            <img
-              src={principals[0].photo}
-              alt="Director"
-              className="director-img"
-            />
-            <h3 className="leadership-name">
-              {principals[0].firstName} {principals[0].lastName}
-            </h3>
-            <p className="leadership-position">{principals[0].position}</p>
-            <p className="leadership-experience">
-              Tajriba: {principals[0].experience} yil
-            </p>
-          </div>
-        )}
+           <div className="leadership-director" data-aos="zoom-in">
+             <img
+               src={principals[0].photo}
+               alt="Director"
+               className="director-img"
+             />
+             <div className="director-info">
+               <h3 className="leadership-name">
+                 {principals[0].firstName} {principals[0].lastName}
+               </h3>
+               <p className="leadership-position">{principals[0].position}</p>
+               <p className="leadership-experience">
+                 Tajriba: {principals[0].experience} yil
+               </p>
+             </div>
+           </div>
+         )}
 
         <div className="leadership-principals">
-          {principals.slice(1).map((principal) => (
-            <Link
-              key={principal.id}
-              to={`/principals/${principal.id}`}
-              state={{ person: principal }}
-              data-aos="fade-up"
-              className="leadership-principal"
-            >
-              <img
-                src={principal.photo}
-                alt={principal.firstName}
-                className="principal-img"
-              />
-              <h4 className="principal-name">
-                {principal.firstName} {principal.lastName}
-              </h4>
-              <p className="principal-position">{principal.position}</p>
-              <p className="principal-experience">
-                Tajriba: {principal.experience} yil
-              </p>
-            </Link>
-          ))}
-        </div>
+           {principals.slice(1).map((principal) => (
+             <Link
+               key={principal.id}
+               to={`/principals/${principal.id}`}
+               state={{ person: principal }}
+               data-aos="fade-up"
+               className="leadership-principal"
+             >
+               <img
+                 src={principal.photo}
+                 alt={principal.firstName}
+                 className="principal-img"
+               />
+               <div className="principal-info">
+                 <span className="principal-name">
+                   {principal.firstName} {principal.lastName}
+                 </span>
+                 <p className="principal-position">{principal.position}</p>
+                 <p className="principal-experience">
+                   Tajriba: {principal.experience} yil
+                 </p>
+               </div>
+             </Link>
+           ))}
+         </div>
       </section>
     </div>
   );

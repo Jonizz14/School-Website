@@ -188,6 +188,9 @@ function Home () {
           </div>
         </div>
       </section>
+
+
+
       <section data-aos='fade-up' className='gallery-section'>
         {isMobile ? (
           <Swiper

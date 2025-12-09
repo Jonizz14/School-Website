@@ -11,9 +11,9 @@ function TeacherDetails() {
   const [teachersList, setTeachersList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/teachers")
+    fetch("/api/teachers/")
       .then((res) => res.json())
-      .then((data) => setTeachersList(data))
+      .then((data) => setTeachersList(data.results))
       .catch((err) => console.error("❌ Xatolik:", err));
   }, []);
 
@@ -47,25 +47,25 @@ function TeacherDetails() {
             </Link>
             <span className="breadcrumb-separator">/</span>
             <span className="breadcrumb-current">
-              {teacher.firstName} {teacher.lastName}
+              {teacher.first_name} {teacher.last_name}
             </span>
           </div>
 
           <img
-            src={teacher.photo}
-            alt={`${teacher.firstName} ${teacher.lastName}`}
+            src={teacher.image}
+            alt={`${teacher.first_name} ${teacher.last_name}`}
             className="teacherdetails-img"
           />
 
           <h2 className="teacherdetails-title">
-            {teacher.firstName} {teacher.lastName}
+            {teacher.first_name} {teacher.last_name}
           </h2>
-          <p className="teacherdetails-subject">{teacher.subject}</p>
+          <p className="teacherdetails-subject">{teacher.profession}</p>
 
           <div className="teacher-social-wrapper">
-            {teacher.social?.instagram && (
+            {teacher.instagram && (
               <a
-                href={teacher.social.instagram}
+                href={teacher.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-btn"
@@ -73,9 +73,9 @@ function TeacherDetails() {
                 <FaInstagram />
               </a>
             )}
-            {teacher.social?.telegram && (
+            {teacher.telegram && (
               <a
-                href={teacher.social.telegram}
+                href={teacher.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-btn"
@@ -83,9 +83,9 @@ function TeacherDetails() {
                 <FaTelegram />
               </a>
             )}
-            {teacher.social?.facebook && (
+            {teacher.facebook && (
               <a
-                href={teacher.social.facebook}
+                href={teacher.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-btn"
@@ -99,7 +99,7 @@ function TeacherDetails() {
             <p>
               <strong>Biografiya:</strong>
             </p>
-            <p>{teacher.biography || "Biografiya hali qo‘shilmagan."}</p>
+            <p>{teacher.main_biography || "Biografiya hali qo‘shilmagan."}</p>
           </div>
         </div>
       </div>
@@ -107,18 +107,17 @@ function TeacherDetails() {
       <div data-aos="fade-up" className="teacherdetails-side">
         <h3 className="side-title">Qo'shimcha ustozlar</h3>
         {teachersList
-          .filter((t) => t.id !== teacher.id)
-          .slice(0, 8)
+          .slice(0, 12)
           .map((item) => (
             <div key={item.id} className="side-card">
               <img
-                src={item.photo}
-                alt={`${item.firstName} ${item.lastName}`}
+                src={item.image}
+                alt={`${item.first_name} ${item.last_name}`}
                 className="side-card__img"
               />
               <div className="side-card__body">
                 <h4 className="side-card__title">
-                  {item.firstName} {item.lastName}
+                  {item.first_name} {item.last_name}
                 </h4>
                 <Link
                   to={`/teachers/${item.id}`}

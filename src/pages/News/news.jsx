@@ -52,9 +52,9 @@ function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await fetch("http://localhost:3000/news");
+        const res = await fetch("/api/news/");
         const data = await res.json();
-        setNews(data);
+        setNews(data.results || []);
       } catch (err) {
         console.error("Xato:", err);
       }
@@ -92,11 +92,11 @@ function News() {
     );
   } else if (sortOption === "recent") {
     filteredNews = [...filteredNews].sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
+      (a, b) => new Date(b.time) - new Date(a.time)
     );
   } else if (sortOption === "oldest") {
     filteredNews = [...filteredNews].sort(
-      (a, b) => new Date(a.date) - new Date(b.date)
+      (a, b) => new Date(a.time) - new Date(b.time)
     );
   }
 
@@ -150,7 +150,7 @@ function News() {
         {currentItems.map((item) => (
           <div key={item.title} className="news-card">
             <div className="news-image-wrapper">
-              <img src={item.mainImage} alt={item.title} />
+              <img src={item.images.find(img => img.is_main)?.image || item.images[0]?.image} alt={item.title} />
               <button
                 className="bookmark-btn"
                 onClick={() => toggleBookmark(item.title)}
@@ -167,12 +167,12 @@ function News() {
               <h3>{item.title}</h3>
             </div>
 
-            <p>{item.description}</p>
+            <p dangerouslySetInnerHTML={{ __html: item.description }} />
 
             <div className="news-card-footer">
               <div className="news-date">
                 <IoCalendarNumber className="calendar-icon" />
-                <span className="date-text">{item.date}</span>
+                <span className="date-text">{new Date(item.time).toLocaleDateString('uz-UZ')}</span>
               </div>
 
               <Link

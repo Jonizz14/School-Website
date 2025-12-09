@@ -36,9 +36,9 @@ function NewsDetails() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/news")
+    fetch("/api/news/")
       .then((res) => res.json())
-      .then((data) => setNewsList(data))
+      .then((data) => setNewsList(data.results || []))
       .catch((err) => console.error("❌ Xatolik:", err));
   }, []);
 
@@ -72,57 +72,39 @@ function NewsDetails() {
               <span className="breadcrumb-current">{news.title}</span>
             </div>
 
-            {news.mainImage ? (
+            {news.images && news.images.length > 0 && (
               <img
-                src={news.mainImage}
+                src={news.images.find(img => img.is_main)?.image || news.images[0].image}
                 alt={news.title}
                 className="newsdetails-img"
                 onClick={() =>
-                  openModal({ type: "image", src: news.mainImage })
+                  openModal({ type: "image", src: news.images.find(img => img.is_main)?.image || news.images[0].image })
                 }
               />
-            ) : news.video ? (
-              <video
-                src={news.video}
-                controls
-                className="newsdetails-video"
-                onClick={() => openModal({ type: "video", src: news.video })}
-              />
-            ) : null}
+            )}
 
-            {(news.gallery?.length > 1 || news.video) && (
+            {news.images && news.images.length > 1 && (
               <div data-aos="fade-up" className="newsdetails-gallery">
                 <div className="gallery-grid">
-                  {news.gallery?.slice(1).map((img, idx) => (
+                  {news.images.filter(img => !img.is_main).map((img, idx) => (
                     <img
-                      key={idx}
-                      src={img}
+                      key={img.id}
+                      src={img.image}
                       alt={`Gallery ${idx + 2}`}
                       className="gallery-img"
-                      onClick={() => openModal({ type: "image", src: img })}
+                      onClick={() => openModal({ type: "image", src: img.image })}
                     />
                   ))}
-
-                  {news.video && (
-                    <video
-                      src={news.video}
-                      controls
-                      className="gallery-video"
-                      onClick={() =>
-                        openModal({ type: "video", src: news.video })
-                      }
-                    />
-                  )}
                 </div>
               </div>
             )}
 
             <h2 className="newsdetails-title">{news.title}</h2>
-            <p className="newsdetails-desc">{news.description}</p>
+            <p className="newsdetails-desc" dangerouslySetInnerHTML={{ __html: news.description }} />
 
             <div className="newsdetails-footer">
               <IoCalendarNumber size={28} className="newsdetails-icon" />
-              <span className="newsdetails-date">{news.date}</span>
+              <span className="newsdetails-date">{new Date(news.time).toLocaleDateString('uz-UZ')}</span>
             </div>
           </div>
         </div>
@@ -132,14 +114,14 @@ function NewsDetails() {
           {newsList.slice(0, 14).map((item) => (
             <div key={item.id} className="side-card">
               <img
-                src={item.mainImage || item.gallery?.[0]}
+                src={item.images.find(img => img.is_main)?.image || item.images[0]?.image}
                 alt={item.title}
                 className="side-card__img"
               />
               <div className="side-card__body">
                 <h4 className="side-card__title">{item.title}</h4>
                 <Link
-                  to={`/news/${item.id}`}
+                  to="/news/details"
                   state={{ news: item }}
                   className="side-card__btn"
                 >

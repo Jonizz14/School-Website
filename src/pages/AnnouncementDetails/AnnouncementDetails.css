@@ -16,7 +16,7 @@
   max-height: 420px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: -35px;
+  margin-bottom: 20px;
   border: 2px solid #0d2fa5;
   cursor: pointer;
 }

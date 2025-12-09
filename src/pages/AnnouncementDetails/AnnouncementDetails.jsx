@@ -35,9 +35,9 @@ function AnnouncementDetails() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/anons")
+    fetch("/api/event/")
       .then((res) => res.json())
-      .then((data) => setAnnouncementsList(data))
+      .then((data) => setAnnouncementsList(data.results || []))
       .catch((err) => console.error("❌ Xatolik:", err));
   }, []);
 
@@ -68,46 +68,30 @@ function AnnouncementDetails() {
                 E'lonlar
               </Link>
               <span className="breadcrumb-separator">/</span>
-              <span className="breadcrumb-current">{announcement.title}</span>
+              <span className="breadcrumb-current">{announcement.topic}</span>
             </div>
 
             {announcement.image && (
               <img
                 src={announcement.image}
-                alt={announcement.title}
+                alt={announcement.topic}
                 className="announcementdetails-img"
                 onClick={() => openModal({ type: "image", src: announcement.image })}
               />
             )}
 
-            {(announcement.gallery?.length > 1) && (
-              <div data-aos="fade-up" className="announcementdetails-gallery">
-                <div className="gallery-grid">
-                  {announcement.gallery?.slice(1).map((img, idx) => (
-                    <img
-                      key={idx}
-                      src={img}
-                      alt={`Gallery ${idx + 2}`}
-                      className="gallery-img"
-                      onClick={() => openModal({ type: "image", src: img })}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <h2 className="announcementdetails-title">{announcement.title}</h2>
+            <h2 className="announcementdetails-title">{announcement.topic}</h2>
             <p className="announcementdetails-desc">{announcement.description}</p>
 
             <div className="announcementdetails-footer">
               <div className="announcementdetails-date">
                 <IoCalendarNumber size={28} className="announcementdetails-icon" />
-                <span className="announcementdetails-date-text">{announcement.date}</span>
+                <span className="announcementdetails-date-text">{new Date(announcement.start_time).toLocaleDateString('uz-UZ')}</span>
               </div>
 
               <div className="announcementdetails-time">
                 <IoTimeOutline size={28} className="announcementdetails-icon" />
-                <span className="announcementdetails-time-text">{announcement.time}</span>
+                <span className="announcementdetails-time-text">{new Date(announcement.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })} - {new Date(announcement.end_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
             </div>
           </div>
@@ -119,11 +103,11 @@ function AnnouncementDetails() {
             <div key={item.id} className="side-card">
               <img
                 src={item.image}
-                alt={item.title}
+                alt={item.topic}
                 className="side-card__img"
               />
               <div className="side-card__body">
-                <h4 className="side-card__title">{item.title}</h4>
+                <h4 className="side-card__title">{item.topic}</h4>
                 <Link
                   to={`/announcements/${item.id}`}
                   state={{ announcement: item }}
