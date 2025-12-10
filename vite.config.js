@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://95.46.96.45',
+        target: 'http://api.sergelitim.uz',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/s_api'),
       },
