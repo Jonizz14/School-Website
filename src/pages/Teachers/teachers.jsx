@@ -62,7 +62,7 @@ function Teachers() {
               <input
                 type="text"
                 className="teachers__input"
-                placeholder="O‘quvchini qidirish..."
+                placeholder="O‘qituvchini qidirish..."
               />
               <button
                 type="button"

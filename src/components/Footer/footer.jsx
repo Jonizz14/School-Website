@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './footer.css'
 import { FaInstagram, FaTelegram, FaFacebook } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Logo from '../Footer/logo.svg'
 
 function Footer () {
+  const [school, setSchool] = useState({})
+
+  useEffect(() => {
+    const fetchSchool = async () => {
+      try {
+        const res = await fetch('/s_api/school/');
+        const data = await res.json();
+        setSchool(data[0] || {});
+      } catch (err) {
+        console.error('Xato:', err);
+      }
+    };
+    fetchSchool();
+  }, [])
   return (
     <footer className='footer'>
       <div className='footer__container'>
@@ -19,30 +33,30 @@ function Footer () {
             </div>
           </Link>
           <div className='footer__col'>
-            <a href='tel:+998901234567' className='footer__link'>
-              +998 90 123 45 67
+            <a href={`tel:${school.number || '+998901234567'}`} className='footer__link'>
+              {school.number || '+998 90 123 45 67'}
             </a>
-            <a href='mailto:info@liftmedia.com' className='footer__link'>
+            <a href={`mailto:${school.email || 'info@liftmedia.com'}`} className='footer__link'>
               info@liftmedia.com
             </a>
           </div>
           <div className='footer__socials'>
             <a
-              href='https://www.instagram.com/sergeli_ixtisos_maktabi/'
+              href={school.instagram || 'https://www.instagram.com/sergeli_ixtisos_maktabi/'}
               target='_blank'
               rel='noopener noreferrer'
             >
               <FaInstagram className='footer__social-btn' />
             </a>
             <a
-              href='https://youtube.com'
+              href={school.telegram || 'https://t.me/dasturbe'}
               target='_blank'
               rel='noopener noreferrer'
             >
               <FaTelegram className='footer__social-btn' />
             </a>
             <a
-              href='https://facebook.com'
+              href={school.facebook || 'https://facebook.com'}
               target='_blank'
               rel='noopener noreferrer'
             >

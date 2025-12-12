@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { FaInstagram, FaTelegram, FaFacebook } from "react-icons/fa";
 import "/src/pages/AdditionDetails/AdditionDetails.css";
@@ -8,7 +8,7 @@ import "aos/dist/aos.css";
 function AdditionDetails() {
     const location = useLocation();
     const addition = location.state?.addition;
-    const teacher = location.state?.teacher;
+    const [teacher, setTeacher] = useState(location.state?.teacher || null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -17,6 +17,21 @@ function AdditionDetails() {
     useEffect(() => {
         AOS.init({ duration: 1000, once: true, offset: 100 });
     }, []);
+
+    useEffect(() => {
+        if (addition && addition.teacherId && !teacher) {
+            const fetchTeacher = async () => {
+                try {
+                    const res = await fetch(`/api/teachers/${addition.teacherId}/`);
+                    const data = await res.json();
+                    setTeacher(data);
+                } catch (err) {
+                    console.error('Xato:', err);
+                }
+            };
+            fetchTeacher();
+        }
+    }, [addition, teacher]);
 
     if (!addition) {
         return (

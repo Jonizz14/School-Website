@@ -20,9 +20,9 @@ import { EffectCoverflow, Pagination, Navigation, A11y } from 'swiper/modules'
 function Home () {
   const [news, setNews] = useState([])
   const [announcements, setAnnouncements] = useState([])
-  const [director, setDirector] = useState([])
-  const [principals, setPrincipals] = useState([])
   const [additions, setAdditions] = useState([])
+  const [teacherList, setTeacherList] = useState([])
+  const [school, setSchool] = useState({})
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -48,26 +48,65 @@ function Home () {
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3000/news')
-      .then(res => res.json())
-      .then(data => setNews(data))
+    const fetchNews = async () => {
+      try {
+        const res = await fetch('/api/news/');
+        const data = await res.json();
+        setNews(data.results || []);
+      } catch (err) {
+        console.error('Xato:', err);
+      }
+    };
+    fetchNews();
 
-    fetch('http://localhost:3000/additions')
-      .then(res => res.json())
-      .then(data => setAdditions(data))
+    const fetchAdditions = async () => {
+      try {
+        const res = await fetch('/api/course/');
+        const data = await res.json();
+        setAdditions(data.results || []);
+      } catch (err) {
+        console.error('Xato:', err);
+      }
+    };
+    fetchAdditions();
 
-    fetch('http://localhost:3000/principals')
-      .then(res => res.json())
-      .then(data => setPrincipals(data))
+    const fetchTeachers = async () => {
+      try {
+        const res = await fetch('/api/teachers/');
+        const data = await res.json();
+        setTeacherList(data.results || []);
+      } catch (err) {
+        console.error('Xato:', err);
+      }
+    };
+    fetchTeachers();
 
-    fetch('http://localhost:3000/anons')
-      .then(res => res.json())
-      .then(data => setAnnouncements(data))
+    const fetchAnnouncements = async () => {
+      try {
+        const res = await fetch('/api/course/');
+        const data = await res.json();
+        setAnnouncements(data.results || []);
+      } catch (err) {
+        console.error('Xato:', err);
+      }
+    };
+    fetchAnnouncements();
+
+    const fetchSchool = async () => {
+      try {
+        const res = await fetch('/api/school/');
+        const data = await res.json();
+        setSchool(data[0] || {});
+      } catch (err) {
+        console.error('Xato:', err);
+      }
+    };
+    fetchSchool();
   }, [])
 
   const [students, setStudents] = useState(0)
   const [teachers, setTeachers] = useState(0)
-  const [classes, setClasses] = useState(0)
+  const [finishers, setFinishers] = useState(0)
 
   useEffect(() => {
     const duration = 10000
@@ -85,10 +124,12 @@ function Home () {
       requestAnimationFrame(update)
     }
 
-    animate(setStudents, 540)
-    animate(setTeachers, 56)
-    animate(setClasses, 24)
-  }, [])
+    if (Object.keys(school).length > 0) {
+      animate(setStudents, school.pupils || 540)
+      animate(setTeachers, school.teachers || 56)
+      animate(setFinishers, school.finishers || 120)
+    }
+  }, [school])
 
   const images = [
     'https://picsum.photos/id/1015/800/500',
@@ -173,14 +214,14 @@ function Home () {
               <p className='info__text'>
                 Ilk o‘quv yili maktab 17 ta sinfda jami 408 ta o‘quvchini qamrab
                 olgan. 2023-yil sentabrda yangi bino foydalanishga topshirildi.
-                Hozirda 540 o‘quvchi 24 ta sinfda tahsil olmoqda.
+                Hozirda {school.pupils || 540} o‘quvchi 24 ta sinfda tahsil olmoqda.
               </p>
             </div>
 
             <div className='info__row'>
               <span className='info__line'></span>
               <p className='info__text'>
-                Bugungi kunda 53 nafar pedagog faoliyat yuritadi. Ulardan yarmi
+                Bugungi kunda {school.teachers || 53} nafar pedagog faoliyat yuritadi. Ulardan yarmi
                 oliy toifali bo‘lib, 20 nafari xalqaro va milliy sertifikatlarga
                 ega.
               </p>
@@ -275,8 +316,8 @@ function Home () {
             <p className='section-div-card-icon'>
               <FiBookOpen size={30} />
             </p>
-            <p className='section-div-card-p1'>{classes}</p>
-            <p className='section-div-card-p2'>Sinflar</p>
+            <p className='section-div-card-p1'>{finishers}</p>
+            <p className='section-div-card-p2'>Bitiruvchilar</p>
           </div>
         </div>
       </section>
@@ -478,8 +519,8 @@ function Home () {
                 <p className='home-card__desc'>{item.description}</p>
                 <div className='home-card__footer'>
                   <div className='home-card__meta'>
-                    <IoTimeOutline className='home-card__icon' />
-                    <span>{item.time}</span>
+                    <IoCalendarNumber className='home-card__icon' />
+                    <span>{new Date(item.start_time).toLocaleDateString('uz-UZ')} {new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}</span>
                   </div>
                 </div>
               </div>
@@ -497,7 +538,9 @@ function Home () {
         </div>
 
         <div data-aos='fade-up' className='home-section__grid'>
-          {additions.slice(0, 3).map(item => (
+          {additions.slice(0, 3).map(item => {
+            const teacher = teacherList.find(t => t.id == item.teacher);
+            return (
             <div key={item.id} className='home-card'>
               <img
                 src={item.image}
@@ -531,7 +574,7 @@ function Home () {
                 </div>
               </div>
             </div>
-          ))}
+          )})}
         </div>
       </section>
     </>
