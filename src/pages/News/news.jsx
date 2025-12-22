@@ -23,7 +23,12 @@ function News() {
   }, [bookmarked]);
 
   const sortOptions = ["all", "bookmarked", "recent", "oldest"];
-  const sortIcons = [<MdViewList />, <BsBookmark />, <MdAccessTime />, <MdHistory />];
+  const sortIcons = [
+    <MdViewList />,
+    <BsBookmark />,
+    <MdAccessTime />,
+    <MdHistory />,
+  ];
   const [sortOption, setSortOption] = useState("all");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -41,19 +46,22 @@ function News() {
     };
 
     if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen]);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await fetch("/api/news/");
+        const res = await fetch(
+          `${import.meta.env.VITE_REACT_APP_API_URL}/news/`
+        );
         const data = await res.json();
+        console.log(data);
         setNews(data.results || []);
       } catch (err) {
         console.error("Xato:", err);
@@ -76,9 +84,7 @@ function News() {
 
   const toggleBookmark = (title) => {
     setBookmarked((prev) =>
-      prev.includes(title)
-        ? prev.filter((t) => t !== title)
-        : [...prev, title]
+      prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]
     );
   };
 
@@ -101,11 +107,18 @@ function News() {
   }
 
   const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
-  const currentItems = filteredNews.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const currentItems = filteredNews.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  function getFirstWordsFromHTML(html, wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
+    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+  }
 
   return (
     <div data-aos="fade-up" className="news-section">
@@ -126,7 +139,19 @@ function News() {
         </form>
 
         <div className="sort-dropdown" ref={dropdownRef}>
-          <button className="sort-btn active" onClick={() => setIsDropdownOpen(!isDropdownOpen)} title={sortOption === 'all' ? 'Barchasi' : sortOption === 'bookmarked' ? 'Faqat saqlanganlar' : sortOption === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}>
+          <button
+            className="sort-btn active"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            title={
+              sortOption === "all"
+                ? "Barchasi"
+                : sortOption === "bookmarked"
+                ? "Faqat saqlanganlar"
+                : sortOption === "recent"
+                ? "Eng yangilari"
+                : "Eng eskilari"
+            }
+          >
             {sortIcons[sortOptions.indexOf(sortOption)]}
           </button>
           {isDropdownOpen && (
@@ -134,9 +159,19 @@ function News() {
               {sortOptions.map((option, index) => (
                 <button
                   key={option}
-                  className={`sort-option ${sortOption === option ? 'active' : ''}`}
+                  className={`sort-option ${
+                    sortOption === option ? "active" : ""
+                  }`}
                   onClick={() => handleSortSelect(option)}
-                  title={option === 'all' ? 'Barchasi' : option === 'bookmarked' ? 'Faqat saqlanganlar' : option === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}
+                  title={
+                    option === "all"
+                      ? "Barchasi"
+                      : option === "bookmarked"
+                      ? "Faqat saqlanganlar"
+                      : option === "recent"
+                      ? "Eng yangilari"
+                      : "Eng eskilari"
+                  }
                 >
                   {sortIcons[index]}
                 </button>
@@ -150,7 +185,13 @@ function News() {
         {currentItems.map((item) => (
           <div key={item.title} className="news-card">
             <div className="news-image-wrapper">
-              <img src={item.images.find(img => img.is_main)?.image || item.images[0]?.image} alt={item.title} />
+              <img
+                src={
+                  item.images.find((img) => img.is_main)?.image ||
+                  item.images[0]?.image
+                }
+                alt={item.title}
+              />
               <button
                 className="bookmark-btn"
                 onClick={() => toggleBookmark(item.title)}
@@ -167,12 +208,14 @@ function News() {
               <h3>{item.title}</h3>
             </div>
 
-            <p dangerouslySetInnerHTML={{ __html: item.description }} />
+            <p dangerouslySetInnerHTML={{ __html: getFirstWordsFromHTML(item.description, 10) }} />
 
             <div className="news-card-footer">
               <div className="news-date">
                 <IoCalendarNumber className="calendar-icon" />
-                <span className="date-text">{new Date(item.time).toLocaleDateString('uz-UZ')}</span>
+                <span className="date-text">
+                  {new Date(item.time).toLocaleDateString("uz-UZ")}
+                </span>
               </div>
 
               <Link

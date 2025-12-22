@@ -8,6 +8,11 @@ import "./ScientistWork.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+function getFirstWordsFromHTML(html, wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
+    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+}
+
 function ScientistWork() {
   const [works, setWorks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,9 +57,9 @@ function ScientistWork() {
   useEffect(() => {
     const fetchWorks = async () => {
       try {
-        const res = await fetch("http://localhost:3000/scientificWorks");
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/document`);
         const data = await res.json();
-        setWorks(data);
+        setWorks(Array.isArray(data) ? data : data.results || data.data || []);
       } catch (err) {
         console.error("Xato:", err);
       }
@@ -168,12 +173,12 @@ function ScientistWork() {
               <h3>{item.title}</h3>
             </div>
 
-            <p>{item.description}</p>
+            <p dangerouslySetInnerHTML={{ __html: getFirstWordsFromHTML(item.description, 10) }}/>
 
-            <div className="news-card-footer">
+            <div className="news-card-footer"> 
               <div className="news-date">
                 <IoCalendarNumber className="calendar-icon" />
-                <span className="date-text">{item.date}</span>
+                <span className="date-text">{new Date(item.time).toLocaleDateString('uz-UZ')}</span>
               </div>
 
               <Link

@@ -11,7 +11,7 @@ function TeacherDetails() {
   const [teachersList, setTeachersList] = useState([]);
 
   useEffect(() => {
-    fetch("/api/teachers/")
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`)
       .then((res) => res.json())
       .then((data) => setTeachersList(data.results))
       .catch((err) => console.error("❌ Xatolik:", err));

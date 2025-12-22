@@ -13,7 +13,7 @@ const Contact = () => {
         const data = Object.fromEntries(formData);
 
         try {
-            const response = await fetch('/api/contact/', {
+            const response = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/contact/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

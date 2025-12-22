@@ -3,7 +3,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiChevronDown, FiImage } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import "./header.css";
-import Logo from "./logo.svg";
 
 function Header() {
   const location = useLocation();
@@ -127,7 +126,7 @@ function Header() {
       <nav className="header__nav-container">
         <NavLink to="/" onClick={closeAllDropdowns}>
           <div className="header__logo-div">
-            <img className="header__logo" src={Logo} alt="logo" />
+            <img className="header__logo" src="/logo.svg" alt="logo" />
             <div className="header__logo-text">
               <p className="header__logo-text-tuman">Sergeli Tuman</p>
               <p className="header__logo-text-maktab">Ixtisoslashtirilgan Maktab</p>

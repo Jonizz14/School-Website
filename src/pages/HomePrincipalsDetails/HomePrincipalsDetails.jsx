@@ -13,7 +13,7 @@ function HomePrincipalsDetails() {
 
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:3000/principals");
+                const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/principal`);
                 const data = await res.json();
 
                 const foundPerson = data.find(p => p.id === parseInt(id));

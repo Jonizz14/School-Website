@@ -20,13 +20,16 @@ function Announcements() {
   const [bookmarked, setBookmarked] = useState(() => {
     return JSON.parse(localStorage.getItem("bookmarkedNews")) || [];
   });
-
+  function getFirstWordsFromHTML(html, wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
+    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+  }
   useEffect(() => {
     localStorage.setItem("bookmarkedNews", JSON.stringify(bookmarked));
   }, [bookmarked]);
 
   useEffect(() => {
-    fetch("/api/event/", {
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -144,7 +147,7 @@ function Announcements() {
               <h3>{item.topic}</h3>
             </div>
 
-            <p>{item.description}</p>
+            <p>{getFirstWordsFromHTML(item.description, 10)}</p>
 
             <div className="anons-card-footer">
               <div style={{ display: "flex", gap: "16px" }}>
@@ -155,7 +158,7 @@ function Announcements() {
 
                 <div className="anons-time">
                   <IoTimeOutline className="time-icon" />
-                  <span className="time-text">{new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })} - {new Date(item.end_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}</span>
+                  <span className="time-text">{new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })} </span>
                 </div>
               </div>
 

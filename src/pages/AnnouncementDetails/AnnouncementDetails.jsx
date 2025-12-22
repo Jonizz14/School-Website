@@ -35,7 +35,7 @@ function AnnouncementDetails() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/event/")
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/`)
       .then((res) => res.json())
       .then((data) => setAnnouncementsList(data.results || []))
       .catch((err) => console.error("❌ Xatolik:", err));

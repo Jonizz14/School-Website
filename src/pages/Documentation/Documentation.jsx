@@ -12,13 +12,13 @@ function Documentation() {
   return (
     <div className="documentation-page">
       <div data-aos="fade-up" className="documentation-header">
-        <h1>Hujjatlar</h1>
+        <h1>FAQ</h1>
         <p>Sayt haqida batafsil ma'lumot va qo'shimcha resurslar</p>
       </div>
 
       <div className="documentation-content">
         <section data-aos="fade-up" className="doc-section">
-          <h2>Tez-tez beriladigan savollar (FAQ)</h2>
+          <h2>Tez-tez beriladigan savollar</h2>
 
           <div className="faq-item">
             <h3>Maktab qayerda joylashgan?</h3>
@@ -81,47 +81,6 @@ function Documentation() {
           </div>
         </section>
 
-        <section data-aos="fade-up" className="doc-section">
-          <h2>Ishlatilgan Manbalar</h2>
-
-          <div className="resources-grid">
-            <div className="resource-item">
-              <h3>🐙 GitHub</h3>
-              <p>Loyiha repositoriyasi va kod manbasi</p>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="resource-link">Ko'rish</a>
-            </div>
-
-            <div className="resource-item">
-              <h3>🌐 Netlify</h3>
-              <p>Sayt hosting va deployment</p>
-              <a href="https://netlify.com" target="_blank" rel="noopener noreferrer" className="resource-link">Ko'rish</a>
-            </div>
-
-            <div className="resource-item">
-              <h3>🎨 AOS</h3>
-              <p>Animatsiya va scroll effektlari</p>
-              <a href="https://michalsnik.github.io/aos/" target="_blank" rel="noopener noreferrer" className="resource-link">Ko'rish</a>
-            </div>
-
-            <div className="resource-item">
-              <h3>⚛️ React</h3>
-              <p>Frontend framework</p>
-              <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer" className="resource-link">Ko'rish</a>
-            </div>
-
-            <div className="resource-item">
-              <h3>⚡ Vite</h3>
-              <p>Build tool va development server</p>
-              <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer" className="resource-link">Ko'rish</a>
-            </div>
-
-            <div className="resource-item">
-              <h3>🎨 CSS</h3>
-              <p>Styling va dizayn</p>
-              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer" className="resource-link">Ko'rish</a>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );

@@ -38,10 +38,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #f3f6ff;
+  background: #ffffff00;
   padding: 7px 12px;
   border-radius: 8px;
-  border: 1px solid #dce4ff;
   margin-top: 10px;
   flex-wrap: wrap;
 }

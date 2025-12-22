@@ -8,6 +8,10 @@
   animation: fadeOverlay 0.6s ease-in-out;
 }
 
+.salom{
+  height: 320px;
+}
+
 .welcome-swiper,
 .welcome-swiper .swiper-slide {
   width: 100%;

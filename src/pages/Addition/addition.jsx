@@ -28,11 +28,11 @@ function Addition() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const additionsRes = await fetch("/api/course/");
+                const additionsRes = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/course/`);
                 const additionsData = await additionsRes.json();
                 setAdditions(additionsData.results || []);
                 // Keep teachers from local for now
-                const teachersRes = await fetch("/api/teachers/");
+                const teachersRes = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`);
                 const teachersData = await teachersRes.json();
                 setTeachers(teachersData.results || []);
             } catch (err) {

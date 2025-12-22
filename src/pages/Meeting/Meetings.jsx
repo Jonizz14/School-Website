@@ -8,6 +8,11 @@ import "./Meeting.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+  function getFirstWordsFromHTML(html, wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
+    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+  }
+
 function Meetings() {
   const [meetings, setMeetings] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +28,12 @@ function Meetings() {
   }, [bookmarked]);
 
   const sortOptions = ["all", "bookmarked", "recent", "oldest"];
-  const sortIcons = [<MdViewList />, <BsBookmark />, <MdAccessTime />, <MdHistory />];
+  const sortIcons = [
+    <MdViewList />,
+    <BsBookmark />,
+    <MdAccessTime />,
+    <MdHistory />,
+  ];
   const [sortOption, setSortOption] = useState("all");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -41,20 +51,22 @@ function Meetings() {
     };
 
     if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen]);
 
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        const res = await fetch("http://localhost:3000/meetings");
+        const res = await fetch(
+          `${import.meta.env.VITE_REACT_APP_API_URL}/news`
+        );
         const data = await res.json();
-        setMeetings(data);
+        setMeetings((Array.isArray(data)? data: data.results || data.data || []).filter((item) => item?.category == 1));
       } catch (err) {
         console.error("Xato:", err);
       }
@@ -76,9 +88,7 @@ function Meetings() {
 
   const toggleBookmark = (id) => {
     setBookmarked((prev) =>
-      prev.includes(id)
-        ? prev.filter((t) => t !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
     );
   };
 
@@ -101,7 +111,10 @@ function Meetings() {
   }
 
   const totalPages = Math.ceil(filteredMeetings.length / itemsPerPage);
-  const currentItems = filteredMeetings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const currentItems = filteredMeetings.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -111,7 +124,8 @@ function Meetings() {
     <div data-aos="fade-up" className="news-section">
       <p className="news-section-p1">Uchrashuvlar</p>
       <p className="news-section-p2">
-        Maktabimizda o‘tkazilgan uchrashuvlar va muhim tadbirlar haqida ma’lumotlar
+        Maktabimizda o‘tkazilgan uchrashuvlar va muhim tadbirlar haqida
+        ma’lumotlar
       </p>
 
       <div className="news-controls">
@@ -126,7 +140,19 @@ function Meetings() {
         </form>
 
         <div className="sort-dropdown" ref={dropdownRef}>
-          <button className="sort-btn active" onClick={() => setIsDropdownOpen(!isDropdownOpen)} title={sortOption === 'all' ? 'Barchasi' : sortOption === 'bookmarked' ? 'Faqat saqlanganlar' : sortOption === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}>
+          <button
+            className="sort-btn active"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            title={
+              sortOption === "all"
+                ? "Barchasi"
+                : sortOption === "bookmarked"
+                ? "Faqat saqlanganlar"
+                : sortOption === "recent"
+                ? "Eng yangilari"
+                : "Eng eskilari"
+            }
+          >
             {sortIcons[sortOptions.indexOf(sortOption)]}
           </button>
           {isDropdownOpen && (
@@ -134,9 +160,19 @@ function Meetings() {
               {sortOptions.map((option, index) => (
                 <button
                   key={option}
-                  className={`sort-option ${sortOption === option ? 'active' : ''}`}
+                  className={`sort-option ${
+                    sortOption === option ? "active" : ""
+                  }`}
                   onClick={() => handleSortSelect(option)}
-                  title={option === 'all' ? 'Barchasi' : option === 'bookmarked' ? 'Faqat saqlanganlar' : option === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}
+                  title={
+                    option === "all"
+                      ? "Barchasi"
+                      : option === "bookmarked"
+                      ? "Faqat saqlanganlar"
+                      : option === "recent"
+                      ? "Eng yangilari"
+                      : "Eng eskilari"
+                  }
                 >
                   {sortIcons[index]}
                 </button>
@@ -148,12 +184,18 @@ function Meetings() {
 
       <div data-aos="fade-up" className="news-list">
         {currentItems.map((item) => (
-          <div key={item.id} className="news-card">
+          <div key={item.title} className="news-card">
             <div className="news-image-wrapper">
-              <img src={item.image} alt={item.title} />
+              <img
+                src={
+                  item.images.find((img) => img.is_main)?.image ||
+                  item.images[0]?.image
+                }
+                alt={item.title}
+              />
               <button
                 className="bookmark-btn"
-                onClick={() => toggleBookmark(item.id)}
+                onClick={() => toggleBookmark(item.title)}
               >
                 {bookmarked.includes(item.id) ? (
                   <BsBookmarkFill className="bookmark-icon active" />
@@ -167,12 +209,12 @@ function Meetings() {
               <h3>{item.title}</h3>
             </div>
 
-            <p>{item.description}</p>
+            <p dangerouslySetInnerHTML={{ __html: getFirstWordsFromHTML(item.description, 10) }} />
 
             <div className="news-card-footer">
               <div className="news-date">
                 <IoCalendarNumber className="calendar-icon" />
-                <span className="date-text">{item.date}</span>
+                <span className="date-text">{new Date(item.time).toLocaleDateString("uz-UZ")}</span>
               </div>
 
               <Link

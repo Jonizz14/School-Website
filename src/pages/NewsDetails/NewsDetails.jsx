@@ -36,7 +36,7 @@ function NewsDetails() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/news/")
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news/`)
       .then((res) => res.json())
       .then((data) => setNewsList(data.results || []))
       .catch((err) => console.error("❌ Xatolik:", err));

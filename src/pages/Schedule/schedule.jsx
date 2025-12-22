@@ -29,7 +29,7 @@ function Schedule() {
 
   const loadExcel = async () => {
     try {
-      const response = await fetch("/src/pages/Schedule/adres.xlsx");
+      const response = await fetch("/adres.xlsx");
       const arrayBuffer = await response.arrayBuffer();
       const workbook = XLSX.read(arrayBuffer);
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -55,7 +55,7 @@ function Schedule() {
 
       {isMobile ? (
         <a
-          href="/src/pages/Schedule/adres.xlsx"
+          href="/adres.xlsx"
           download="darslar-jadvali.xlsx"
           className="schedule-btn"
         >

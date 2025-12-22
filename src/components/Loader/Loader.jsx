@@ -4,7 +4,7 @@ import "./Loader.css";
 const Loader = () => {
   return (
     <div className="loader-wrapper">
-      <img id="fade-up" src="/src/components/Header/logo.svg" alt="" />
+      <img id="fade-up" src="/logo.svg" alt="" />
       <p id="fade-up" className="loader-text">Sergeli Tuman Ixtisoslashtirilgan Maktab</p>
       <div id="fade-up" className="loader"></div>
       <p id="fade-up" className="loading-info">

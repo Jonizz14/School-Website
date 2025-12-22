@@ -12,7 +12,7 @@ function Teachers() {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const res = await fetch("/api/teachers/");
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`);
         const data = await res.json();
         setTeachers(data.results);
       } catch (error) {

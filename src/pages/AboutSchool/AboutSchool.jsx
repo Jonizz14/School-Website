@@ -27,7 +27,7 @@ function AboutSchool() {
         <section className="about-info">
           <div className="about-info-container">
             <div data-aos="fade-right" className="about-info-image">
-              <img src="/src/pages/Home/banner2.png" alt="Maktab ichki ko‘rinishi" />
+              <img src="/banner2.png" alt="Maktab ichki ko‘rinishi" />
             </div>
 
             <div data-aos="fade-left" className="about-info-content">
@@ -101,9 +101,15 @@ function AboutSchool() {
         <section data-aos="fade-up" className="about-additional">
           <h2>Qo'shimcha Ma'lumotlar</h2>
           <div className="about-additional-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+            <p>Hozirda faoliyat olib borayotgan 182 ta ixtisoslashtirilgan maktablarda 63 ming nafardan ziyod oʻquvchilarga uch bosqichli tanlov natijalariga koʻra saralab olingan 7 ming nafardan ortiq oʻqituvchi taʼlim tarbiya berib kelmoqda.</p> 
+
+<p>Tashkil etilgan ixtisoslashtirilgan maktablarda aniq fanlar (matematika, fizika, ingliz tili) va tabiiy fanlar (kimyo, biologiya, ingliz tili) bilan bir qatorda Oʻzbekiston tarixi fani chuqurlashtirilgan holda oʻqitilishi hamda sunʼiy intellekt, robototexnika, agrotexnologiya, biotexnologiya, IELTS, TOEFL va SAT boʻyicha qoʻshimcha kurslar yoʻlga qoʻyildi.</p>
+
+<p>Iqtidorli yoshlarga bilim berish, oʻz bilimlarini amaliyotda qoʻllay bilishlari maqsadida har bir maktab fizika, kimyo va biologiya oʻquv fanlarining zamonaviy laboratoriya va robototexnika jihozlari, kimyoviy reagentlar bilan taʼminlangan.</p>
+
+<p>Faoliyati tashkil etilganidan uzoq muddat oʻtmaganligiga qaramay, ixtisoslashtirilgan maktab oʻquvchilari shu kunga qadar 23 turdagi xalqaro olimpiadalarda ishtirok etib jami 95 ta (11 ta oltin, 29 ta kumush, 55 ta bronza) medalni qoʻlga kiritdilar.</p>
+
+<p>2022/2023 oʻquv yilida ixtisoslashtirilgan maktablarda amaliyotda qoʻllanilgan yangi taʼlim dasturlari, dars oʻtishning ilgʻor metodikalari va oʻquvchi bilimini baholashning zamonaviy usullari 2023/2024 oʻquv yilida respublika boʻylab 500 ta umumtaʼlim maktablariga joriy etildi. Bu amaliyot 2024/2025 o‘quv yilida yana 1000 ta umumtaʼlim maktabiga tatbiq etilishi rejalashtirilgan.</p>
           </div>
         </section>
       </div>

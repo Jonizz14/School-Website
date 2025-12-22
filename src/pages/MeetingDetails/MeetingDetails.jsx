@@ -35,9 +35,9 @@ function MeetingDetails() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/meetings")
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news`)
       .then((res) => res.json())
-      .then((data) => setMeetingsList(data))
+      .then((data) => setMeetings((Array.isArray(data)? data: data.results || data.data || []).filter((item) => item?.category == 1)))
       .catch((err) => console.error("❌ Xatolik:", err));
   }, []);
 
@@ -110,11 +110,11 @@ function MeetingDetails() {
             )}
 
             <h2 className="newsdetails-title">{meeting.title}</h2>
-            <p className="newsdetails-desc">{meeting.description}</p>
+            <p className="newsdetails-description" dangerouslySetInnerHTML={{ __html: meeting.description }} />
 
             <div className="newsdetails-footer">
               <IoCalendarNumber size={28} className="newsdetails-icon" />
-              <span className="newsdetails-date">{meeting.date}</span>
+              <span className="newsdetails-date">{new Date(meeting.time).toLocaleDateString("uz-UZ")}</span>
             </div>
           </div>
         </div>

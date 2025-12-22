@@ -17,11 +17,17 @@ import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 import { EffectCoverflow, Pagination, Navigation, A11y } from 'swiper/modules'
 
+function getFirstWordsFromHTML(html, wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
+    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+}
+
 function Home () {
   const [news, setNews] = useState([])
   const [announcements, setAnnouncements] = useState([])
   const [additions, setAdditions] = useState([])
   const [teacherList, setTeacherList] = useState([])
+  const [gallery, setGallery] = useState([])
   const [school, setSchool] = useState({})
 
   const [isMobile, setIsMobile] = useState(false)
@@ -50,7 +56,7 @@ function Home () {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await fetch('/api/news/');
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news/`);
         const data = await res.json();
         setNews(data.results || []);
       } catch (err) {
@@ -61,7 +67,7 @@ function Home () {
 
     const fetchAdditions = async () => {
       try {
-        const res = await fetch('/api/course/');
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/course/`);
         const data = await res.json();
         setAdditions(data.results || []);
       } catch (err) {
@@ -72,7 +78,7 @@ function Home () {
 
     const fetchTeachers = async () => {
       try {
-        const res = await fetch('/api/teachers/');
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`);
         const data = await res.json();
         setTeacherList(data.results || []);
       } catch (err) {
@@ -83,7 +89,7 @@ function Home () {
 
     const fetchAnnouncements = async () => {
       try {
-        const res = await fetch('/api/course/');
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/`);
         const data = await res.json();
         setAnnouncements(data.results || []);
       } catch (err) {
@@ -94,14 +100,24 @@ function Home () {
 
     const fetchSchool = async () => {
       try {
-        const res = await fetch('/api/school/');
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/school/`);
         const data = await res.json();
         setSchool(data[0] || {});
       } catch (err) {
         console.error('Xato:', err);
       }
     };
-    fetchSchool();
+    fetchSchool();    
+    const fetchGallery = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/galery/`);
+        const data = await res.json();
+        setGallery(data.results || {});
+      } catch (err) {
+        console.error('Xato:', err);
+      }
+    };
+    fetchGallery();
   }, [])
 
   const [students, setStudents] = useState(0)
@@ -126,18 +142,10 @@ function Home () {
 
     if (Object.keys(school).length > 0) {
       animate(setStudents, school.pupils || 540)
-      animate(setTeachers, school.teachers || 56)
+      animate(setTeachers, school.teachers || 58)
       animate(setFinishers, school.finishers || 120)
     }
   }, [school])
-
-  const images = [
-    'https://picsum.photos/id/1015/800/500',
-    'https://picsum.photos/id/1016/800/500',
-    'https://picsum.photos/id/1018/800/500',
-    'https://picsum.photos/id/1020/800/500',
-    'https://picsum.photos/id/1021/800/500'
-  ]
 
   return (
     <>
@@ -150,13 +158,13 @@ function Home () {
           className='welcome-swiper'
         >
           <SwiperSlide>
-            <img src='/src/pages/Home/banner.jpg' alt='Banner 1' />
+            <img src='/banner.jpg' alt='Banner 1' />
           </SwiperSlide>
           <SwiperSlide>
-            <img src='/src/pages/Home/banner2.png' alt='Banner 2' />
+            <img src='/banner2.png' alt='Banner 2' />
           </SwiperSlide>
           <SwiperSlide>
-            <img src='/src/pages/Home/banner3.png' alt='Banner 3' />
+            <img src='/banner3.png' alt='Banner 3' />
           </SwiperSlide>
         </Swiper>
 
@@ -191,7 +199,7 @@ function Home () {
         <div className='info__container'>
           <div data-aos='fade-right' className='info__image'>
             <img
-              src='/src/pages/Home/banner2.png'
+              src='/banner2.png'
               alt='Maktab ichki ko‘rinishi'
             />
           </div>
@@ -245,7 +253,7 @@ function Home () {
           >
             <SwiperSlide>
               <div className='gallery-item'>
-                <img src='/src/pages/Home/banner2.png' alt='Rasm 1' />
+                <img src='/banner2.png' alt='Rasm 1' />
                 <div className='overlay'>
                   <p>Maktab ichki ko‘rinishi 1</p>
                 </div>
@@ -254,7 +262,7 @@ function Home () {
 
             <SwiperSlide>
               <div className='gallery-item'>
-                <img src='/src/pages/Home/banner3.png' alt='Rasm 2' />
+                <img src='/banner3.png' alt='Rasm 2' />
                 <div className='overlay'>
                   <p>Maktab ichki ko‘rinishi 2</p>
                 </div>
@@ -263,7 +271,7 @@ function Home () {
 
             <SwiperSlide>
               <div className='gallery-item'>
-                <img src='/src/pages/Home/banner.jpg' alt='Rasm 3' />
+                <img src='/banner.jpg' alt='Rasm 3' />
                 <div className='overlay'>
                   <p>Maktab ichki ko‘rinishi 3</p>
                 </div>
@@ -273,21 +281,21 @@ function Home () {
         ) : (
           <div className='gallery-container'>
             <div className='gallery-item'>
-              <img src='/src/pages/Home/banner2.png' alt='Rasm 1' />
+              <img src='/banner2.png' alt='Rasm 1' />
               <div className='overlay'>
-                <p>Maktab ichki ko‘rinishi 1</p>
+                <p></p>
               </div>
             </div>
             <div className='gallery-item'>
-              <img src='/src/pages/Home/banner3.png' alt='Rasm 2' />
+              <img src='/banner3.png' alt='Rasm 2' />
               <div className='overlay'>
-                <p>Maktab ichki ko‘rinishi 2</p>
+                <p></p>
               </div>
             </div>
             <div className='gallery-item'>
-              <img src='/src/pages/Home/banner.jpg' alt='Rasm 3' />
+              <img src='/banner.jpg' alt='Rasm 3' />
               <div className='overlay'>
-                <p>Maktab ichki ko‘rinishi 3</p>
+                <p></p>
               </div>
             </div>
           </div>
@@ -393,22 +401,22 @@ function Home () {
             className='sponsor-swiper'
           >
             <SwiperSlide>
-              <img src="/src/pages/Home/sponsor1.png" alt="Sponsor 1" />
+              <img src="/sponsor1.png" alt="Sponsor 1" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/src/pages/Home/sponsor2.png" alt="Sponsor 2" />
+              <img src="/sponsor2.png" alt="Sponsor 2" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/src/pages/Home/sponsor3.png" alt="Sponsor 3" />
+              <img src="/sponsor3.png" alt="Sponsor 3" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/src/pages/Home/sponsor4.png" alt="Sponsor 4" />
+              <img src="/sponsor4.png" alt="Sponsor 4" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/src/pages/Home/sponsor5.png" alt="Sponsor 5" />
+              <img src="/sponsor5.png" alt="Sponsor 5" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/src/pages/Home/sponsor6.png" alt="Sponsor 6" />
+              <img src="/sponsor6.png" alt="Sponsor 6" />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -441,16 +449,16 @@ function Home () {
             modules={[Pagination, Autoplay]}
             className='pb-10'
           >
-            {images.map((src, i) => (
+            {gallery.map((item) => (
               <SwiperSlide
-                key={i}
+                key={item.id}
                 className='!w-full flex items-center justify-center'
               >
                 <div className='w-full h-[230px] md:h-[280px] lg:h-[320px] rounded-2xl overflow-hidden shadow-xl bg-gray-800'>
                   <img
-                    src={src}
-                    alt={`slide-${i}`}
-                    className='w-full h-full object-cover transition-transform duration-500 hover:scale-105'
+                    src={item.image}                    
+                    alt={`slide-${item.id}`}
+                    className='salom w-full h-full object-cover transition-transform duration-500 hover:scale-105'
                   />
                 </div>
               </SwiperSlide>
@@ -471,17 +479,17 @@ function Home () {
           {news.slice(0, 3).map(item => (
             <div key={item.id} className='home-card'>
               <img
-                src={item.mainImage}
+                src={item.images.find(img => img.is_main)?.image || item.images[0]?.image}
                 alt={item.title}
                 className='home-card__img'
               />
               <div className='home-card__body'>
                 <h3 className='home-card__title'>{item.title}</h3>
-                <p className='home-card__desc'>{item.description}</p>
+                <p className='home-card__desc' dangerouslySetInnerHTML={{ __html: getFirstWordsFromHTML(item.description, 10) }} />
                 <div className='home-card__footer'>
                   <div className='home-card__meta'>
                     <IoCalendarNumber className='home-card__icon' />
-                    <span>{item.date}</span>
+                    <span>{new Date(item.time).toLocaleDateString('uz-UZ')}</span>
                   </div>
                   <Link
                     to={`/news/${item.id}`}
@@ -516,7 +524,7 @@ function Home () {
               />
               <div className='home-card__body'>
                 <h3 className='home-card__title'>{item.title}</h3>
-                <p className='home-card__desc'>{item.description}</p>
+                <p className='home-card__desc' dangerouslySetInnerHTML={{ __html:getFirstWordsFromHTML(item.description, 10) }} />
                 <div className='home-card__footer'>
                   <div className='home-card__meta'>
                     <IoCalendarNumber className='home-card__icon' />
@@ -549,8 +557,8 @@ function Home () {
               />
 
               <div className='home-card__body'>
-                <h3 className='home-card__title'>{item.name}</h3>
-                <p className='home-card__desc'>{item.description}</p>
+                <h3 className='home-card__title'>{item.title}</h3>
+                <p className='home-card__desc'>{getFirstWordsFromHTML(item.description, 10)}</p>
 
                 <div className='home-card__footer'>
                   <div className='home-card__meta'>
@@ -559,7 +567,7 @@ function Home () {
                       to={`/addition/teacher/${item.teacherId}`}
                       className='teacher-text'
                     >
-                      {item.teacherName}
+                      {teacher.firstName} {teacher.lastName}
                     </Link>
                   </div>
 

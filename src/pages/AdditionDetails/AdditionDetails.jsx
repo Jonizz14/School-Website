@@ -22,7 +22,7 @@ function AdditionDetails() {
         if (addition && addition.teacherId && !teacher) {
             const fetchTeacher = async () => {
                 try {
-                    const res = await fetch(`/api/teachers/${addition.teacherId}/`);
+                    const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/${addition.teacherId}/`);
                     const data = await res.json();
                     setTeacher(data);
                 } catch (err) {

@@ -12,9 +12,9 @@ function TalentedStudents() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const res = await fetch("http://localhost:3000/talentedStudents");
+        const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/students/`);
         const data = await res.json();
-        setStudents(data);
+        setStudents(Array.isArray(data) ? data : data.results || data.data || []);
       } catch (error) {
         console.error("Error fetching talented students:", error);
       }
@@ -22,10 +22,10 @@ function TalentedStudents() {
     fetchStudents();
   }, []);
 
-  const filteredStudents = students.filter((student) => {
-    const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
-    return fullName.includes(searchTerm.toLowerCase());
-  });
+const filteredStudents = students.filter((student) => {
+  const fullName = `${student.first_name ?? ""} ${student.last_name ?? ""}`.toLowerCase();
+  return fullName.includes(searchTerm.toLowerCase());
+});
 
   const handleKeyDown = (e, student) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -89,15 +89,15 @@ function TalentedStudents() {
             >
               <img
                 src={student.image}
-                alt={`${student.firstName} ${student.lastName}`}
+                alt={`${student.first_name} ${student.last_name}`}
                 className="talented-students__img"
               />
               <h3 className="talented-students__name">
-                {student.firstName} {student.lastName}
+                {student.first_name} {student.last_name}
               </h3>
               <p className="talented-students__subject">Iqtidorli o‘quvchi</p>
               <p className="talented-students__bio">
-                {student.biography.slice(0, 80)}...
+                {student.biography}
               </p>
             </div>
           ))

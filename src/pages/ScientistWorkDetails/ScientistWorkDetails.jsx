@@ -6,6 +6,11 @@ import "./ScientistWorkDetails.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+function getFirstWordsFromHTML(html, wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
+    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+}
+
 function ScientistWorkDetails() {
   const location = useLocation();
   const work = location.state?.work;
@@ -36,9 +41,9 @@ function ScientistWorkDetails() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/scientificWorks")
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/document`)
       .then((res) => res.json())
-      .then((data) => setWorksList(data))
+      .then((data) => setWorksList(Array.isArray(data) ? data : data.results || data.data || []))
       .catch((err) => console.error("❌ Xatolik:", err));
   }, []);
 
@@ -97,37 +102,23 @@ function ScientistWorkDetails() {
           </div>
         )}
 
-        <h2 className="scientistworkdetails-title">{work.title}</h2>
-        <p className="scientistworkdetails-desc"><strong>O'quvchi:</strong> {work.studentName}</p>
-        <p className="scientistworkdetails-desc">{work.description}</p>
+        <div className="news-card-header">
+              <p>{}</p>
+        </div>
+        <h2>{work.title}</h2>
+        <p className="scientistworkdetails-desc" dangerouslySetInnerHTML={{ __html: work.description }}/>
 
         <div className="scientistworkdetails-footer">
           <IoCalendarNumber size={28} className="scientistworkdetails-icon" />
-          <span className="scientistworkdetails-date">{work.date || "Sana mavjud emas"}</span>
-          {work.files && (
+          <span className="scientistworkdetails-date">{new Date(work.time).toLocaleDateString('uz-UZ') || "Sana mavjud emas"}</span>
+          
             <div className="scientistworkdetails-downloads">
-              {work.files.pdf && (
-                <a href={work.files.pdf} download target="_blank" rel="noopener noreferrer" className="download-link">
-                  <FaFilePdf size={20} /> PDF
-                </a>
-              )}
-              {work.files.xlsx && (
-                <a href={work.files.xlsx} download target="_blank" rel="noopener noreferrer" className="download-link">
-                  <FaFileExcel size={20} /> XLSX
-                </a>
-              )}
-              {work.files.docx && (
-                <a href={work.files.docx} download target="_blank" rel="noopener noreferrer" className="download-link">
-                  <FaFileWord size={20} /> DOCX
-                </a>
-              )}
-              {work.files.pptx && (
-                <a href={work.files.pptx} download target="_blank" rel="noopener noreferrer" className="download-link">
-                  <FaFilePowerpoint size={20} /> PPTX
+              {work.file && (
+                <a href={work.file} download target="_blank" rel="noopener noreferrer" className="download-link">
+                  <FaFilePdf size={20} /> View | Download PDF
                 </a>
               )}
             </div>
-          )}
         </div>
           </div>
         </div>

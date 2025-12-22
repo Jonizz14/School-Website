@@ -16,7 +16,7 @@ function Principals() {
       disable: window.innerWidth <= 768 ? true : false,
     });
 
-    fetch("/api/principal/")
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/principal/`)
       .then((res) => res.json())
       .then((data) => setPrincipals(data.results || data));
   }, []);

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './footer.css'
 import { FaInstagram, FaTelegram, FaFacebook } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import Logo from '../Footer/logo.svg'
 
 function Footer () {
   const [school, setSchool] = useState({})
@@ -25,7 +24,7 @@ function Footer () {
         <div className='footer__col'>
           <Link to={'/'}>
             <div className='footer__logo-div'>
-              <img className='footer__logo' src={Logo} alt='' />
+              <img className='footer__logo' src="/logo.svg" alt='' />
               <div>
                 <p className='footer__logo-text'>Bizning Maktab</p>
                 <p className='footer__logo-text'>Kelajak uchun ta’lim</p>
@@ -106,13 +105,13 @@ function Footer () {
       </div>
 
       <div className='footer__bottom'>
-        <p>© 2025 Lift Media. Hamma huquqlar himoyalangan.</p>
+        <p>© 2025  Hamma huquqlar himoyalangan.</p>
         <div className='footer__bottom-links'>
           <Link className='footer__ourcommand' to='/ourcommand'>
-            Bizning jamoa
-          </Link>
+            OUR TEAM
+          </Link> | 
           <Link className='footer__documentation' to='/documentation'>
-            Hujjatlar
+            FAQ
           </Link>
         </div>
       </div>
