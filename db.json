@@ -1,0 +1,247 @@
+{
+    "teachers": [
+        {
+            "id": 1,
+            "first_name": "Alisher",
+            "last_name": "Navoiy",
+            "profession": "Matematika",
+            "image": "https://img.freepik.com/free-photo/portrait-smiling-male-teacher-standing-classroom_107420-64843.jpg",
+            "biography": "30 yillik tajribaga ega matematika fani nomzodi.",
+            "email": "alisher@school.uz",
+            "phone": "+998901234567"
+        },
+        {
+            "id": 2,
+            "first_name": "Zulfiya",
+            "last_name": "Isroilova",
+            "profession": "Ona tili",
+            "image": "https://img.freepik.com/free-photo/young-female-teacher-standing-back-school-concept_23-2148596610.jpg",
+            "biography": "Adabiyot sohasi bo'yicha ko'plab kitoblar muallifi.",
+            "email": "zulfiya@school.uz",
+            "phone": "+998907654321"
+        },
+        {
+            "id": 3,
+            "first_name": "Abdulla",
+            "last_name": "Qodiriy",
+            "profession": "Tarix",
+            "image": "https://img.freepik.com/free-photo/senior-male-teacher-standing-classroom_107420-64858.jpg",
+            "biography": "O'zbekiston tarixi bo'yicha yetuk mutaxassis.",
+            "email": "abdulla@school.uz",
+            "phone": "+998911112233"
+        }
+    ],
+    "students": [
+        {
+            "id": 1,
+            "first_name": "Bekzod",
+            "last_name": "Abdurazzoqov",
+            "image": "https://img.freepik.com/free-photo/youth-boy-portrait_23-2148108420.jpg",
+            "biography": "Matematika bo'yicha xalqaro olimpiada g'olibi.",
+            "achievements": "Oltin medal, IMO 2025"
+        },
+        {
+            "id": 2,
+            "first_name": "Malika",
+            "last_name": "Tursunova",
+            "image": "https://img.freepik.com/free-photo/portrait-smiling-teen-girl_23-2148108427.jpg",
+            "biography": "Ingliz tili fani bo'yicha eng yaxshi talaba.",
+            "achievements": "IELTS 8.5"
+        },
+        {
+            "id": 3,
+            "first_name": "Javohir",
+            "last_name": "Sultonov",
+            "image": "https://img.freepik.com/free-photo/young-man-portrait_23-2148108411.jpg",
+            "biography": "Robototexnika sohasidagi yosh ixtirochi.",
+            "achievements": "Maktablararo tanlov 1-o'rin"
+        }
+    ],
+    "news": [
+        {
+            "id": 1,
+            "title": "Yangi o'quv yili boshlandi",
+            "description": "<p>Maktabimizda tantanali 'Bilimlar kuni' tadbiri bo'lib o'tdi. Barcha o'quvchilarga omad tilaymiz.</p>",
+            "time": "2026-02-12T09:00:00Z",
+            "category": 0,
+            "images": [
+                {
+                    "image": "https://img.freepik.com/free-photo/children-running-school-corridor_23-2148633391.jpg",
+                    "is_main": true
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Psixolog bilan uchrashuv",
+            "description": "<p>Ertaga maktab zalida taniqli psixolog bilan ochiq muloqot bo'lib o'tadi. Ota-onalar ham taklif etiladi.</p>",
+            "time": "2026-02-13T14:00:00Z",
+            "category": 1,
+            "images": [
+                {
+                    "image": "https://img.freepik.com/free-photo/business-people-meeting-office_23-2148892784.jpg",
+                    "is_main": true
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Sport musobaqasi natijalari",
+            "description": "<p>Futbol bo'yicha 9-sinflar o'rtasidagi musobaqada 9-'A' sinfi g'olib chiqdi.</p>",
+            "time": "2026-02-11T16:00:00Z",
+            "category": 0,
+            "images": [
+                {
+                    "image": "https://img.freepik.com/free-photo/kids-playing-football_23-2149176465.jpg",
+                    "is_main": true
+                }
+            ]
+        }
+    ],
+    "course": [
+        {
+            "id": 1,
+            "title": "Shaxmat to'garagi",
+            "description": "Shaxmat sirlarini professional o'rganing.",
+            "image": "https://img.freepik.com/free-photo/kids-playing-chess-school_23-2148633367.jpg",
+            "teacher": 1
+        },
+        {
+            "id": 2,
+            "title": "Rassomchilik",
+            "description": "Tasviriy san'at orqali dunyoni aks ettiring.",
+            "image": "https://img.freepik.com/free-photo/children-painting-art-class_23-2148633388.jpg",
+            "teacher": 2
+        },
+        {
+            "id": 3,
+            "title": "Robototexnika",
+            "description": "Kelajak texnologiyalarini bugun o'rganing.",
+            "image": "https://img.freepik.com/free-photo/kids-building-robot-school_23-2148633385.jpg",
+            "teacher": 3
+        }
+    ],
+    "school": [
+        {
+            "id": 1,
+            "name": "Sergeli TIM",
+            "number": "+998 90 123 45 67",
+            "email": "info@sergelitim.uz",
+            "instagram": "https://instagram.com/sergeli_tim",
+            "telegram": "https://t.me/sergeli_tim",
+            "facebook": "https://facebook.com/sergeli_tim",
+            "pupils": 540,
+            "teachers": 58,
+            "finishers": 120,
+            "classes": 24,
+            "about_image": "/banner2.png"
+        }
+    ],
+    "principal": [
+        {
+            "id": 1,
+            "first_name": "Sardor",
+            "last_name": "Rahimov",
+            "profession": "Maktab direktori",
+            "image": "https://img.freepik.com/free-photo/handsome-businessman-suit-glasses-cross-arms-chest-look-confident-white-background_176420-5391.jpg",
+            "instagram": "#",
+            "telegram": "#",
+            "facebook": "#"
+        },
+        {
+            "id": 2,
+            "first_name": "Dilnoza",
+            "last_name": "Karimova",
+            "profession": "O'quv ishlari bo'yicha direktor o'rinbosari",
+            "image": "https://img.freepik.com/free-photo/young-businesswoman-isolated-white-background_1303-14402.jpg",
+            "instagram": "#",
+            "telegram": "#",
+            "facebook": "#"
+        },
+        {
+            "id": 3,
+            "first_name": "Jamshid",
+            "last_name": "Umarov",
+            "profession": "Ma'naviy-ma'rifiy ishlar bo'yicha direktor o'rinbosari",
+            "image": "https://img.freepik.com/free-photo/young-bearded-man-suit-isolated-white_1303-14392.jpg",
+            "instagram": "#",
+            "telegram": "#",
+            "facebook": "#"
+        }
+    ],
+    "document": [
+        {
+            "id": 1,
+            "title": "Matematika metodikasi",
+            "description": "<p>Yangi avlod darsliklari uchun uslubiy qo'llanma va matematik modellashtirishning zamonaviy usullari haqida batafsil ma'lumot.</p>",
+            "time": "2026-01-20T10:00:00Z",
+            "image": "https://img.freepik.com/free-photo/stack-books-study-room_23-2148906354.jpg",
+            "file": "#",
+            "gallery": [
+                "https://img.freepik.com/free-photo/stack-books-study-room_23-2148906354.jpg"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Tabiatshunoslik yangiliklari",
+            "description": "<p>Ekologik muammolar va ularning yechimlari bo'yicha tadqiqotlar. Global iqlim o'zgarishining O'zbekistonga ta'siri tahlili.</p>",
+            "time": "2026-01-25T12:00:00Z",
+            "image": "https://img.freepik.com/free-photo/green-leaf-with-water-drops_23-2148842456.jpg",
+            "file": "#",
+            "gallery": [
+                "https://img.freepik.com/free-photo/green-leaf-with-water-drops_23-2148842456.jpg"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Tarixiy obidalarimiz",
+            "description": "<p>O'zbekistonning boy madaniy merosi haqida ilmiy ish. Buyuk ipak yo'li bo'yidagi qadimiy shaharlar tarixi.</p>",
+            "time": "2026-02-01T15:00:00Z",
+            "image": "https://img.freepik.com/free-photo/beautiful-samarkand-architecture-sunset_23-2148881267.jpg",
+            "file": "#",
+            "gallery": [
+                "https://img.freepik.com/free-photo/beautiful-samarkand-architecture-sunset_23-2148881267.jpg"
+            ]
+        }
+    ],
+    "event": [
+        {
+            "id": 1,
+            "topic": "Zakovat turniri",
+            "description": "Maktabimiz o'quvchilari o'rtasida katta zakovat turniri bo'lib o'tadi. Barcha sinflar ishtirok etishi kutilmoqda. G'oliblar qimmatbaho sovg'alar bilan taqdirlanadi.",
+            "start_time": "2026-02-20T10:00:00Z",
+            "end_time": "2026-02-20T13:00:00Z",
+            "image": "https://img.freepik.com/free-photo/young-people-studying-together-library_23-2148892780.jpg"
+        },
+        {
+            "id": 2,
+            "topic": "Ota-onalar majlisi",
+            "description": "Yangi chorak yakunlari va o'quvchilar o'zlashtirishi tahlil qilinadi. Maktab hayotiga doir muhim masalalar muhokama qilinadi.",
+            "start_time": "2026-02-25T15:00:00Z",
+            "end_time": "2026-02-25T17:00:00Z",
+            "image": "https://img.freepik.com/free-photo/business-people-meeting-office_23-2148892784.jpg"
+        },
+        {
+            "id": 3,
+            "topic": "Navro'z sayli",
+            "description": "Maktab hovlisida Navro'z bayrami tantanalari nishonlanadi. Milliy taomlar tanlovi va sport musobaqalari tashkil etiladi.",
+            "start_time": "2026-03-21T09:00:00Z",
+            "end_time": "2026-03-21T16:00:00Z",
+            "image": "https://img.freepik.com/free-photo/happy-people-celebrating-together_23-2148892770.jpg"
+        }
+    ],
+    "galery": [
+        {
+            "id": 1,
+            "image": "https://img.freepik.com/free-photo/school-building-with-green-grass_23-2148633364.jpg"
+        },
+        {
+            "id": 2,
+            "image": "https://img.freepik.com/free-photo/children-running-school-corridor_23-2148633391.jpg"
+        },
+        {
+            "id": 3,
+            "image": "https://img.freepik.com/free-photo/kids-playing-football_23-2149176465.jpg"
+        }
+    ]
+}

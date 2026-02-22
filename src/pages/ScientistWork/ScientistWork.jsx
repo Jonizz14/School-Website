@@ -8,9 +8,9 @@ import "./ScientistWork.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-function getFirstWordsFromHTML(html, wordCount = 5) {
-    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
-    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+function getFirstWordsFromHTML(html = "", wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); 
+    return text.split(/\s+/).slice(0, wordCount).join(" ") + (text.split(/\s+/).length > wordCount ? '...' : '');
 }
 
 function ScientistWork() {
@@ -59,7 +59,7 @@ function ScientistWork() {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/document`);
         const data = await res.json();
-        setWorks(Array.isArray(data) ? data : data.results || data.data || []);
+        setWorks(Array.isArray(data) ? data : data.results || []);
       } catch (err) {
         console.error("Xato:", err);
       }
@@ -81,14 +81,12 @@ function ScientistWork() {
 
   const toggleBookmark = (title) => {
     setBookmarked((prev) =>
-      prev.includes(title)
-        ? prev.filter((t) => t !== title)
-        : [...prev, title]
+      prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]
     );
   };
 
   let filteredWorks = works.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    item.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (sortOption === "bookmarked") {
@@ -97,11 +95,11 @@ function ScientistWork() {
     );
   } else if (sortOption === "recent") {
     filteredWorks = [...filteredWorks].sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
+      (a, b) => new Date(b.time) - new Date(a.time)
     );
   } else if (sortOption === "oldest") {
     filteredWorks = [...filteredWorks].sort(
-      (a, b) => new Date(a.date) - new Date(b.date)
+      (a, b) => new Date(a.time) - new Date(b.time)
     );
   }
 
@@ -117,7 +115,6 @@ function ScientistWork() {
       <p className="news-section-p1">Ilmiy Ishlar</p>
       <p className="news-section-p2">
         Maktabimizda fanlar bo'yicha ishlar va tadqiqotlar rivojlantiriladi.
-        Bu bo'limda fanlar ishlar, loyihalar va yutuqlar haqida ma'lumotlar beriladi.
       </p>
 
       <div className="news-controls">
@@ -132,7 +129,7 @@ function ScientistWork() {
         </form>
 
         <div className="sort-dropdown" ref={dropdownRef}>
-          <button className="sort-btn active" onClick={() => setIsDropdownOpen(!isDropdownOpen)} title={sortOption === 'all' ? 'Barchasi' : sortOption === 'bookmarked' ? 'Faqat saqlanganlar' : sortOption === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}>
+          <button className="sort-btn active" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
             {sortIcons[sortOptions.indexOf(sortOption)]}
           </button>
           {isDropdownOpen && (
@@ -142,7 +139,6 @@ function ScientistWork() {
                   key={option}
                   className={`sort-option ${sortOption === option ? 'active' : ''}`}
                   onClick={() => handleSortSelect(option)}
-                  title={option === 'all' ? 'Barchasi' : option === 'bookmarked' ? 'Faqat saqlanganlar' : option === 'recent' ? 'Eng yangilari' : 'Eng eskilari'}
                 >
                   {sortIcons[index]}
                 </button>
@@ -154,7 +150,7 @@ function ScientistWork() {
 
       <div data-aos="fade-up" className="news-list">
         {currentItems.map((item) => (
-          <div key={item.title} className="news-card">
+          <div key={item.id} className="news-card">
             <div className="news-image-wrapper">
               <img src={item.image} alt={item.title} />
               <button

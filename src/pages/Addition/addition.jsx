@@ -23,18 +23,16 @@ function Addition() {
         localStorage.setItem("bookmarkedNews", JSON.stringify(bookmarked));
     }, [bookmarked]);
 
-    const [sortOption, setSortOption] = useState("all");
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const additionsRes = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/course/`);
                 const additionsData = await additionsRes.json();
-                setAdditions(additionsData.results || []);
-                // Keep teachers from local for now
+                setAdditions(Array.isArray(additionsData) ? additionsData : additionsData.results || []);
+                
                 const teachersRes = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`);
                 const teachersData = await teachersRes.json();
-                setTeachers(teachersData.results || []);
+                setTeachers(Array.isArray(teachersData) ? teachersData : teachersData.results || []);
             } catch (err) {
                 console.error("Xato:", err);
             }
@@ -61,7 +59,7 @@ function Addition() {
     };
 
     let filteredAdditions = additions.filter((item) =>
-        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+        item.title?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (showOnlyBookmarked) {
@@ -101,7 +99,6 @@ function Addition() {
                 >
                     {showOnlyBookmarked ? <BsBookmarkFill size={20} /> : <BsBookmark size={20} />}
                 </button>
-
             </div>
 
             <div data-aos="fade-up" className="addition-list">
@@ -111,7 +108,6 @@ function Addition() {
                         <div key={item.id} className="addition-card">
                             <div className="addition-image-wrapper">
                                 <img src={item.image} alt={item.title} />
-
                                 <button
                                     className="bookmark-btn"
                                     onClick={() => toggleBookmark(item.id)}

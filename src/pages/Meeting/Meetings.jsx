@@ -66,7 +66,8 @@ function Meetings() {
           `${import.meta.env.VITE_REACT_APP_API_URL}/news`
         );
         const data = await res.json();
-        setMeetings((Array.isArray(data)? data: data.results || data.data || []).filter((item) => item?.category == 1));
+        const items = Array.isArray(data) ? data : data.results || [];
+        setMeetings(items.filter((item) => item?.category == 1));
       } catch (err) {
         console.error("Xato:", err);
       }

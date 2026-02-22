@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 import "./teachers.css";
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
@@ -14,7 +14,7 @@ function Teachers() {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`);
         const data = await res.json();
-        setTeachers(data.results);
+        setTeachers(Array.isArray(data) ? data : data.results || []);
       } catch (error) {
         console.error("Error fetching teachers:", error);
       }
@@ -57,19 +57,19 @@ function Teachers() {
           <p className="teachers__subtitle">
             Bizning professional o'qituvchilar jamoamiz bilan tanishing
           </p>
-          <form className="teachers__form">
+          <form className="teachers__form" onSubmit={(e) => e.preventDefault()}>
             <div className="teachers__input-wrapper">
               <input
                 type="text"
                 className="teachers__input"
                 placeholder="O‘qituvchini qidirish..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button
                 type="button"
                 className="teachers__reset-btn"
-                onClick={() => {
-                  document.querySelector(".teachers__input").value = "";
-                }}
+                onClick={() => setSearchTerm("")}
               >
                 ×
               </button>

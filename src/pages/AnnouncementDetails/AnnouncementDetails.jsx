@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useParams } from "react-router-dom";
 import { IoCalendarNumber, IoTimeOutline } from "react-icons/io5";
 import "./AnnouncementDetails.css";
 import AOS from "aos";
@@ -7,7 +7,9 @@ import "aos/dist/aos.css";
 
 function AnnouncementDetails() {
   const location = useLocation();
-  const announcement = location.state?.announcement;
+  const { id } = useParams();
+  const announcementFromState = location.state?.announcement;
+  const [announcement, setAnnouncement] = useState(announcementFromState);
   const [announcementsList, setAnnouncementsList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
@@ -35,11 +37,18 @@ function AnnouncementDetails() {
   }, []);
 
   useEffect(() => {
+    if (!announcement && id) {
+      fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/${id}`)
+        .then((res) => res.json())
+        .then((data) => setAnnouncement(data))
+        .catch((err) => console.error("❌ Xatolik:", err));
+    }
+
     fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/`)
       .then((res) => res.json())
-      .then((data) => setAnnouncementsList(data.results || []))
+      .then((data) => setAnnouncementsList(Array.isArray(data) ? data : data.results || []))
       .catch((err) => console.error("❌ Xatolik:", err));
-  }, []);
+  }, [id, announcement]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -81,7 +90,7 @@ function AnnouncementDetails() {
             )}
 
             <h2 className="announcementdetails-title">{announcement.topic}</h2>
-            <p className="announcementdetails-desc">{announcement.description}</p>
+            <div className="announcementdetails-desc" dangerouslySetInnerHTML={{ __html: announcement.description }} />
 
             <div className="announcementdetails-footer">
               <div className="announcementdetails-date">

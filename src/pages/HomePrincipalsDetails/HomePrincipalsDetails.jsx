@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import "/src/pages/TeachersDetails/TeachersDetails.css";
+import "./HomePrincipalsDetails.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -15,15 +15,15 @@ function HomePrincipalsDetails() {
             try {
                 const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/principal`);
                 const data = await res.json();
-
-                const foundPerson = data.find(p => p.id === parseInt(id));
+                const principals = Array.isArray(data) ? data : data.results || [];
+                const foundPerson = principals.find(p => p.id === parseInt(id));
                 if (foundPerson) {
                     setPerson({
-                        firstName: foundPerson.firstName,
-                        lastName: foundPerson.lastName,
-                        position: foundPerson.position,
-                        photo: foundPerson.photo,
-                        biography: foundPerson.biography || "Biografiya hali qo‘shilmagan."
+                        firstName: foundPerson.first_name,
+                        lastName: foundPerson.last_name,
+                        profession: foundPerson.profession,
+                        photo: foundPerson.image,
+                        biography: foundPerson.main_biography || "Biografiya hali qo‘shilmagan."
                     });
                 } else {
                     setPerson(null);
@@ -56,6 +56,7 @@ function HomePrincipalsDetails() {
     }
 
     return (
+        <>
         <div className="teacherdetails">
             <div className="breadcrumb">
                 <Link to="/principals" className="breadcrumb-link">Rahbariyat</Link>
@@ -70,13 +71,14 @@ function HomePrincipalsDetails() {
             <h2 className="teacherdetails-title">
                 {person.firstName} {person.lastName}
             </h2>
-            <p className="teacherdetails-subject">{person.position}</p>
+            <p className="teacherdetails-subject">{person.profession}</p>
 
             <div className="teacherdetails-info">
                 <p><strong>Biografiya:</strong></p>
                 <p>{person.biography}</p>
             </div>
         </div>
+        </>
     );
 }
 

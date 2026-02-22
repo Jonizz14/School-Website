@@ -1,6 +1,6 @@
 .teacherdetails {
   max-width: 750px;
-  margin: 50px auto;
+  margin: 50px auto 30px;
   padding: 25px;
   background: #ffffff;
   border-radius: 12px;
@@ -116,7 +116,7 @@
     align-items: flex-start;
     gap: 28px;
     max-width: 1300px;
-    margin: 40px auto;
+    margin: 100px auto;
     padding: 0 20px;
     box-sizing: border-box;
   }
@@ -206,7 +206,7 @@
     .teacherdetails {
       width: 100%;
       max-width: 700px;
-      margin: 0 auto;
+      margin: 50px auto 50px;
       box-sizing: border-box;
     }
   }
@@ -214,6 +214,7 @@
 @media (max-width: 992px) {
   .teacherdetails {
     max-width: 90%;
+    margin: 50px auto 50px;
     padding: 20px;
   }
 
@@ -229,7 +230,7 @@
 
 @media (max-width: 768px) {
   .teacherdetails {
-    margin: 30px auto;
+    margin: 50px auto 30px;
     padding: 18px;
   }
 
@@ -253,7 +254,7 @@
 
 @media (max-width: 480px) {
   .teacherdetails {
-    margin: 20px auto;
+    margin: 40px auto 50px;
     padding: 15px;
   }
 

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Principals.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaInstagram, FaTelegram, FaFacebook } from "react-icons/fa";
 
 function Principals() {
   const [principals, setPrincipals] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     AOS.init({
@@ -18,60 +20,85 @@ function Principals() {
 
     fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/principal/`)
       .then((res) => res.json())
-      .then((data) => setPrincipals(data.results || data));
+      .then((data) => {
+        setPrincipals(Array.isArray(data) ? data : data.results || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching principals:", error);
+      });
   }, []);
 
   return (
-    <div className="school-leadership-dashboard">
-      <section data-aos="fade-up" className="leadership-section">
-        <h2 className="leadership-title">Maktab Rahbariyati</h2>
+    <div className="principals__section">
+      <div className="principals__header" data-aos="fade-up">
+        <h2 className="principals__title">Maktab Rahbariyati</h2>
+        <p className="principals__subtitle">
+          Bizning professional rahbariyat jamoamiz bilan tanishing
+        </p>
+      </div>
 
-        {principals.length > 0 && (
-           <div className="leadership-director" data-aos="zoom-in">
-             <img
-               src={principals[0].photo}
-               alt="Director"
-               className="director-img"
-             />
-             <div className="director-info">
-               <h3 className="leadership-name">
-                 {principals[0].firstName} {principals[0].lastName}
-               </h3>
-               <p className="leadership-position">{principals[0].position}</p>
-               <p className="leadership-experience">
-                 Tajriba: {principals[0].experience} yil
-               </p>
-             </div>
-           </div>
-         )}
-
-        <div className="leadership-principals">
-           {principals.slice(1).map((principal) => (
-             <Link
-               key={principal.id}
-               to={`/principals/${principal.id}`}
-               state={{ person: principal }}
-               data-aos="fade-up"
-               className="leadership-principal"
-             >
-               <img
-                 src={principal.photo}
-                 alt={principal.firstName}
-                 className="principal-img"
-               />
-               <div className="principal-info">
-                 <span className="principal-name">
-                   {principal.firstName} {principal.lastName}
-                 </span>
-                 <p className="principal-position">{principal.position}</p>
-                 <p className="principal-experience">
-                   Tajriba: {principal.experience} yil
-                 </p>
-               </div>
-             </Link>
-           ))}
-         </div>
-      </section>
+      <div className="principals__grid" data-aos="fade-up">
+        {principals.slice(0, 3).map((principal, index) => (
+          <div
+            key={principal.id}
+            className={`principals__card ${index === 0 ? 'principals__card--large' : 'principals__card--small'}`}
+            onClick={() => navigate(`/principals/${principal.id}`, { state: { person: principal } })}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigate(`/principals/${principal.id}`, { state: { person: principal } });
+              }
+            }}
+          >
+            <img
+              src={principal.image}
+              alt={`${principal.first_name} ${principal.last_name}`}
+            />
+            <div className="principals__content">
+              <h3>{principal.first_name} {principal.last_name}</h3>
+              <p className="principals__position">{principal.profession}</p>
+              <div className="teacher-social-wrapper">
+                {principal.instagram && (
+                  <a href={principal.instagram} target="_blank" rel="noopener noreferrer" className="social-btn" onClick={(e) => e.stopPropagation()}><FaInstagram /></a>
+                )}
+                {principal.telegram && (
+                  <a href={principal.telegram} target="_blank" rel="noopener noreferrer" className="social-btn" onClick={(e) => e.stopPropagation()}><FaTelegram /></a>
+                )}
+                {principal.facebook && (
+                  <a href={principal.facebook} target="_blank" rel="noopener noreferrer" className="social-btn" onClick={(e) => e.stopPropagation()}><FaFacebook /></a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div className="principals__additional-grid" data-aos="fade-up">
+        {principals.slice(3, 6).map((principal) => (
+          <div
+            key={principal.id}
+            className="teachers__card"
+            onClick={() => navigate(`/principals/${principal.id}`, { state: { person: principal } })}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigate(`/principals/${principal.id}`, { state: { person: principal } });
+              }
+            }}
+          >
+            <img
+              src={principal.image}
+              alt={`${principal.first_name} ${principal.last_name}`}
+            />
+            <h3>{principal.first_name} {principal.last_name}</h3>
+            <p className="teachers__subject">{principal.profession}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useParams } from "react-router-dom";
 import { IoCalendarNumber } from "react-icons/io5";
+import { Helmet } from "react-helmet";
 import "/src/pages/MeetingDetails/MeetingDetails.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 function MeetingDetails() {
   const location = useLocation();
+  const { id } = useParams();
   const meeting = location.state?.meeting;
+  const [meetingData, setMeetingData] = useState(meeting);
   const [meetingsList, setMeetingsList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
@@ -35,18 +38,25 @@ function MeetingDetails() {
   }, []);
 
   useEffect(() => {
+    if (!meetingData && id) {
+      fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news/${id}/`)
+        .then((res) => res.json())
+        .then((data) => setMeetingData(data))
+        .catch((err) => console.error("❌ Xatolik:", err));
+    }
+
     fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news`)
       .then((res) => res.json())
-      .then((data) => setMeetings((Array.isArray(data)? data: data.results || data.data || []).filter((item) => item?.category == 1)))
+      .then((data) => setMeetingsList((Array.isArray(data) ? data : data.results || data.data || []).filter((item) => item?.category == 1)))
       .catch((err) => console.error("❌ Xatolik:", err));
-  }, []);
+  }, [id, meetingData]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     AOS.init({ duration: 1000, once: true, offset: 100 });
   }, []);
 
-  if (!meeting) {
+  if (!meetingData) {
     return (
       <div className="newsdetails">
         <p>Uchrashuv topilmadi.</p>
@@ -57,43 +67,65 @@ function MeetingDetails() {
     );
   }
 
+  const description = meetingData.description?.replace(/<[^>]*>/g, "").substring(0, 160) + "...";
+
   const isYouTube = (url) => url && url.includes("youtube.com");
 
   const getYouTubeEmbedUrl = (url) => {
-    const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-    return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+    if (url.includes("youtube.com/watch?v=")) {
+      const videoId = url.split("v=")[1]?.split("&")[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    if (url.includes("youtu.be/")) {
+      const videoId = url.split("youtu.be/")[1]?.split("?")[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    return url;
   };
 
   return (
     <>
+      <Helmet>
+        <title>{meetingData.title} - Maktab Uchrashuvlari</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={meetingData.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={meetingData.image} />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={meetingData.title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={meetingData.image} />
+      </Helmet>
+      
       <div className="newsdetails-layout">
         <div className="newsdetails-main">
           <div data-aos="fade-up" className="newsdetails">
-            {/* Breadcrumb */}
             <div className="breadcrumb">
               <Link to="/meeting" className="breadcrumb-link">
                 Uchrashuvlar
               </Link>
               <span className="breadcrumb-separator">/</span>
-              <span className="breadcrumb-current">{meeting.title}</span>
+              <span className="breadcrumb-current">{meetingData.title}</span>
             </div>
 
-            {meeting.image && (
+            {meetingData.image && (
               <img
-                src={meeting.image}
-                alt={meeting.title}
+                src={meetingData.image}
+                alt={meetingData.title}
                 className="newsdetails-img"
                 onClick={() =>
-                  openModal({ type: "image", src: meeting.image })
+                  openModal({ type: "image", src: meetingData.image })
                 }
               />
             )}
 
-            {meeting.video && (
-              isYouTube(meeting.video) ? (
+            {meetingData.video && (
+              isYouTube(meetingData.video) ? (
                 <iframe
-                  src={getYouTubeEmbedUrl(meeting.video)}
-                  title={meeting.title}
+                  src={getYouTubeEmbedUrl(meetingData.video)}
+                  title={meetingData.title}
                   className="newsdetails-video"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -101,20 +133,20 @@ function MeetingDetails() {
                 />
               ) : (
                 <video
-                  src={meeting.video}
+                  src={meetingData.video}
                   controls
                   className="newsdetails-video"
-                  onClick={() => openModal({ type: "video", src: meeting.video })}
+                  onClick={() => openModal({ type: "video", src: meetingData.video })}
                 />
               )
             )}
 
-            <h2 className="newsdetails-title">{meeting.title}</h2>
-            <p className="newsdetails-description" dangerouslySetInnerHTML={{ __html: meeting.description }} />
+            <h2 className="newsdetails-title">{meetingData.title}</h2>
+            <p className="newsdetails-description" dangerouslySetInnerHTML={{ __html: meetingData.description }} />
 
             <div className="newsdetails-footer">
               <IoCalendarNumber size={28} className="newsdetails-icon" />
-              <span className="newsdetails-date">{new Date(meeting.time).toLocaleDateString("uz-UZ")}</span>
+              <span className="newsdetails-date">{new Date(meetingData.time).toLocaleDateString("uz-UZ")}</span>
             </div>
           </div>
         </div>

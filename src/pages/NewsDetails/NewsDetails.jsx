@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useParams } from "react-router-dom";
 import { IoCalendarNumber } from "react-icons/io5";
+import { Helmet } from "react-helmet";
 import "/src/pages/NewsDetails/NewsDetails.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 function NewsDetails() {
   const location = useLocation();
+  const { id } = useParams();
   const news = location.state?.news;
+  const [newsData, setNewsData] = useState(news);
   const [newsList, setNewsList] = useState([]);
   const [teacher, setTeacher] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -36,18 +39,26 @@ function NewsDetails() {
   }, []);
 
   useEffect(() => {
+    // Fetch news data if not available from state
+    if (!newsData && id) {
+      fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news/${id}/`)
+        .then((res) => res.json())
+        .then((data) => setNewsData(data))
+        .catch((err) => console.error("❌ Xatolik:", err));
+    }
+
     fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news/`)
       .then((res) => res.json())
-      .then((data) => setNewsList(data.results || []))
+      .then((data) => setNewsList(Array.isArray(data) ? data : data.results || []))
       .catch((err) => console.error("❌ Xatolik:", err));
-  }, []);
+  }, [id, newsData]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     AOS.init({ duration: 1000, once: true, offset: 100 });
   }, []);
 
-  if (!news) {
+  if (!newsData) {
     return (
       <div className="newsdetails">
         <p>Yangilik topilmadi.</p>
@@ -58,8 +69,24 @@ function NewsDetails() {
     );
   }
 
+  const mainImage = newsData.images?.find(img => img.is_main)?.image || newsData.images?.[0]?.image;
+  const description = newsData.description?.replace(/<[^>]*>/g, "").substring(0, 160) + "...";
+
   return (
     <>
+      <Helmet>
+        <title>{newsData.title} - Maktab Yangiliklari</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={newsData.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={mainImage} />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={newsData.title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={mainImage} />
+      </Helmet>
       <div className="newsdetails-layout">
         <div className="newsdetails-main">
           <div data-aos="fade-up" className="newsdetails">
@@ -69,24 +96,24 @@ function NewsDetails() {
                 Yangiliklar
               </Link>
               <span className="breadcrumb-separator">/</span>
-              <span className="breadcrumb-current">{news.title}</span>
+              <span className="breadcrumb-current">{newsData.title}</span>
             </div>
 
-            {news.images && news.images.length > 0 && (
+            {newsData.images && newsData.images.length > 0 && (
               <img
-                src={news.images.find(img => img.is_main)?.image || news.images[0].image}
-                alt={news.title}
+                src={newsData.images.find(img => img.is_main)?.image || newsData.images[0].image}
+                alt={newsData.title}
                 className="newsdetails-img"
                 onClick={() =>
-                  openModal({ type: "image", src: news.images.find(img => img.is_main)?.image || news.images[0].image })
+                  openModal({ type: "image", src: newsData.images.find(img => img.is_main)?.image || newsData.images[0].image })
                 }
               />
             )}
 
-            {news.images && news.images.length > 1 && (
+            {newsData.images && newsData.images.length > 1 && (
               <div data-aos="fade-up" className="newsdetails-gallery">
                 <div className="gallery-grid">
-                  {news.images.filter(img => !img.is_main).map((img, idx) => (
+                  {newsData.images.filter(img => !img.is_main).map((img, idx) => (
                     <img
                       key={img.id}
                       src={img.image}
@@ -99,12 +126,12 @@ function NewsDetails() {
               </div>
             )}
 
-            <h2 className="newsdetails-title">{news.title}</h2>
-            <p className="newsdetails-desc" dangerouslySetInnerHTML={{ __html: news.description }} />
+            <h2 className="newsdetails-title">{newsData.title}</h2>
+            <p className="newsdetails-desc" dangerouslySetInnerHTML={{ __html: newsData.description }} />
 
             <div className="newsdetails-footer">
               <IoCalendarNumber size={28} className="newsdetails-icon" />
-              <span className="newsdetails-date">{new Date(news.time).toLocaleDateString('uz-UZ')}</span>
+              <span className="newsdetails-date">{new Date(newsData.time).toLocaleDateString('uz-UZ')}</span>
             </div>
           </div>
         </div>
@@ -121,7 +148,7 @@ function NewsDetails() {
               <div className="side-card__body">
                 <h4 className="side-card__title">{item.title}</h4>
                 <Link
-                  to="/news/details"
+                  to={`/news/${item.id}/details`}
                   state={{ news: item }}
                   className="side-card__btn"
                 >

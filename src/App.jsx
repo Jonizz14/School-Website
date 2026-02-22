@@ -60,21 +60,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const path = location.pathname;
-    const storedPages = JSON.parse(localStorage.getItem("visitedPages")) || {};
-
-    if (!mainPages.includes(path)) {
-      setLoading(false);
-      return;
-    }
-
-    if (storedPages[path]) {
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-
+    // Initial loading logic only runs once on mount
     const preloadImages = () => {
       const images = Array.from(document.images);
       return Promise.all(
@@ -90,40 +76,14 @@ function App() {
       );
     };
 
-    const checkNetworkSpeed = () => {
-      if (window.innerWidth <= 768) {
-        return Promise.resolve("fast");
-      }
-
-      const start = performance.now();
-      return fetch("https://via.placeholder.com/50x50.png?rand=" + Math.random(), {
-        cache: "no-cache",
-      })
-        .then(() => performance.now() - start)
-        .then((ms) => {
-          if (ms < 400) return "fast";
-          if (ms < 1000) return "medium";
-          return "slow";
-        })
-        .catch(() => "slow");
-    };
-
-    Promise.all([preloadImages(), checkNetworkSpeed()]).then(([_, speed]) => {
-      let minDelay = 1000;
-      if (speed === "medium") minDelay = 1800;
-      if (speed === "slow") minDelay = 3000;
-
-      if (window.innerWidth <= 768) {
-        minDelay = Math.min(minDelay, 1500);
-      }
-
+    Promise.all([preloadImages()]).then(() => {
+      // Small buffer to ensure layout is ready
       setTimeout(() => {
         setLoading(false);
-        const updated = { ...storedPages, [path]: true };
-        localStorage.setItem("visitedPages", JSON.stringify(updated));
-      }, minDelay);
+      }, 500);
     });
-  }, [location.pathname]);
+  }, []);
+ // Empty dependency array means this runs only on mount/refresh
 
   if (loading) {
     return (
@@ -140,7 +100,7 @@ function App() {
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/chat" element={<Layout><Chat /></Layout>} />
         <Route path="/news" element={<Layout><News /></Layout>} />
-        <Route path="/news/:id" element={<Layout><NewsDetails /></Layout>} />
+        <Route path="/news/:id/details" element={<Layout><NewsDetails /></Layout>} />
         <Route path="/teachers" element={<Layout><Teachers /></Layout>} />
         <Route path="/teachers/:id" element={<Layout><TeacherDetails /></Layout>} />
         <Route path="/principals/:id" element={<Layout><HomePrincipalsDetails /></Layout>} />

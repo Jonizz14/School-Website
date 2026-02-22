@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { FaInstagram, FaTelegram, FaFacebook } from "react-icons/fa";
-import "/src/pages/TeachersDetails/TeachersDetails.css";
+import "./TeachersDetails.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -13,8 +13,11 @@ function TeacherDetails() {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`)
       .then((res) => res.json())
-      .then((data) => setTeachersList(data.results))
-      .catch((err) => console.error("❌ Xatolik:", err));
+      .then((data) => setTeachersList(Array.isArray(data) ? data : data.results || []))
+      .catch((err) => {
+        console.error("❌ Xatolik:", err);
+        setTeachersList([]);
+      });
   }, []);
 
   useEffect(() => {
@@ -106,7 +109,7 @@ function TeacherDetails() {
 
       <div data-aos="fade-up" className="teacherdetails-side">
         <h3 className="side-title">Qo'shimcha ustozlar</h3>
-        {teachersList
+        {Array.isArray(teachersList) && teachersList
           .slice(0, 12)
           .map((item) => (
             <div key={item.id} className="side-card">

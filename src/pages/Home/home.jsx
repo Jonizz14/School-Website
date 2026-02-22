@@ -10,12 +10,12 @@ import { FaRegHeart } from 'react-icons/fa'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { IoTimeOutline } from 'react-icons/io5'
 import { IoCalendarNumber } from 'react-icons/io5'
+import { IoTime } from 'react-icons/io5'
 import { Autoplay } from 'swiper/modules'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
-import 'swiper/css/effect-coverflow'
-import 'swiper/css/pagination'
-import { EffectCoverflow, Pagination, Navigation, A11y } from 'swiper/modules'
+import { EffectCoverflow, EffectFade, Pagination, Navigation, A11y } from 'swiper/modules'
+import 'swiper/css/effect-fade'
 
 function getFirstWordsFromHTML(html, wordCount = 5) {
     const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
@@ -41,13 +41,17 @@ function Home () {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  AOS.init({
-    duration: 1000,
-    once: true,
-    mirror: false,
-    offset: 100,
-    disable: window.innerWidth <= 768 ? true : false
-  })
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      mirror: false,
+      offset: 100,
+      disable: window.innerWidth <= 768
+    });
+    // Refresh AOS on component mount/update if needed
+    AOS.refresh();
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -58,7 +62,7 @@ function Home () {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/news/`);
         const data = await res.json();
-        setNews(data.results || []);
+        setNews(Array.isArray(data) ? data : data.results || []);
       } catch (err) {
         console.error('Xato:', err);
       }
@@ -69,7 +73,7 @@ function Home () {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/course/`);
         const data = await res.json();
-        setAdditions(data.results || []);
+        setAdditions(Array.isArray(data) ? data : data.results || []);
       } catch (err) {
         console.error('Xato:', err);
       }
@@ -80,7 +84,7 @@ function Home () {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/teachers/`);
         const data = await res.json();
-        setTeacherList(data.results || []);
+        setTeacherList(Array.isArray(data) ? data : data.results || []);
       } catch (err) {
         console.error('Xato:', err);
       }
@@ -91,7 +95,7 @@ function Home () {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/`);
         const data = await res.json();
-        setAnnouncements(data.results || []);
+        setAnnouncements(Array.isArray(data) ? data : data.results || []);
       } catch (err) {
         console.error('Xato:', err);
       }
@@ -102,9 +106,25 @@ function Home () {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/school/`);
         const data = await res.json();
-        setSchool(data[0] || {});
+        const schoolData = Array.isArray(data) ? data[0] : (data.results ? data.results[0] : data);
+        setSchool(schoolData || {
+          pupils: 540,
+          teachers: 58,
+          finishers: 120,
+          name: 'Sergeli tuman ixtisoslashtirilgan maktabi',
+          number: '+998901234567',
+          email: 'info@sergelitim.uz'
+        });
       } catch (err) {
         console.error('Xato:', err);
+        setSchool({
+          pupils: 540,
+          teachers: 58,
+          finishers: 120,
+          name: 'Sergeli tuman ixtisoslashtirilgan maktabi',
+          number: '+998901234567',
+          email: 'info@sergelitim.uz'
+        });
       }
     };
     fetchSchool();    
@@ -112,7 +132,7 @@ function Home () {
       try {
         const res = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/galery/`);
         const data = await res.json();
-        setGallery(data.results || {});
+        setGallery(Array.isArray(data) ? data : data.results || []);
       } catch (err) {
         console.error('Xato:', err);
       }
@@ -125,7 +145,7 @@ function Home () {
   const [finishers, setFinishers] = useState(0)
 
   useEffect(() => {
-    const duration = 10000
+    const duration = 2000 // Reduced from 10000 to 2000 for better performance
     const easeOutCubic = t => 1 - Math.pow(1 - t, 3)
 
     const animate = (setter, end) => {
@@ -153,7 +173,7 @@ function Home () {
         <Swiper
           modules={[Autoplay]}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={true}
+          loop={3 > 1} // Only enable loop if there are more than 1 slides
           allowTouchMove={false}
           className='welcome-swiper'
         >
@@ -199,7 +219,7 @@ function Home () {
         <div className='info__container'>
           <div data-aos='fade-right' className='info__image'>
             <img
-              src='/banner2.png'
+              src={school.about_image || '/banner2.png'}
               alt='Maktab ichki ko‘rinishi'
             />
           </div>
@@ -222,7 +242,7 @@ function Home () {
               <p className='info__text'>
                 Ilk o‘quv yili maktab 17 ta sinfda jami 408 ta o‘quvchini qamrab
                 olgan. 2023-yil sentabrda yangi bino foydalanishga topshirildi.
-                Hozirda {school.pupils || 540} o‘quvchi 24 ta sinfda tahsil olmoqda.
+                Hozirda {school.pupils || 540} o‘quvchi {school.classes || 24} ta sinfda tahsil olmoqda.
               </p>
             </div>
 
@@ -230,7 +250,7 @@ function Home () {
               <span className='info__line'></span>
               <p className='info__text'>
                 Bugungi kunda {school.teachers || 53} nafar pedagog faoliyat yuritadi. Ulardan yarmi
-                oliy toifali bo‘lib, 20 nafari xalqaro va milliy sertifikatlarga
+                oliy toifali bo‘lib, ko'pchiligi xalqaro va milliy sertifikatlarga
                 ega.
               </p>
             </div>
@@ -246,37 +266,21 @@ function Home () {
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={20}
             slidesPerView={1}
-            loop={true}
+            loop={3 > 1} // Only enable loop if there are more than 1 slides
             autoplay={{ delay: 3000 }}
             pagination={{ clickable: true }}
             className='gallery-swiper'
           >
-            <SwiperSlide>
-              <div className='gallery-item'>
-                <img src='/banner2.png' alt='Rasm 1' />
-                <div className='overlay'>
-                  <p>Maktab ichki ko‘rinishi 1</p>
+            {gallery.map((item, idx) => (
+              <SwiperSlide key={item.id}>
+                <div className='gallery-item'>
+                  <img src={item.image} alt={`Rasm ${idx + 1}`} />
+                  <div className='overlay'>
+                    <p>{item.title || `Galereya rasmi ${idx + 1}`}</p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className='gallery-item'>
-                <img src='/banner3.png' alt='Rasm 2' />
-                <div className='overlay'>
-                  <p>Maktab ichki ko‘rinishi 2</p>
-                </div>
-              </div>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <div className='gallery-item'>
-                <img src='/banner.jpg' alt='Rasm 3' />
-                <div className='overlay'>
-                  <p>Maktab ichki ko‘rinishi 3</p>
-                </div>
-              </div>
-            </SwiperSlide>
+              </SwiperSlide>
+            ))}
           </Swiper>
         ) : (
           <div className='gallery-container'>
@@ -389,7 +393,7 @@ function Home () {
           <Swiper
             modules={[Autoplay]}
             autoplay={{ delay: 2000, disableOnInteraction: false }}
-            loop={true}
+            loop={6 > 1} // Only enable loop if there are more than 1 slides
             slidesPerView={4}
             spaceBetween={20}
             breakpoints={{
@@ -428,7 +432,7 @@ function Home () {
         </div>
         <div data-aos='fade-' className='w-[85%] mx-auto'>
           <Swiper
-            loop={true}
+            loop={gallery.length > 3} // Only enable loop if there are enough slides
             grabCursor={true}
             centeredSlides={true}
             autoplay={{
@@ -492,7 +496,7 @@ function Home () {
                     <span>{new Date(item.time).toLocaleDateString('uz-UZ')}</span>
                   </div>
                   <Link
-                    to={`/news/${item.id}`}
+                    to={`/news/${item.id}/details`}
                     state={{ news: item }}
                     className='home-card__btn'
                     aria-label={`Batafsil: ${item.title}`}
@@ -518,18 +522,29 @@ function Home () {
           {announcements.slice(0, 3).map(item => (
             <div key={item.id} className='home-card'>
               <img
-                src={item.image}
-                alt={item.title}
+                src={item.image || '/banner.jpg'}
+                alt={item.title || 'E\'lon'}
                 className='home-card__img'
               />
               <div className='home-card__body'>
-                <h3 className='home-card__title'>{item.title}</h3>
-                <p className='home-card__desc' dangerouslySetInnerHTML={{ __html:getFirstWordsFromHTML(item.description, 10) }} />
+                <h3 className='home-card__title'>{item.topic || 'E\'lon mavjud emas'}</h3>
+                <p className='home-card__desc' dangerouslySetInnerHTML={{ __html:getFirstWordsFromHTML(item.description || 'Tavsif mavjud emas', 10) }} />
                 <div className='home-card__footer'>
                   <div className='home-card__meta'>
                     <IoCalendarNumber className='home-card__icon' />
-                    <span>{new Date(item.start_time).toLocaleDateString('uz-UZ')} {new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span>{item.start_time ? new Date(item.start_time).toLocaleDateString('uz-UZ') : 'Sana ko\'rsatilmagan'}</span>
+                    <span style={{ margin: '0 8px', color: '#999' }}></span>
+                    <IoTimeOutline className='home-card__icon' style={{ fontSize: '14px', marginRight: '4px' }} />
+                    <span>{item.start_time ? new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' }) : 'Vaqt ko\'rsatilmagan'}</span>
                   </div>
+                  <Link
+                    to={`/announcements/${item.id}`}
+                    state={{ announcement: item }}
+                    className='home-card__btn'
+                    aria-label={`Batafsil: ${item.title}`}
+                  >
+                    Batafsil
+                  </Link>
                 </div>
               </div>
             </div>
@@ -552,7 +567,7 @@ function Home () {
             <div key={item.id} className='home-card'>
               <img
                 src={item.image}
-                alt={item.name}
+                alt={item.title}
                 className='home-card__img'
               />
 
@@ -563,19 +578,25 @@ function Home () {
                 <div className='home-card__footer'>
                   <div className='home-card__meta'>
                     <FaChalkboardTeacher className='home-card__icon' />
-                    <Link
-                      to={`/addition/teacher/${item.teacherId}`}
-                      className='teacher-text'
-                    >
-                      {teacher.firstName} {teacher.lastName}
-                    </Link>
+                    {teacher ? (
+                      <Link
+                        to={`/teachers/${teacher.id}`}
+                        state={{ teacher: teacher }}
+                        style={{ color: '#1e3b8a', fontWeight: '600', fontSize: '13px', textDecoration: 'none' }}
+                        className='teacher-text'
+                      >
+                        {teacher.first_name} {teacher.last_name}
+                      </Link>
+                    ) : (
+                      <span style={{ color: '#666', fontSize: '13px' }}>Yuklanmo...</span>
+                    )}
                   </div>
 
                   <Link
                     to='/addition/details'
                     state={{ addition: item }}
                     className='home-card__btn'
-                    aria-label={`Batafsil: ${item.name}`}
+                    aria-label={`Batafsil: ${item.title}`}
                   >
                     Batafsil
                   </Link>
@@ -585,6 +606,7 @@ function Home () {
           )})}
         </div>
       </section>
+
     </>
   )
 }

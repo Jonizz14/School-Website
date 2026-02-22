@@ -63,20 +63,10 @@ function Header() {
     setOpen(false);
   };
 
+  // Header visibility logic removed as per request to keep it fixed at the top
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setShowHeader(false);
-      } else {
-        setShowHeader(true);
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+    setShowHeader(true);
+  }, []);
 
   useEffect(() => {
     if (open) {
@@ -151,7 +141,7 @@ function Header() {
             <ul className={`header__dropdown-menu ${aboutDropdownOpen ? "header__dropdown-menu--show" : ""}`}>
               <li><NavLink to="/aboutschool" onClick={closeAllDropdowns}>Maktab tarixi</NavLink></li>
               <li><NavLink to="/principals" onClick={closeAllDropdowns}>Rahbariyat</NavLink></li>
-              <li><NavLink to="/scientistwork" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
+              <li><NavLink to="/teachers" onClick={closeAllDropdowns}>Ustozlar</NavLink></li>
             </ul>
           </div>
 
@@ -161,8 +151,8 @@ function Header() {
               <span className={`header__arrow ${activityDropdownOpen ? "header__arrow--up" : ""}`}></span>
             </button>
             <ul className={`header__dropdown-menu ${activityDropdownOpen ? "header__dropdown-menu--show" : ""}`}>
+              <li><NavLink to="/scientistwork" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
               <li><NavLink to="/addition" onClick={closeAllDropdowns}>To'garaklar</NavLink></li>
-              <li><NavLink to="/teachers" onClick={closeAllDropdowns}>Ustozlar</NavLink></li>
               <li><NavLink to="/talentedstudents" onClick={closeAllDropdowns}>O'quvchilar</NavLink></li>
               <li><NavLink to="/schedule" onClick={closeAllDropdowns}>Dars Jadvali</NavLink></li>
             </ul>
@@ -222,8 +212,7 @@ function Header() {
               <ul className={`header__mobile-dropdown-menu ${mobileAboutDropdownOpen ? "header__mobile-dropdown-menu--show" : ""}`}>
                 <li><NavLink to="/aboutschool" onClick={closeAllDropdowns}>Maktab Tarixi</NavLink></li>
                 <li><NavLink to="/principals" onClick={closeAllDropdowns}>Rahbariyat</NavLink></li>
-                <li><NavLink to="/meeting" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
-                <li><NavLink to="/schedule" onClick={closeAllDropdowns}>Dars Jadvali</NavLink></li>
+                <li><NavLink to="/teachers" onClick={closeAllDropdowns}>Ustozlar</NavLink></li>
               </ul>
             </li>
             <li>
@@ -232,9 +221,10 @@ function Header() {
                 <FiChevronDown className={`header__mobile-chevron ${mobileActivityDropdownOpen ? "header__mobile-chevron--up" : ""}`} />
               </button>
               <ul className={`header__mobile-dropdown-menu ${mobileActivityDropdownOpen ? "header__mobile-dropdown-menu--show" : ""}`}>
+                <li><NavLink to="/meeting" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
                 <li><NavLink to="/addition" onClick={closeAllDropdowns}>To'garaklar</NavLink></li>
-                <li><NavLink to="/teachers" onClick={closeAllDropdowns}>Ustozlar</NavLink></li>
                 <li><NavLink to="/talentedstudents" onClick={closeAllDropdowns}>O'quvchilar</NavLink></li>
+                <li><NavLink to="/schedule" onClick={closeAllDropdowns}>Dars Jadvali</NavLink></li>
               </ul>
             </li>
             <li>
@@ -245,7 +235,7 @@ function Header() {
               <ul className={`header__mobile-dropdown-menu ${mobileMediaDropdownOpen ? "header__mobile-dropdown-menu--show" : ""}`}>
                 <li><NavLink to="/news" onClick={closeAllDropdowns}>Yangiliklar</NavLink></li>
                 <li><NavLink to="/announcements" onClick={closeAllDropdowns}>E'lonlar</NavLink></li>
-                <li><NavLink to="/scientistwork" onClick={closeAllDropdowns}>Ilmiy Ishlar</NavLink></li>
+              <li><NavLink to="/meeting" onClick={closeAllDropdowns}>Uchrashuvlar</NavLink></li>
               </ul>
             </li>
             <li><NavLink to="/contact" onClick={closeAllDropdowns}>Bog'lanish</NavLink></li>

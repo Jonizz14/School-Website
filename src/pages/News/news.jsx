@@ -61,8 +61,7 @@ function News() {
           `${import.meta.env.VITE_REACT_APP_API_URL}/news/`
         );
         const data = await res.json();
-        console.log(data);
-        setNews(data.results || []);
+        setNews(Array.isArray(data) ? data : data.results || []);
       } catch (err) {
         console.error("Xato:", err);
       }
@@ -89,7 +88,7 @@ function News() {
   };
 
   let filteredNews = news.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    item.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (sortOption === "bookmarked") {
@@ -115,9 +114,10 @@ function News() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  function getFirstWordsFromHTML(html, wordCount = 5) {
-    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
-    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+
+  function getFirstWordsFromHTML(html = "", wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); 
+    return text.split(/\s+/).slice(0, wordCount).join(" ") + (text.split(/\s+/).length > wordCount ? '...' : '');
   }
 
   return (
@@ -142,15 +142,6 @@ function News() {
           <button
             className="sort-btn active"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            title={
-              sortOption === "all"
-                ? "Barchasi"
-                : sortOption === "bookmarked"
-                ? "Faqat saqlanganlar"
-                : sortOption === "recent"
-                ? "Eng yangilari"
-                : "Eng eskilari"
-            }
           >
             {sortIcons[sortOptions.indexOf(sortOption)]}
           </button>
@@ -163,15 +154,6 @@ function News() {
                     sortOption === option ? "active" : ""
                   }`}
                   onClick={() => handleSortSelect(option)}
-                  title={
-                    option === "all"
-                      ? "Barchasi"
-                      : option === "bookmarked"
-                      ? "Faqat saqlanganlar"
-                      : option === "recent"
-                      ? "Eng yangilari"
-                      : "Eng eskilari"
-                  }
                 >
                   {sortIcons[index]}
                 </button>
@@ -183,12 +165,12 @@ function News() {
 
       <div data-aos="fade-up" className="news-list">
         {currentItems.map((item) => (
-          <div key={item.title} className="news-card">
+          <div key={item.id} className="news-card">
             <div className="news-image-wrapper">
               <img
                 src={
-                  item.images.find((img) => img.is_main)?.image ||
-                  item.images[0]?.image
+                  item.images?.find((img) => img.is_main)?.image ||
+                  item.images?.[0]?.image || '/banner.jpg'
                 }
                 alt={item.title}
               />
@@ -212,14 +194,13 @@ function News() {
 
             <div className="news-card-footer">
               <div className="news-date">
-                <IoCalendarNumber className="calendar-icon" />
                 <span className="date-text">
                   {new Date(item.time).toLocaleDateString("uz-UZ")}
                 </span>
               </div>
 
               <Link
-                to="/news/details"
+                to={`/news/${item.id}/details`}
                 state={{ news: item }}
                 className="detail-link"
               >

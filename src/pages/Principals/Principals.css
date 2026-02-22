@@ -1,248 +1,397 @@
-/* Principals Page Styles */
-.school-leadership-dashboard {
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #f8faff 0%, #e8f2ff 100%);
-  min-height: 100vh;
-}
-
-.leadership-section {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.leadership-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1e3b8a;
+.principals__section {
   text-align: center;
-  margin-bottom: 60px;
-  position: relative;
+  margin: 50px auto 30px;
+  max-width: 1400px;
+  padding: 0 20px;
 }
 
-.leadership-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, #1e3b8a, #3b82f6);
-  border-radius: 2px;
+.principals__header {
+  margin-bottom: 40px;
 }
 
-/* Director Section */
-.leadership-director {
+.principals__title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.principals__subtitle {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.principals__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 500px;
+}
+
+.principals__card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-bottom: 60px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.leadership-director:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-
-.director-img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.leadership-director:hover .director-img {
-  transform: scale(1.05);
-}
-
-.leadership-director .director-info {
-  padding: 30px;
-  text-align: center;
-  background: linear-gradient(135deg, #1e3b8a 0%, #3b82f6 100%);
-  color: #fff;
-  width: 100%;
-}
-
-.leadership-name {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.leadership-position {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-  opacity: 0.9;
-}
-
-.leadership-experience {
-  font-size: 1rem;
-  opacity: 0.8;
-  font-weight: 400;
-}
-
-/* Principals Grid */
-.leadership-principals {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  justify-items: center;
-}
-
-.leadership-principal {
+  text-decoration: none;
+  color: inherit;
   position: relative;
-  width: 100%;
-  max-width: 280px;
-  border-radius: 16px;
   overflow: hidden;
-  background: #fff;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  cursor: pointer;
+}
+
+.principals__card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   color: inherit;
 }
 
-.leadership-principal:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+.principals__card--large {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  padding: 25px;
+  justify-content: space-evenly;
 }
 
-.principal-img {
-  width: 100%;
-  height: 250px;
+.principals__card--small {
+  grid-column: 2;
+  grid-row: auto;
+  flex-direction: row;
+  text-align: left;
+  padding: 15px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.principals__card--small img {
+  width: 180px !important;
+  height: 180px !important;
+  margin-right: 15px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.principals__content {
+  flex: 1;
+}
+
+.principals__card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+  border: 3px solid #4f46e5;
 }
 
-.leadership-principal:hover .principal-img {
-  transform: scale(1.08);
+.principals__card--large img {
+  width: 300px;
+  height: 300px;
 }
 
-.principal-info {
-  padding: 20px;
-  background: #fff;
-  position: relative;
-}
-
-.principal-name {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1e3b8a;
-  margin-bottom: 6px;
-  display: block;
-}
-
-.principal-position {
-  font-size: 1rem;
+.principals__bio {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
   color: #666;
-  margin-bottom: 6px;
-  font-weight: 500;
+  line-height: 1.6;
+  max-width: 90%;
 }
 
-.principal-experience {
-  font-size: 0.9rem;
-  color: #888;
-  font-weight: 400;
+.principals__card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #222;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .school-leadership-dashboard {
-    padding: 60px 15px;
-  }
+.principals__card--large h3 {
+  font-size: 28px;
+}
 
-  .leadership-title {
-    font-size: 2rem;
-    margin-bottom: 40px;
-  }
+.principals__position {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4f46e5;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  .leadership-director {
-    max-width: 100%;
-    margin-bottom: 40px;
-  }
+.principals__card--large .principals__position {
+  font-size: 18px;
+}
 
-  .director-img {
+.principals__experience {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.principals__card--large .principals__experience {
+  font-size: 16px;
+}
+
+@media (max-width: 1200px) {
+  .principals__title {
+    font-size: 36px;
+  }
+  
+  .principals__grid {
+    height: 500px;
+    max-width: 800px;
+  }
+  
+  .principals__card--large img {
+    width: 250px;
     height: 250px;
   }
-
-  .leadership-director .director-info {
-    padding: 25px;
-  }
-
-  .leadership-name {
-    font-size: 1.5rem;
-  }
-
-  .leadership-principals {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-
-  .leadership-principal {
-    max-width: 100%;
-  }
-
-  .principal-img {
-    height: 220px;
+  
+  .principals__card--small img {
+    width: 140px !important;
+    height: 140px !important;
   }
 }
 
-@media (max-width: 480px) {
-  .leadership-title {
-    font-size: 1.8rem;
+@media (max-width: 850px) {
+  .principals__title {
+    font-size: 32px;
   }
-
-  .leadership-principals {
+  
+  .principals__grid {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    height: auto;
+    gap: 20px;
+    max-width: 500px;
   }
-
-  .leadership-principal {
-    max-width: 100%;
-  }
-
-  .director-img {
-    height: 220px;
-  }
-
-  .leadership-director .director-info {
+  
+  .principals__card--large,
+  .principals__card--small {
+    grid-column: 1;
+    grid-row: auto;
+    flex-direction: column;
+    text-align: center;
     padding: 20px;
+    justify-content: center;
+    align-items: center;
   }
-
-  .leadership-name {
-    font-size: 1.3rem;
+  
+  .principals__card--small img {
+    width: 150px !important;
+    height: 150px !important;
+    margin-right: 0 !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .principals__card--large img {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .principals__card {
+    min-height: 300px;
+  }
+  
+  .principals__additional-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+  
+  .principals__additional-grid .teachers__card img {
+    width: 150px;
+    height: 150px;
   }
 }
 
-/* Animation for AOS */
-[data-aos="fade-up"] {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+@media (max-width: 600px) {
+  .principals__title {
+    font-size: 28px;
+  }
+  
+  .principals__subtitle {
+    font-size: 16px;
+  }
+  
+  .principals__grid {
+    max-width: 350px;
+  }
+  
+  .principals__card {
+    padding: 15px;
+    min-height: 250px;
+  }
+  
+  .principals__card h3 {
+    font-size: 18px;
+  }
+  
+  .principals__card--large h3 {
+    font-size: 22px;
+  }
+  
+  .principals__card--large img {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .principals__card--small img {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  
+  .principals__additional-grid {
+    max-width: 350px;
+  }
+  
+  .principals__additional-grid .teachers__card img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .principals__additional-grid .teachers__card h3 {
+    font-size: 16px;
+  }
+}
+.principals__card--small .teacher-social-wrapper {
+  justify-content: flex-start;
+  margin-top: 8px;
+}
+.principals__additional-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  max-width: 900px;
+  margin: 30px auto 0;
+  flex-wrap: wrap;
 }
 
-[data-aos="fade-up"].aos-animate {
-  opacity: 1;
-  transform: translateY(0);
+.principals__additional-grid .teachers__card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 280px;
+  min-height: 320px;
 }
 
-[data-aos="zoom-in"] {
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+.principals__additional-grid .teachers__card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-[data-aos="zoom-in"].aos-animate {
-  opacity: 1;
-  transform: scale(1);
+.principals__additional-grid .teachers__card img {
+  width: 160px;
+  height: 160px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 14px;
+  border: 3px solid #4f46e5;
+}
+
+.principals__additional-grid .teachers__card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 7px;
+  color: #222;
+}
+
+.principals__additional-grid .teachers__subject {
+  font-size: 14px;
+  color: #4f46e5;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+@media (max-width: 850px) {
+  .principals__card--small .teacher-social-wrapper {
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .teacher-social-wrapper {
+    justify-content: center;
+  }
+  
+  .principals__card--small .teacher-social-wrapper {
+    justify-content: center;
+  }
+}
+@media (max-width: 850px) {
+  .principals__additional-grid .teacher-social-wrapper {
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .principals__additional-grid .teacher-social-wrapper {
+    justify-content: center;
+  }
+}
+@media (max-width: 1200px) {
+  .principals__additional-grid {
+    max-width: 800px;
+  }
+  
+  .principals__additional-grid .teachers__card img {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 850px) {
+  .principals__additional-grid {
+    max-width: 600px;
+  }
+  
+  .principals__additional-grid .teachers__card {
+    flex: 0 0 260px;
+  }
+}
+
+@media (max-width: 600px) {
+  .principals__additional-grid {
+    max-width: 350px;
+  }
+  
+  .principals__additional-grid .teachers__card {
+    padding: 15px;
+    flex: 0 0 300px;
+    min-height: 280px;
+  }
+  
+  .principals__additional-grid .teachers__card img {
+    width: 130px;
+    height: 130px;
+  }
+  
+  .principals__additional-grid .teachers__card h3 {
+    font-size: 16px;
+  }
+  
+  .principals__additional-grid .teachers__subject {
+    font-size: 13px;
+  }
 }

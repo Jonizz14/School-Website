@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FiX, FiCopy, FiThumbsUp, FiThumbsDown, FiCheck, FiMaximize2, FiMinimize2 } from "react-icons/fi";
 import { RiGeminiFill } from "react-icons/ri";
 import "./Chat.css";
 
 const API_KEY = import.meta.env.VITE_GOOGLE_GEMINI_API_KEY;
-const ai = new GoogleGenAI({ apiKey: API_KEY });
+
+// Log API Key status (first 4 chars only for safety)
+if (!API_KEY) {
+  console.warn('Google Gemini API key not found in environment variables. Please restart your dev server after adding it to .env');
+} else {
+  console.log('AI System: API Key detected (starts with: ' + API_KEY.substring(0, 4) + '...)');
+}
 
 export default function Chat() {
     const [input, setInput] = useState("");
@@ -19,6 +25,19 @@ export default function Chat() {
     const [isMobile, setIsMobile] = useState(false);
     const chatBoxRef = useRef(null);
     const intervalRef = useRef(null);
+    const genAI = useRef(null);
+
+    // Initialize AI lazily
+    const getAI = () => {
+        if (!genAI.current && API_KEY) {
+            try {
+                genAI.current = new GoogleGenerativeAI(API_KEY);
+            } catch (error) {
+                console.error('Failed to initialize AI:', error);
+            }
+        }
+        return genAI.current;
+    };
 
     useEffect(() => {
         const checkMobile = () => {
@@ -54,26 +73,37 @@ export default function Chat() {
     }, [isMobile, open]);
 
     useEffect(() => {
-        if (isMobile) {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-                window.dispatchEvent(new Event('resize'));
-            }, 100);
-        }
-    }, [isMobile]);
-
-    useEffect(() => {
         const savedMessages = localStorage.getItem("chatMessages");
         const savedFeedback = localStorage.getItem("chatFeedback");
         if (savedMessages) {
-            setMessages(JSON.parse(savedMessages));
-            setShowWelcome(JSON.parse(savedMessages).length === 0);
+            try {
+                const parsed = JSON.parse(savedMessages);
+                setMessages(parsed);
+                setShowWelcome(parsed.length === 0);
+            } catch (e) {
+                console.error("Error parsing saved messages", e);
+            }
         }
-        if (savedFeedback) setFeedback(JSON.parse(savedFeedback));
+        if (savedFeedback) {
+            try {
+                setFeedback(JSON.parse(savedFeedback));
+            } catch (e) {
+                console.error("Error parsing saved feedback", e);
+            }
+        }
     }, []);
 
-    useEffect(() => localStorage.setItem("chatMessages", JSON.stringify(messages)), [messages]);
-    useEffect(() => localStorage.setItem("chatFeedback", JSON.stringify(feedback)), [feedback]);
+    useEffect(() => {
+        if (messages.length > 0) {
+            localStorage.setItem("chatMessages", JSON.stringify(messages));
+        }
+    }, [messages]);
+    
+    useEffect(() => {
+        if (Object.keys(feedback).length > 0) {
+            localStorage.setItem("chatFeedback", JSON.stringify(feedback));
+        }
+    }, [feedback]);
 
     useEffect(() => {
         if (chatBoxRef.current) chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -88,46 +118,51 @@ export default function Chat() {
         setExpanded(!expanded);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const toggleChatOpen = () => {
+        setOpen(prev => !prev);
         setExpanded(false);
     };
 
     const sendMessage = async () => {
-        if (!input.trim()) return;
+        if (!input.trim() || loading) return;
+        
+        const currentAI = getAI();
+        if (!currentAI) {
+            const errorMsg = "AI xizmati mavjud emas. Iltimos, API kalitni tekshiring va serverni qayta ishga tushiring.";
+            setMessages(prev => [...prev, { id: `err-${Date.now()}`, sender: "ai", text: errorMsg }]);
+            return;
+        }
+
         if (showWelcome) setShowWelcome(false);
         if (intervalRef.current) clearInterval(intervalRef.current);
 
-        const userMessage = { id: Date.now(), sender: "user", text: input };
+        const userMessage = { id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, sender: "user", text: input };
         setMessages(prev => [...prev, userMessage]);
         const currentInput = input;
         setInput("");
         setLoading(true);
 
-        const aiMessageId = Date.now() + 1;
-        setMessages(prev => [...prev, { id: aiMessageId, sender: "ai", text: "O'ylamoqda..." }]);
+        const aiMessageId = `ai-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
         try {
-            const response = await ai.models.generateContent({
+            const model = currentAI.getGenerativeModel({ 
                 model: "gemini-2.5-flash",
-                contents: [
-                    {
-                        role: "model",
-                        parts: [
-                            {
-                                text: `Siz Sergeli tumanidagi ixtisoslashtirilgan maktabimiz bo'yicha yordam beradigan AI siz.
-                                       Bizning maktabimizda 500 dan ortiq o'quvchi, 50 dan ortiq ustozlar, 20 dan ortiq sinflar mavjud.
-                                       Manzilimiz: Sergeli tumani, Nilufar MFY, Sergeli 2-mavzesi, 64A-uy.
-                                       Maktabda Mock testlar, Zakovatlar va turli olimpiadalar o'tadi.Ali sport vaziri maktabizmida.
-                                       Foydalanuvchiga salom aytish va maktab haqida savollariga yordam berish kerak.maktabda eng zo'r ustoz maftuna saidova matematika fani oqutuvchsi.Bu saytni Jahongir To'xtayev va Jabborov Adham yaratgan ular frontend va UI/UX qismini yozgan.`
-                            }
-                        ]
-                    },
-                    { role: "user", parts: [{ text: currentInput }] }
-                ]
+                systemInstruction: `Siz Sergeli tumanidagi ixtisoslashtirilgan maktabning rasmiy AI yordamchisisiz. 
+                                   Javoblaringizni doimo juda samimiy, professional va foydali tarzda yozing. 
+                                   Muhim joylarni ajratib ko'rsatish uchun emoji-lardan (✨, 🎓, 🏫, ✅) foydalaning.
+                                   Matnni chiroyli strukturaga keltiring (paragraflarga bo'ling).
+
+                                   Maktab haqida ma'lumotlar:
+                                   - 540 ta o'quvchi va 58 ta tajribali ustozlar.
+                                   - 24 ta zamonaviy jihozlangan sinflar.
+                                   - Manzil: Sergeli tumani, Nilufar MFY, Sergeli 2-mavzesi, 64A-uy.
+                                   - Faoliyatlar: Mock testlar, Zakovat intellektual o'yinlari, fan olimpiadalari.
+                                   - Ixtisoslashuv: Aniq va tabiiy fanlar.`
             });
 
-            let botText = response.text;
+            const result = await model.generateContent(currentInput);
+            const response = await result.response;
+            let botText = response.text();
 
             const dislikedMessages = Object.entries(feedback)
                 .filter(([_, v]) => v === "dislike")
@@ -137,16 +172,18 @@ export default function Chat() {
                 botText = "Siz so'ragan mavzuda avval dislike berilgan javob. Iltimos boshqa savol yozing.";
             }
 
-            let index = 0;
-            setMessages(prev => {
-                const newMessages = [...prev];
-                const lastIndex = newMessages.findIndex(m => m.id === aiMessageId);
-                if (lastIndex !== -1) newMessages[lastIndex].text = "";
-                return newMessages;
-            });
+            setLoading(false);
+            setMessages(prev => [...prev, { id: aiMessageId, sender: "ai", text: "" }]);
 
+            let index = 0;
             intervalRef.current = setInterval(() => {
-                index++;
+                index += 2; // Speed up typing slightly
+                if (index >= botText.length) {
+                    index = botText.length;
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                }
+                
                 setMessages(prev => {
                     const newMessages = [...prev];
                     const lastIndex = newMessages.findIndex(m => m.id === aiMessageId);
@@ -154,15 +191,19 @@ export default function Chat() {
                     return newMessages;
                 });
                 if (chatBoxRef.current) chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-                if (index === botText.length) {
-                    clearInterval(intervalRef.current);
-                    intervalRef.current = null;
-                    setLoading(false);
-                }
-            }, 20);
+            }, 15);
 
         } catch (err) {
-            setMessages(prev => [...prev, { id: Date.now(), sender: "ai", text: "Xatolik yuz berdi." }]);
+            console.error('Chat API Error:', err);
+            let errorMessage = "Xatolik yuz berdi.";
+            
+            if (err.message?.includes('API key') || err.message?.includes('PERMISSION_DENIED')) {
+                errorMessage = "AI xizmati hozircha mavjud emas. API kalit noto'g'ri yoki yo'q.";
+            } else if (err.message?.includes('quota') || err.message?.includes('limit')) {
+                errorMessage = "AI xizmati band. Keyinroq urinib ko'ring.";
+            }
+            
+            setMessages(prev => [...prev, { id: `err-${Date.now()}`, sender: "ai", text: errorMessage }]);
             setLoading(false);
         }
     };
@@ -177,38 +218,18 @@ export default function Chat() {
         setFeedback(prev => ({ ...prev, [messageId]: isPositive ? "like" : "dislike" }));
     };
 
-    function toggleChat() {
-        const chat = document.querySelector('.chat-container');
-        if (chat.classList.contains('expanded')) {
-            chat.classList.remove('expanded');
-            chat.classList.add('closing');
-            setTimeout(() => chat.classList.remove('closing'), 400);
-        } else {
-            chat.classList.add('expanded');
-        }
-    }
-
     useEffect(() => {
         const isMac = navigator.platform.toUpperCase().includes("MAC");
-
         const handleShortcut = (e) => {
-
             if ((isMac && e.metaKey && e.key === "c") || (!isMac && e.ctrlKey && e.key === "c")) {
-                e.preventDefault();
-                toggleChatOpen();
+                if (!window.getSelection().toString()) {
+                  toggleChatOpen();
+                }
             }
         };
-
         document.addEventListener("keydown", handleShortcut);
         return () => document.removeEventListener("keydown", handleShortcut);
     }, []);
-
-    const toggleChatOpen = () => {
-        setOpen(prev => !prev);
-        setExpanded(false);
-    };
-
-
 
     return (
         <div className={`chat__wrapper ${open ? "chat__wrapper--open" : ""}`}>
@@ -224,7 +245,7 @@ export default function Chat() {
                 {open && (
                     <>
                         <div className="chat__header">
-                            <h1>STIM AI</h1>
+                            <h1>Sergeli TIM AI</h1>
                             <div className="chat__header-buttons">
                                 {!isMobile && (
                                     <button className="chat__expand-btn" onClick={toggleExpand} title={expanded ? "Kichiklashtirish" : "Kattalashtirish"}>
@@ -247,7 +268,7 @@ export default function Chat() {
                             {messages.map((m, i) => (
                                 <div key={m.id} className={`chat__msg chat__msg--${m.sender}`}>
                                     {m.text}
-                                    {m.sender === "ai" && !loading && (
+                                    {m.sender === "ai" && !loading && m.text && (
                                         <div className="chat__msg-actions">
                                             <button onClick={() => copyMessage(m.text, i)} title="Nusxa qil">
                                                 {copiedIndex === i ? <FiCheck color="green" /> : <FiCopy />}
@@ -270,6 +291,21 @@ export default function Chat() {
                                     )}
                                 </div>
                             ))}
+                            {loading && (
+                                <div className="chat__msg chat__msg--ai chat__msg--loading">
+                                    <div className="chat__ripple-loader">
+                                        <div className="cell d-0"></div>
+                                        <div className="cell d-1"></div>
+                                        <div className="cell d-2"></div>
+                                        <div className="cell d-1"></div>
+                                        <div className="cell d-2"></div>
+                                        <div className="cell d-3"></div>
+                                        <div className="cell d-2"></div>
+                                        <div className="cell d-3"></div>
+                                        <div className="cell d-4"></div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         <div className="chat__input">

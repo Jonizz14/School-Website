@@ -20,25 +20,21 @@ function Announcements() {
   const [bookmarked, setBookmarked] = useState(() => {
     return JSON.parse(localStorage.getItem("bookmarkedNews")) || [];
   });
-  function getFirstWordsFromHTML(html, wordCount = 5) {
-    const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
-    return text.split(/\s+/).slice(0, wordCount).join(" ")+'...'; // So'zlarni ajratish va kerakli sonini olish
+
+  function getFirstWordsFromHTML(html = "", wordCount = 5) {
+    const text = html.replace(/<[^>]*>/g, ""); 
+    return text.split(/\s+/).slice(0, wordCount).join(" ") + (text.split(/\s+/).length > wordCount ? '...' : '');
   }
+
   useEffect(() => {
     localStorage.setItem("bookmarkedNews", JSON.stringify(bookmarked));
   }, [bookmarked]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
+    fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/event/`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("API DATA:", data);
-        setAnons(data.results || []);
+        setAnons(Array.isArray(data) ? data : data.results || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -66,42 +62,25 @@ function Announcements() {
     );
   };
 
-  const filteredAnons = anons
-    .filter((item) =>
-      item.topic.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .filter((item) =>
-      showOnlyBookmarked ? bookmarked.includes(item.id) : true
-    );
+  const filteredAnons = anons.filter((item) =>
+    item.topic?.toLowerCase().includes(searchTerm.toLowerCase())
+  ).filter((item) =>
+    showOnlyBookmarked ? bookmarked.includes(item.id) : true
+  );
 
   const totalPages = Math.ceil(filteredAnons.length / itemsPerPage);
-  const currentItems = filteredAnons.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const currentItems = filteredAnons.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return (
-      <div className="anons-section">
-        <p className="error-message">{error}</p>
-      </div>
-    );
-  }
+  if (loading) return <Loader />;
 
   return (
     <div data-aos="fade-up" className="anons-section">
       <p className="anons-title">E'lonlar</p>
-      <p className="anons-subtitle">
-        Maktabimizdagi eng so‘nggi anonslar va xabarlar
-      </p>
+      <p className="anons-subtitle">Maktabimizdagi eng so‘nggi anonslar va xabarlar</p>
 
       <div className="addition-controls">
         <form className="anons-form" onSubmit={(e) => e.preventDefault()}>
@@ -118,11 +97,7 @@ function Announcements() {
           className={`bookmark-toggle ${showOnlyBookmarked ? "active" : ""}`}
           onClick={() => setShowOnlyBookmarked((prev) => !prev)}
         >
-          {showOnlyBookmarked ? (
-            <BsBookmarkFill size={20} />
-          ) : (
-            <BsBookmark size={20} />
-          )}
+          {showOnlyBookmarked ? <BsBookmarkFill size={20} /> : <BsBookmark size={20} />}
         </button>
       </div>
 
@@ -131,10 +106,7 @@ function Announcements() {
           <div key={item.id} className="anons-card">
             <div className="anons-image-wrapper">
               <img src={item.image} alt={item.topic} />
-              <button
-                className="bookmark-btn"
-                onClick={() => toggleBookmark(item.id)}
-              >
+              <button className="bookmark-btn" onClick={() => toggleBookmark(item.id)}>
                 {bookmarked.includes(item.id) ? (
                   <BsBookmarkFill className="bookmark-icon active" />
                 ) : (
@@ -155,22 +127,14 @@ function Announcements() {
                   <IoCalendarNumber className="time-icon" />
                   <span className="date-text">{new Date(item.start_time).toLocaleDateString('uz-UZ')}</span>
                 </div>
-
                 <div className="anons-time">
                   <IoTimeOutline className="time-icon" />
-                  <span className="time-text">{new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })} </span>
+                  <span className="time-text">{new Date(item.start_time).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
               </div>
-
-              <Link
-                to={`/announcements/${item.id}`}
-                state={{ announcement: item }}
-                className="anons-detail-link"
-              >
-                Batafsil
-              </Link>
+              <Link to={`/announcements/${item.id}`} state={{ announcement: item }} className="anons-detail-link">Batafsil</Link>
             </div>
-            </div>
+          </div>
         ))}
       </div>
 
@@ -184,9 +148,7 @@ function Announcements() {
         />
       )}
 
-      {filteredAnons.length === 0 && (
-        <p className="no-anons">E'lon topilmadi.</p>
-      )}
+      {filteredAnons.length === 0 && <p className="no-anons">E'lon topilmadi.</p>}
     </div>
   );
 }
