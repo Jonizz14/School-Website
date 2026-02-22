@@ -1,4 +1,4 @@
-# 🏫 Sergeli Ixtisoslashtirilgan Maktab - Axborot Sayti
+# 🏫 Sergeli Specialized School - Information Portal
 
 [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-4.4.5-646CFF.svg)](https://vitejs.dev/)
@@ -6,44 +6,44 @@
 [![Responsive](https://img.shields.io/badge/Responsive-Design-green.svg)](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> 🌟 **Zamonaviy, interaktiv va foydalanuvchi-do'st maktab axborot sayti** - Sergeli tumanidagi ixtisoslashtirilgan maktab uchun yaratilgan.
+> 🌟 **Modern, interactive and user-friendly school information portal** - Created for the specialized school in Sergeli district.
 
 ![School Website Preview](./screenshots/Home.png)
 
-## 📖 Tavsif
+## 📖 Description
 
-Bu loyiha Sergeli tumanidagi ixtisoslashtirilgan maktab uchun yaratilgan to'liq funksional axborot va ma'lumotlar sayti. Sayt React texnologiyasi asosida qurilgan bo'lib, yangiliklar, e'lonlar, o'qituvchilar, to'garaklar va boshqa muhim ma'lumotlar bilan boyitilgan. Foydalanuvchilarga qulay navigatsiya, tez yuklanish va mobil moslashuvchan dizayn taqdim etadi.
+This project is a fully functional information and data portal created for the specialized school in Sergeli district. The site is built on React technology and is enriched with news, announcements, teachers, clubs, and other important information. It provides users with convenient navigation, fast loading, and a mobile-responsive design.
 
-### 🎯 Asosiy Maqsadlar
+### 🎯 Main Goals
 
-- 📚 Maktab haqida to'liq ma'lumot berish
-- 📰 Yangiliklar va e'lonlarni real vaqtda yetkazish
-- 👨‍🏫 O'qituvchilar haqida batafsil profil yaratish
-- 🎨 To'garaklar va qo'shimcha faoliyatlar haqida ma'lumot
-- 🤖 Sun'iy intellekt yordamida savollarga javob berish
-- 📱 Barcha qurilmalarda mukammal ishlash
+- 📚 Provide complete information about the school
+- 📰 Deliver news and announcements in real-time
+- 👨‍🏫 Create detailed profiles for teachers
+- 🎨 Information about clubs and additional activities
+- 🤖 Answer questions using Artificial Intelligence
+- 📱 Work perfectly on all devices
 
-## ✨ Xususiyatlar
+## ✨ Features
 
-### 🚀 Asosiy Funksiyalar
-- ✅ **Dinamik Yangiliklar** - API orqali real vaqtda yangilanuvchi yangiliklar
-- ✅ **Interaktiv E'lonlar** - Muhim xabarlarni tez yetkazish
-- ✅ **O'qituvchi Profillari** - Har bir ustoz uchun alohida sahifa
-- ✅ **To'garaklar Bo'limi** - Maktabdagi barcha to'garaklar haqida
-- ✅ **AI Chat Bot** - Google Gemini asosidagi yordamchi
-- ✅ **Responsive Dizayn** - Desktop, tablet va mobil uchun
-- ✅ **Smooth Animatsiyalar** - AOS kutubxonasi bilan
-- ✅ **Bookmark Funksiyasi** - Sevimli yangiliklarni saqlash
-- ✅ **Qidiruv Tizimi** - Tez ma'lumot topish
+### 🚀 Core Functions
+- ✅ **Dynamic News** - Real-time news updates via API
+- ✅ **Interactive Announcements** - Quickly deliver important messages
+- ✅ **Teacher Profiles** - Individual pages for each teacher
+- ✅ **Clubs Section** - About all clubs in the school
+- ✅ **AI Chat Bot** - Assistant based on Google Gemini
+- ✅ **Responsive Design** - For desktop, tablet, and mobile
+- ✅ **Smooth Animations** - With AOS library
+- ✅ **Bookmark Function** - Save favorite news
+- ✅ **Search System** - Quickly find information
 
-### 🎨 Dizayn Xususiyatlari
-- 🎭 **Zamonaviy UI/UX** - Foydalanuvchi tajribasiga mos
-- 🌈 **Gradient Effects** - Chiroyli rang o'tishlari
-- 📱 **Mobile-First** - Avval mobil, keyin desktop
-- 🎯 **Intuitive Navigation** - Oson navigatsiya
-- ⚡ **Fast Loading** - Tez yuklanish uchun optimallashtirilgan
+### 🎨 Design Features
+- 🎭 **Modern UI/UX** - Aligned with user experience
+- 🌈 **Gradient Effects** - Beautiful color transitions
+- 📱 **Mobile-First** - Mobile first, then desktop
+- 🎯 **Intuitive Navigation** - Easy navigation
+- ⚡ **Fast Loading** - Optimized for speed
 
-## 🛠 Texnologiyalar
+## 🛠 Technologies
 
 ### Frontend
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -54,18 +54,18 @@ Bu loyiha Sergeli tumanidagi ixtisoslashtirilgan maktab uchun yaratilgan to'liq 
 ![AOS](https://img.shields.io/badge/AOS-Animation-000000?style=for-the-badge&logo=aos&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-### Kutubxona va Frameworklar
-- **React Router DOM** - Sahifalar o'rtasida navigatsiya
-- **AOS (Animate On Scroll)** - Sahifa animatsiyalari
-- **React Icons** - Chiroyli ikonlar to'plami
-- **Google Generative AI** - AI chat funksiyasi uchun
+### Libraries and Frameworks
+- **React Router DOM** - Navigation between pages
+- **AOS (Animate On Scroll)** - Page animations
+- **React Icons** - A collection of beautiful icons
+- **Google Generative AI** - For AI chat functionality
 
 ### Backend & API
-- **JSON Server** - Ma'lumotlar bazasi simulyatsiyasi
-- **REST API** - Ma'lumot uzatish
-- **Fetch API** - Asinxron ma'lumot olish
+- **JSON Server** - Database simulation
+- **REST API** - Data transfer
+- **Fetch API** - Asynchronous data retrieval
 
-## 📂 Loyiha Tuzilishi
+## 📂 Project Structure
 
 ```
 school-website/
@@ -94,134 +94,134 @@ school-website/
 └── README.md
 ```
 
-### 📄 Sahifalar
-- **🏠 Home** - Asosiy sahifa, yangiliklar va e'lonlar
-- **📰 News** - Yangiliklar ro'yxati va filtrlar
-- **👨‍🏫 Teachers** - O'qituvchilar haqida ma'lumot
-- **🎨 Talented Students** - Iqtidorli o'quvchilar
-- **📞 Contact** - Aloqa ma'lumotlari va forma
-- **📢 Announcements** - Muhim e'lonlar
-- **🔬 Scientific Works** - Ilmiy ishlar
-- **📅 Schedule** - Dars jadvali
+### 📄 Pages
+- **🏠 Home** - Main page, news, and announcements
+- **📰 News** - News list and filters
+- **👨‍🏫 Teachers** - Information about teachers
+- **🎨 Talented Students** - Gifted students
+- **📞 Contact** - Contact details and form
+- **📢 Announcements** - Important announcements
+- **🔬 Scientific Works** - Scientific research
+- **📅 Schedule** - Class schedule
 
-## 🚀 O'rnatish va Ishga Tushirish
+## 🚀 Installation and Setup
 
-### Talablar
-- Node.js (v16 yoki undan yuqori)
-- npm yoki yarn
+### Requirements
+- Node.js (v16 or higher)
+- npm or yarn
 
-### Qadamlar
+### Steps
 
-1. **Repositoryni klonlash**
+1. **Clone the Repository**
    ```bash
    git clone https://github.com/your-username/school-website.git
    cd school-website
    ```
 
-2. **Kutubxonalarni o'rnatish**
+2. **Install Dependencies**
    ```bash
    npm install
    ```
 
-3. **Environment faylini yaratish**
+3. **Create Environment File**
    ```bash
    cp .env.example .env
    ```
-   `.env` faylida API kalitlarini qo'shing:
+   Add API keys in the `.env` file:
    ```
    VITE_GOOGLE_GEMINI_API_KEY=your_api_key_here
    ```
 
-4. **JSON Serverni ishga tushirish** (ma'lumotlar uchun)
+4. **Run JSON Server** (for data)
    ```bash
    npx json-server --watch db.json --port 3000
    ```
 
-5. **Saytni ishga tushirish**
+5. **Start the Site**
    ```bash
    npm run dev
    ```
 
-6. **Brauzerda ochish**
+6. **Open in Browser**
    ```
    http://localhost:5173
    ```
 
 ## 📸 Screenshots
 
-### 🏠 Asosiy Sahifa
+### 🏠 Home Page
 ![Home Page](./screenshots/Home.png)
-*Asosiy sahifa - yangiliklar va navigatsiya*
+*Home Page - News and Navigation*
 
-### 📰 Yangiliklar Sahifasi
+### 📰 News Page
 ![News Page](./screenshots/News.png)
-*Yangiliklar ro'yxati va qidiruv funksiyasi*
+*News List and Search Functionality*
 
-### 👨‍🏫 O'qituvchilar Sahifasi
+### 👨‍🏫 Teachers Page
 ![Teachers Page](./screenshots/Teachers.png)
-*O'qituvchilar profili va ma'lumotlari*
+*Teacher Profiles and Information*
 
-### 📞 Aloqa Sahifasi
+### 📞 Contact Page
 ![Contact Page](./screenshots/Contact.png)
-*Aloqa formasi va Google Maps*
+*Contact Form and Google Maps*
 
 ### 🤖 AI Chat
 ![AI Chat](./screenshots/Chat.png)
-*Sun'iy intellekt yordamchi chat*
+*AI Assistant Chat*
 
-## 🎮 Foydalanish
+## 🎮 Usage
 
-### Navigatsiya
-- Header menyusi orqali sahifalar o'rtasida o'ting
-- Footer'da qo'shimcha linklar mavjud
-- Mobile versiyada burger menyu ishlaydi
+### Navigation
+- Use the header menu to navigate between pages
+- Additional links are available in the footer
+- Burger menu works on the mobile version
 
 ### Chat Bot
-- Sahifa o'ng pastida Gemini ikonasi
-- Savollaringizga AI yordam beradi
-- Maktab haqida ma'lumot olish uchun foydalaning
+- Gemini icon at the bottom right of the page
+- AI helps with your questions
+- Use it to get information about the school
 
-### Responsive Dizayn
-- Desktop: To'liq funksiyalar
-- Tablet: Moslashuvchan layout
-- Mobile: Touch-friendly interfeys
+### Responsive Design
+- Desktop: Full functionality
+- Tablet: Responsive layout
+- Mobile: Touch-friendly interface
 
-## 🤝 Hissa Qo'shish
+## 🤝 Contributing
 
-Hissa qo'shishni xohlaysizmi? Ajoyib!
+Want to contribute? Great!
 
-1. Fork qiling
-2. Feature branch yarating (`git checkout -b feature/amazing-feature`)
-3. Commit qiling (`git commit -m 'Add amazing feature'`)
-4. Push qiling (`git push origin feature/amazing-feature`)
-5. Pull Request yarating
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ### Development Guidelines
-- ESLint qoidalariga rioya qiling
-- Componentlarni modulli yozing
-- CSS BEM metodologiyasidan foydalaning
-- Commit xabarlari aniq va tushunarli bo'lsin
+- Follow ESLint rules
+- Write modular components
+- Use CSS BEM methodology
+- Ensure commit messages are clear and descriptive
 
-## 📄 Litsenziya
+## 📄 License
 
-Bu loyiha MIT litsenziyasi ostida tarqatiladi. Batafsil ma'lumot uchun `LICENSE` faylini ko'ring.
+This project is distributed under the MIT License. See the `LICENSE` file for more information.
 
-## 👥 Mualliflar
+## 👥 Authors
 
 - **Jahongir To'xtayev** - Frontend Developer & UI/UX Designer
 - **Adham Jabborov** - Frontend Developer
 
-## 🙏 Rahmat
+## 🙏 Acknowledgments
 
-- React jamoasiga ajoyib framework uchun
-- Google Gemini jamoasiga AI API uchun
-- Barcha open-source contributorlarga
+- Thanks to the React team for the amazing framework
+- Thanks to the Google Gemini team for the AI API
+- To all open-source contributors
 
 ---
 
 <div align="center">
 
-**🌟 Bu saytni yoqtirdingizmi? GitHub'da yulduzcha qo'ying! 🌟**
+**🌟 Did you like this site? Give it a star on GitHub! 🌟**
 
 [![GitHub stars](https://img.shields.io/github/stars/your-username/school-website.svg?style=social&label=Star)](https://github.com/your-username/school-website)
 [![GitHub forks](https://img.shields.io/github/forks/your-username/school-website.svg?style=social&label=Fork)](https://github.com/your-username/school-website/fork)
@@ -230,4 +230,4 @@ Bu loyiha MIT litsenziyasi ostida tarqatiladi. Batafsil ma'lumot uchun `LICENSE`
 
 ---
 
-**📧 Savollaringiz bormi?** [Aloqa sahifasiga o'ting](contact) yoki [issue oching](https://github.com/your-username/school-website/issues).
+**📧 Have questions?** [Go to the Contact page](contact) or [open an issue](https://github.com/your-username/school-website/issues).
