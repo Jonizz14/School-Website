@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom'
 import 'swiper/css'
 import { EffectCoverflow, EffectFade, Pagination, Navigation, A11y } from 'swiper/modules'
 import 'swiper/css/effect-fade'
+import InteractiveSelector from '../../components/ui/interactive-selector'
 
 function getFirstWordsFromHTML(html, wordCount = 5) {
     const text = html.replace(/<[^>]*>/g, ""); // HTML taglarni olib tashlash
@@ -111,7 +112,7 @@ function Home () {
           pupils: 540,
           teachers: 58,
           finishers: 120,
-          name: 'Sergeli tuman ixtisoslashtirilgan maktabi',
+          name: 'Sergeli tumani 104-sonli umumiy o‘rta ta’lim maktabi',
           number: '+998901234567',
           email: 'info@sergelitim.uz'
         });
@@ -121,7 +122,7 @@ function Home () {
           pupils: 540,
           teachers: 58,
           finishers: 120,
-          name: 'Sergeli tuman ixtisoslashtirilgan maktabi',
+          name: 'Sergeli tumani 104-sonli umumiy o‘rta ta’lim maktabi',
           number: '+998901234567',
           email: 'info@sergelitim.uz'
         });
@@ -170,30 +171,15 @@ function Home () {
   return (
     <>
       <div data-aos='fade-up' className='welcome-container'>
-        <Swiper
-          modules={[Autoplay]}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={3 > 1} // Only enable loop if there are more than 1 slides
-          allowTouchMove={false}
-          className='welcome-swiper'
-        >
-          <SwiperSlide>
-            <img src='/banner.jpg' alt='Banner 1' />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src='/banner2.png' alt='Banner 2' />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src='/banner3.png' alt='Banner 3' />
-          </SwiperSlide>
-        </Swiper>
+        <div className='welcome-swiper'>
+          <img src='/xxxl.webp' alt='Asosiy fon rasmi' />
+        </div>
 
         <div data-aos='fade-up' className='welcome-overlay'>
           <div className='welcome-content'>
             <h1 className='welcome-title'>
-              O‘zbekiston Respublikasi maktabgacha va maktab ta’limi vazirligi
-              huzuridagi ixtisoslashtirilgan ta’lim muassalar agentligi
-              tizimidagi Sergeli tuman ixtisoslashtirilgan maktabi
+              O‘zbekiston Respublikasi, Toshkent shahri, Sergeli tumani
+              104-sonli umumiy o‘rta ta’lim maktabi
             </h1>
             <p className='welcome-subtitle'>Kelajak uchun ta'lim</p>
 
@@ -219,7 +205,7 @@ function Home () {
         <div className='info__container'>
           <div data-aos='fade-right' className='info__image'>
             <img
-              src={school.about_image || '/banner2.png'}
+              src={'/xxxl.webp'}
               alt='Maktab ichki ko‘rinishi'
             />
           </div>
@@ -230,7 +216,7 @@ function Home () {
             <div className='info__row'>
               <span className='info__line'></span>
               <p className='info__text'>
-                Sergeli tuman ixtisoslashtirilgan maktabi 2022-yilda faoliyatini
+                Sergeli tumani 104-sonli umumiy o‘rta ta’lim maktabi 2022-yilda faoliyatini
                 boshlagan. Maktab aniq va tabiiy fanlarga ixtisoslashgan bo‘lib,
                 ta’lim tili – o‘zbek. Shuningdek, ingliz tili (IELTS), koreys
                 tili, IT va robototexnika yo‘nalishlari mavjud.
@@ -260,51 +246,7 @@ function Home () {
 
 
 
-      <section data-aos='fade-up' className='gallery-section'>
-        {isMobile ? (
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={20}
-            slidesPerView={1}
-            loop={3 > 1} // Only enable loop if there are more than 1 slides
-            autoplay={{ delay: 3000 }}
-            pagination={{ clickable: true }}
-            className='gallery-swiper'
-          >
-            {gallery.map((item, idx) => (
-              <SwiperSlide key={item.id}>
-                <div className='gallery-item'>
-                  <img src={item.image} alt={`Rasm ${idx + 1}`} />
-                  <div className='overlay'>
-                    <p>{item.title || `Galereya rasmi ${idx + 1}`}</p>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : (
-          <div className='gallery-container'>
-            <div className='gallery-item'>
-              <img src='/banner2.png' alt='Rasm 1' />
-              <div className='overlay'>
-                <p></p>
-              </div>
-            </div>
-            <div className='gallery-item'>
-              <img src='/banner3.png' alt='Rasm 2' />
-              <div className='overlay'>
-                <p></p>
-              </div>
-            </div>
-            <div className='gallery-item'>
-              <img src='/banner.jpg' alt='Rasm 3' />
-              <div className='overlay'>
-                <p></p>
-              </div>
-            </div>
-          </div>
-        )}
-      </section>
+      <InteractiveSelector gallery={gallery} />
 
       <section className='section'>
         <div data-aos='fade-up' className='section-div'>
@@ -405,68 +347,23 @@ function Home () {
             className='sponsor-swiper'
           >
             <SwiperSlide>
-              <img src="/sponsor1.png" alt="Sponsor 1" />
+              <img src="/xxxl.webp" alt="Sponsor 1" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/sponsor2.png" alt="Sponsor 2" />
+              <img src="/xxxl.webp" alt="Sponsor 2" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/sponsor3.png" alt="Sponsor 3" />
+              <img src="/xxxl.webp" alt="Sponsor 3" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/sponsor4.png" alt="Sponsor 4" />
+              <img src="/xxxl.webp" alt="Sponsor 4" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/sponsor5.png" alt="Sponsor 5" />
+              <img src="/xxxl.webp" alt="Sponsor 5" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/sponsor6.png" alt="Sponsor 6" />
+              <img src="/xxxl.webp" alt="Sponsor 6" />
             </SwiperSlide>
-          </Swiper>
-        </div>
-      </section>
-
-      <section data-aos='fade-up' className='bg-gray-900 py-14'>
-        <div className='swiper-title-bottom'>
-          <p className='swiper-botto-p'>Maktab Fotogalereyasi</p>
-        </div>
-        <div data-aos='fade-' className='w-[85%] mx-auto'>
-          <Swiper
-            loop={gallery.length > 3} // Only enable loop if there are enough slides
-            grabCursor={true}
-            centeredSlides={true}
-            autoplay={{
-              delay: 2000,
-              disableOnInteraction: false
-            }}
-            pagination={{
-              clickable: true,
-              dynamicBullets: true
-            }}
-            slidesPerView={1}
-            spaceBetween={20}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 }
-            }}
-            modules={[Pagination, Autoplay]}
-            className='pb-10'
-          >
-            {gallery.map((item) => (
-              <SwiperSlide
-                key={item.id}
-                className='!w-full flex items-center justify-center'
-              >
-                <div className='w-full h-[230px] md:h-[280px] lg:h-[320px] rounded-2xl overflow-hidden shadow-xl bg-gray-800'>
-                  <img
-                    src={item.image}                    
-                    alt={`slide-${item.id}`}
-                    className='salom w-full h-full object-cover transition-transform duration-500 hover:scale-105'
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
           </Swiper>
         </div>
       </section>
@@ -522,7 +419,7 @@ function Home () {
           {announcements.slice(0, 3).map(item => (
             <div key={item.id} className='home-card'>
               <img
-                src={item.image || '/banner.jpg'}
+                src={'/xxxl.webp'}
                 alt={item.title || 'E\'lon'}
                 className='home-card__img'
               />

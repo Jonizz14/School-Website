@@ -170,7 +170,7 @@ function News() {
               <img
                 src={
                   item.images?.find((img) => img.is_main)?.image ||
-                  item.images?.[0]?.image || '/banner.jpg'
+                  '/xxxl.webp'
                 }
                 alt={item.title}
               />

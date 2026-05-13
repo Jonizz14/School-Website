@@ -80,10 +80,8 @@ function Footer () {
           ></div>
         ))}
       </div>
-      <div className="footer__bg-text">Sergeli Tuman <br />Ixtisoslashtirilgan Maktabi</div>
-      
+
       <div className='footer__container'>
-        <div className="footer__separator"></div>
         
         <div className='footer__main-content'>
           <div className='footer__col'>
@@ -121,7 +119,7 @@ function Footer () {
         </div>
 
         <div className='footer__bottom'>
-          <p className="footer__copyright">© {new Date().getFullYear()} Sergeli Ixtisoslashgan Maktabi</p>
+          <p className="footer__copyright">© {new Date().getFullYear()} 104 sonli maktab</p>
         </div>
       </div>
     </footer>

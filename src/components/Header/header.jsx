@@ -6,6 +6,7 @@ import "./header.css";
 
 function Header() {
   const location = useLocation();
+  const isHomePage = location.pathname === "/";
   const [open, setOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [activityDropdownOpen, setActivityDropdownOpen] = useState(false);
@@ -14,7 +15,7 @@ function Header() {
   const [mobileMediaDropdownOpen, setMobileMediaDropdownOpen] = useState(false);
   const [mediaDropdownOpen, setMediaDropdownOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isAtTop, setIsAtTop] = useState(true);
   const aboutDropdownRef = useRef(null);
   const activityDropdownRef = useRef(null);
   const mediaDropdownRef = useRef(null);
@@ -69,6 +70,15 @@ function Header() {
   }, []);
 
   useEffect(() => {
+    const onScroll = () => {
+      setIsAtTop(window.scrollY <= 8);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -112,14 +122,14 @@ function Header() {
   }, [aboutDropdownOpen, activityDropdownOpen, mediaDropdownOpen]);
 
   return (
-    <header className={`header ${showHeader ? "header--visible" : "header--hidden"}`}>
+    <header className={`header ${showHeader ? "header--visible" : "header--hidden"} ${isAtTop && isHomePage ? "header--top-home" : "header--scrolled"}`}>
       <nav className="header__nav-container">
         <NavLink to="/" onClick={closeAllDropdowns}>
           <div className="header__logo-div">
-            <img className="header__logo" src="/logo.svg" alt="logo" />
+            <img className="header__logo" src="/UzEDU-01.png" alt="logo" />
             <div className="header__logo-text">
-              <p className="header__logo-text-tuman">Sergeli Tuman</p>
-              <p className="header__logo-text-maktab">Ixtisoslashtirilgan Maktab</p>
+              <p className="header__logo-text-tuman">Toshkent shahar</p>
+              <p className="header__logo-text-maktab">Sergeli tumani 104-maktab</p>
             </div>
           </div>
         </NavLink>

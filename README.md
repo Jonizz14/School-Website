@@ -8,7 +8,7 @@
 
 > 🌟 **Modern, interactive and user-friendly school information portal** - Created for the specialized school in Sergeli district.
 
-![School Website Preview](./screenshots/Home.png)
+![School Website Preview](./screenshots/Home.webp)
 
 ## 📖 Description
 
@@ -150,23 +150,23 @@ school-website/
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![Home Page](./screenshots/Home.png)
+![Home Page](./screenshots/Home.webp)
 *Home Page - News and Navigation*
 
 ### 📰 News Page
-![News Page](./screenshots/News.png)
+![News Page](./screenshots/News.webp)
 *News List and Search Functionality*
 
 ### 👨‍🏫 Teachers Page
-![Teachers Page](./screenshots/Teachers.png)
+![Teachers Page](./screenshots/Teachers.webp)
 *Teacher Profiles and Information*
 
 ### 📞 Contact Page
-![Contact Page](./screenshots/Contact.png)
+![Contact Page](./screenshots/Contact.webp)
 *Contact Form and Google Maps*
 
 ### 🤖 AI Chat
-![AI Chat](./screenshots/Chat.png)
+![AI Chat](./screenshots/Chat.webp)
 *AI Assistant Chat*
 
 ## 🎮 Usage

@@ -3,7 +3,7 @@ import "./App.css";
 import React from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Layout from "./components/Layout/layout";
 import Loader from "./components/Loader/Loader";
 import Home from "./pages/Home/home";
@@ -30,6 +30,16 @@ import ScientistWorkDetails from "./pages/ScientistWorkDetails/ScientistWorkDeta
 import AnnouncementDetails from "./pages/AnnouncementDetails/AnnouncementDetails";
 import Documentation from "./pages/Documentation/Documentation";
 import ScrollTop from "./components/ScrollTop/ScrollTop";
+import AdminPanel from "./admin/AdminPanel";
+import AdminLogin from "./admin/AdminLogin";
+import { isAdminLoggedIn } from "./admin/auth";
+
+function ProtectedAdmin({ children }) {
+  if (!isAdminLoggedIn()) {
+    return <Navigate to="/admin-login" replace />;
+  }
+  return children;
+}
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -95,7 +105,7 @@ function App() {
   
   return (
     <>
-    <ScrollTop />
+      {!location.pathname.startsWith("/admin-panel") && !location.pathname.startsWith("/admin-login") && <ScrollTop />}
       <Routes>
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/chat" element={<Layout><Chat /></Layout>} />
@@ -111,7 +121,6 @@ function App() {
         <Route path="/announcements" element={<Layout><Announcements /></Layout>} />
         <Route path="/announcements/:id" element={<Layout><AnnouncementDetails /></Layout>} />
         <Route path="/addition" element={<Layout><Addition /></Layout>} />
-        <Route path="*" element={<Layout><Noutfound /></Layout>} />
         <Route path="/talentedstudents" element={<Layout><TalentedStudents /></Layout>} />
         <Route path="/aboutschool" element={<Layout><AboutSchool /></Layout>} />
         <Route path="/principals" element={<Layout><Principals /></Layout>} />
@@ -120,9 +129,12 @@ function App() {
         <Route path="/scientistwork" element={<Layout><ScientistWork /></Layout>} />
         <Route path="/scientistwork/:id" element={<Layout><ScientistWorkDetails /></Layout>} />
         <Route path="/documentation" element={<Layout><Documentation /></Layout>} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-panel/*" element={<ProtectedAdmin><AdminPanel /></ProtectedAdmin>} />
+        <Route path="*" element={<Layout><Noutfound /></Layout>} />
 
       </Routes>
-      <Chat />
+      {!location.pathname.startsWith("/admin-panel") && !location.pathname.startsWith("/admin-login") && <Chat />}
     </>
   );
 }

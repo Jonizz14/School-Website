@@ -27,7 +27,7 @@ function AboutSchool() {
         <section className="about-info">
           <div className="about-info-container">
             <div data-aos="fade-right" className="about-info-image">
-              <img src="/banner2.png" alt="Maktab ichki ko‘rinishi" />
+              <img src="/xxxl.webp" alt="Maktab ichki ko‘rinishi" />
             </div>
 
             <div data-aos="fade-left" className="about-info-content">

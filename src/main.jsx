@@ -3,14 +3,14 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "antd/dist/reset.css";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <HashRouter>
+    <BrowserRouter>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </StrictMode>
 );
 
@@ -52,4 +52,3 @@ if (canHover) {
   document.body.classList.add("hover-disabled");
   document.body.classList.remove("hover-enabled");
 }
-
