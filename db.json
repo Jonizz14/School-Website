@@ -29,6 +29,36 @@
             "biography": "O'zbekiston tarixi bo'yicha yetuk mutaxassis.",
             "email": "abdulla@school.uz",
             "phone": "+998911112233"
+        },
+        {
+            "id": 4,
+            "first_name": "Gulnora",
+            "last_name": "Mahmudova",
+            "profession": "Kimyo",
+            "image": "https://img.freepik.com/free-photo/female-scientist-chemistry-lab_23-2148892800.jpg",
+            "biography": "Zamonaviy kimyo ta'limi metodikalarning ixtirachilardan biri.",
+            "email": "gulnora@school.uz",
+            "phone": "+998912223344"
+        },
+        {
+            "id": 5,
+            "first_name": "Ravshanbek",
+            "last_name": "Karimov",
+            "profession": "Fizika",
+            "image": "https://img.freepik.com/free-photo/male-teacher-in-classroom_23-2148892825.jpg",
+            "biography": "Fizika fani bo'yicha ijodiy pedagogik taqdimotlar.",
+            "email": "ravshanbek@school.uz",
+            "phone": "+998913334455"
+        },
+        {
+            "id": 6,
+            "first_name": "Farida",
+            "last_name": "Rahimova",
+            "profession": "Ingliz tili",
+            "image": "https://img.freepik.com/free-photo/woman-teaching-english-classroom_23-2148892850.jpg",
+            "biography": "Britaniya va Amerika ta'lim metodikasini tadbiq etadi.",
+            "email": "farida@school.uz",
+            "phone": "+998914445566"
         }
     ],
     "students": [
@@ -55,13 +85,29 @@
             "image": "https://img.freepik.com/free-photo/young-man-portrait_23-2148108411.jpg",
             "biography": "Robototexnika sohasidagi yosh ixtirochi.",
             "achievements": "Maktablararo tanlov 1-o'rin"
+        },
+        {
+            "id": 4,
+            "first_name": "Sitora",
+            "last_name": "Usmanova",
+            "image": "https://img.freepik.com/free-photo/young-teen-girl-portrait_23-2148108445.jpg",
+            "biography": "Tabiatshunoslik bo'yicha yosh tadqiqotchi.",
+            "achievements": "Ekoloji proyekt g'olibi"
+        },
+        {
+            "id": 5,
+            "first_name": "Temur",
+            "last_name": "Nazarov",
+            "image": "https://img.freepik.com/free-photo/teen-boy-portrait-happy_23-2148108419.jpg",
+            "biography": "Informatika va programmalashtirish sohasi mutaxassisi.",
+            "achievements": "Hackathon birinchisi"
         }
     ],
     "news": [
         {
             "id": 1,
             "title": "Yangi o'quv yili boshlandi",
-            "description": "<p>Maktabimizda tantanali 'Bilimlar kuni' tadbiri bo'lib o'tdi. Barcha o'quvchilarga omad tilaymiz.</p>",
+            "description": "<p>Maktabimizda tantanali 'Bilimlar kuni' tadbiri bo'lib o'tdi. Barcha o'quvchilarga omad tilaymiz. Bu oy ichida yangi laboratoriya va kompyuter xonasi ishga tayyorlangan.</p>",
             "time": "2026-02-12T09:00:00Z",
             "category": 0,
             "images": [
@@ -74,7 +120,7 @@
         {
             "id": 2,
             "title": "Psixolog bilan uchrashuv",
-            "description": "<p>Ertaga maktab zalida taniqli psixolog bilan ochiq muloqot bo'lib o'tadi. Ota-onalar ham taklif etiladi.</p>",
+            "description": "<p>Ertaga maktab zalida taniqli psixolog bilan ochiq muloqot bo'lib o'tadi. Ota-onalar ham taklif etiladi. O'quvchilarning ruhiy salomatligi va stressni boshqarish bo'yicha maslahat beriladi.</p>",
             "time": "2026-02-13T14:00:00Z",
             "category": 1,
             "images": [
@@ -87,12 +133,25 @@
         {
             "id": 3,
             "title": "Sport musobaqasi natijalari",
-            "description": "<p>Futbol bo'yicha 9-sinflar o'rtasidagi musobaqada 9-'A' sinfi g'olib chiqdi.</p>",
+            "description": "<p>Futbol bo'yicha 9-sinflar o'rtasidagi musobaqada 9-'A' sinfi g'olib chiqdi. Voleybol turiga 10-sinflar tayyorlanyapti.</p>",
             "time": "2026-02-11T16:00:00Z",
             "category": 0,
             "images": [
                 {
                     "image": "https://img.freepik.com/free-photo/kids-playing-football_23-2149176465.jpg",
+                    "is_main": true
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Robototexnika loyihasi",
+            "description": "<p>Maktabimiz robototexnika sohasida yangi laboratoriya ochdi. O'quvchilar zamonaviy texnologiyalarni o'rganishni boshladi.</p>",
+            "time": "2026-02-10T11:00:00Z",
+            "category": 0,
+            "images": [
+                {
+                    "image": "https://img.freepik.com/free-photo/kids-building-robot-school_23-2148633385.jpg",
                     "is_main": true
                 }
             ]
@@ -102,23 +161,47 @@
         {
             "id": 1,
             "title": "Shaxmat to'garagi",
-            "description": "Shaxmat sirlarini professional o'rganing.",
+            "description": "Shaxmat sirlarini professional o'rganing. Strategiya va taktika darslarimiz xalqaro standartga mos.",
             "image": "https://img.freepik.com/free-photo/kids-playing-chess-school_23-2148633367.jpg",
-            "teacher": 1
+            "teacher": 1,
+            "price": 50000,
+            "duration": "3 oy"
         },
         {
             "id": 2,
             "title": "Rassomchilik",
-            "description": "Tasviriy san'at orqali dunyoni aks ettiring.",
+            "description": "Tasviriy san'at orqali dunyoni aks ettiring. Klassik va zamonaviy texnikalar o'rgatiladi.",
             "image": "https://img.freepik.com/free-photo/children-painting-art-class_23-2148633388.jpg",
-            "teacher": 2
+            "teacher": 2,
+            "price": 40000,
+            "duration": "3 oy"
         },
         {
             "id": 3,
             "title": "Robototexnika",
-            "description": "Kelajak texnologiyalarini bugun o'rganing.",
+            "description": "Kelajak texnologiyalarini bugun o'rganing. Dron, robot va AI asosida proyektlar tayyorlanadi.",
             "image": "https://img.freepik.com/free-photo/kids-building-robot-school_23-2148633385.jpg",
-            "teacher": 3
+            "teacher": 3,
+            "price": 75000,
+            "duration": "6 oy"
+        },
+        {
+            "id": 4,
+            "title": "Programmalashtirish",
+            "description": "Python, JavaScript va C++ dasturlash tillari ta'limni to'la kurs.",
+            "image": "https://img.freepik.com/free-photo/programmer-working-laptop_23-2148892880.jpg",
+            "teacher": 5,
+            "price": 80000,
+            "duration": "6 oy"
+        },
+        {
+            "id": 5,
+            "title": "Yo'l harakati xavfsizligi",
+            "description": "Yo'l harakati qoidalarini to'liq o'rganing va tug'un sertifikati oling.",
+            "image": "https://img.freepik.com/free-photo/traffic-signs-road_23-2148892900.jpg",
+            "teacher": 1,
+            "price": 35000,
+            "duration": "1 oy"
         }
     ],
     "school": [
@@ -228,6 +311,90 @@
             "start_time": "2026-03-21T09:00:00Z",
             "end_time": "2026-03-21T16:00:00Z",
             "image": "https://img.freepik.com/free-photo/happy-people-celebrating-together_23-2148892770.jpg"
+        },
+        {
+            "id": 4,
+            "topic": "Xalqaro o'quv chiquvchi apilka",
+            "description": "O'quvchilar o'zlarining loyihalarini namoyish etadi. Universitetlardan professorlar va ishlash oralari vakillari qatnashadi.",
+            "start_time": "2026-03-10T10:00:00Z",
+            "end_time": "2026-03-10T18:00:00Z",
+            "image": "https://img.freepik.com/free-photo/conference-presentation_23-2148892920.jpg"
+        }
+    ],
+    "schedule": [
+        {
+            "id": 1,
+            "day": "Dushanba",
+            "class": "9-A",
+            "subject": "Matematika",
+            "teacher": 1,
+            "time": "09:00-09:45",
+            "room": 205
+        },
+        {
+            "id": 2,
+            "day": "Dushanba",
+            "class": "9-A",
+            "subject": "Ona tili",
+            "teacher": 2,
+            "time": "09:55-10:40",
+            "room": 205
+        },
+        {
+            "id": 3,
+            "day": "Dushanba",
+            "class": "9-A",
+            "subject": "Tarix",
+            "teacher": 3,
+            "time": "10:50-11:35",
+            "room": 205
+        },
+        {
+            "id": 4,
+            "day": "Seshanba",
+            "class": "9-A",
+            "subject": "Kimyo",
+            "teacher": 4,
+            "time": "09:00-09:45",
+            "room": 310
+        },
+        {
+            "id": 5,
+            "day": "Seshanba",
+            "class": "9-A",
+            "subject": "Fizika",
+            "teacher": 5,
+            "time": "09:55-10:40",
+            "room": 312
+        }
+    ],
+    "scientist_work": [
+        {
+            "id": 1,
+            "title": "Qalat tizimida plastik axlatning azalari",
+            "author": "Bekzod Abdurazzoqov",
+            "description": "Atrof-muhitni asrash va axlat qayta ishlash.",
+            "date": "2026-01-15T10:00:00Z",
+            "image": "https://img.freepik.com/free-photo/environmental-protection-concept_23-2148892950.jpg",
+            "content": "<p>Ushbu ilmiy ish plastik axlatni qayta ishlash va uni foydalanish bo'yicha chuqur tadqiqot.</p>"
+        },
+        {
+            "id": 2,
+            "title": "Suv qaynaqlari ekologiyasi",
+            "author": "Sitora Usmanova",
+            "description": "Buloqlar va kanallarning toza saqlanishi masalasi.",
+            "date": "2026-01-20T14:00:00Z",
+            "image": "https://img.freepik.com/free-photo/water-conservation-concept_23-2148892965.jpg",
+            "content": "<p>Tabiy suv resurslarini saqlash va ekologiyani himoya qilish bo'yicha.</p>"
+        },
+        {
+            "id": 3,
+            "title": "Artificial intellektning ta'limda qo'llanilishi",
+            "author": "Temur Nazarov",
+            "description": "AI texnologiyalari zamonaviy ta'limda.",
+            "date": "2026-02-01T11:00:00Z",
+            "image": "https://img.freepik.com/free-photo/artificial-intelligence-concept_23-2148892980.jpg",
+            "content": "<p>Suniy intellekt aslida ta'lim jarayonini qanday takmillashtira olishini tahlil qilish.</p>"
         }
     ],
     "galery": [
@@ -242,6 +409,18 @@
         {
             "id": 3,
             "image": "https://img.freepik.com/free-photo/kids-playing-football_23-2149176465.jpg"
+        },
+        {
+            "id": 4,
+            "image": "https://img.freepik.com/free-photo/kids-building-robot-school_23-2148633385.jpg"
+        },
+        {
+            "id": 5,
+            "image": "https://img.freepik.com/free-photo/children-painting-art-class_23-2148633388.jpg"
+        },
+        {
+            "id": 6,
+            "image": "https://img.freepik.com/free-photo/kids-playing-chess-school_23-2148633367.jpg"
         }
     ]
 }

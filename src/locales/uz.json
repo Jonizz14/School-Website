@@ -1,0 +1,137 @@
+{
+  "header": {
+    "home": "Bosh sahifa",
+    "about": "Maktab Haqida",
+    "aboutHistory": "Maktab tarixi",
+    "aboutLeadership": "Rahbariyat",
+    "aboutTeachers": "Ustozlar",
+    "activity": "Maktab Faoliyati",
+    "news": "Yangiliklar",
+    "announcements": "E'lonlar",
+    "additions": "Qo'shimcha kurslar",
+    "media": "Media",
+    "meetings": "Jismoniy uchrashuvlar",
+    "scientistWork": "Olimzoda ishlar",
+    "talented": "Iqtidorli o'quvchilar",
+    "contact": "Aloqa",
+    "schedule": "Dars jadvali",
+    "documentation": "Dokumentatsiya"
+  },
+  "home": {
+    "title": "Sergeli Tuman Ixtisoslashtirilgan Maktabi",
+    "subtitle": "Kelajak uchun ta'lim",
+    "welcomeBtn": "Maktab yangiliklari",
+    "aboutUsBtn": "Bizning ustoz",
+    "news": "Yangiliklar",
+    "announcements": "E'lonlar",
+    "additions": "Qo'shimcha kurslar",
+    "teachers": "Ustozlar",
+    "viewAll": "Hammasini ko'rish",
+    "learnMore": "Batafsil"
+  },
+  "about": {
+    "title": "Maktab Haqida",
+    "history": "Maktab Tarixi",
+    "leadership": "Rahbariyat",
+    "teachers": "Ustozlar",
+    "mission": "Missiyamiz",
+    "vision": "Vizyonimiz",
+    "description": "Sergeli Tuman Ixtisoslashtirilgan Maktabi O'zbekistondagi eng yetuk ta'lim muassasalaridan biridir."
+  },
+  "news": {
+    "title": "Yangiliklar",
+    "noNews": "Hozircha yangilik yo'q",
+    "publishedOn": "Nashr etilgan",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "announcements": {
+    "title": "E'lonlar",
+    "noAnnouncements": "Hozircha e'lon yo'q",
+    "date": "Sana",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "additions": {
+    "title": "Qo'shimcha Kurslar",
+    "noAdditions": "Hozircha kurs yo'q",
+    "price": "Narx",
+    "duration": "Davomiyligi",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "teachers": {
+    "title": "Ustozlar",
+    "noTeachers": "Hozircha o'qituvchi yo'q",
+    "profession": "Mutaxassisligi",
+    "email": "Email",
+    "phone": "Telefon",
+    "biography": "Tarjimai holi",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "schedule": {
+    "title": "Dars Jadvali",
+    "monday": "Dushanba",
+    "tuesday": "Seshanba",
+    "wednesday": "Chorshanba",
+    "thursday": "Payshanba",
+    "friday": "Juma",
+    "saturday": "Shanba",
+    "sunday": "Yakshanba",
+    "time": "Vaqt",
+    "class": "Sinf",
+    "subject": "Fani",
+    "teacher": "Ustozlar"
+  },
+  "contact": {
+    "title": "Aloqa",
+    "email": "Email",
+    "phone": "Telefon",
+    "address": "Manzil",
+    "sendMessage": "Xabar yuborish",
+    "message": "Xabar",
+    "name": "Ism",
+    "subject": "Mavzu",
+    "submit": "Yuborish",
+    "successMessage": "Xabaringiz muvaffaqiyatli yuborildi",
+    "errorMessage": "Xato yuz berdi. Iltimos qayta urinib ko'ring"
+  },
+  "principals": {
+    "title": "Rahbariyat",
+    "noPrincipals": "Hozircha ma'lumot yo'q",
+    "position": "Lavozimi",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "meetings": {
+    "title": "Jismoniy Uchrashuvlar",
+    "noMeetings": "Hozircha uchrashuvlar yo'q",
+    "date": "Sana",
+    "time": "Vaqt",
+    "location": "Joylashuvi",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "scientistWork": {
+    "title": "Olimzoda Ishlar",
+    "noWorks": "Hozircha ishlar yo'q",
+    "author": "Muallif",
+    "date": "Sana",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "talented": {
+    "title": "Iqtidorli O'quvchilar",
+    "noStudents": "Hozircha o'quvchi yo'q",
+    "achievements": "Erishlari",
+    "grade": "Sinf",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "documentation": {
+    "title": "Dokumentatsiya",
+    "noDocuments": "Hozircha dokumentatsiya yo'q",
+    "download": "Yuklab olish",
+    "backToHome": "Bosh sahifaga qaytish"
+  },
+  "common": {
+    "loading": "Yuklanyapti...",
+    "error": "Xato",
+    "notFound": "Topilmadi",
+    "backToHome": "Bosh sahifaga qaytish",
+    "noData": "Ma'lumot yo'q"
+  }
+}

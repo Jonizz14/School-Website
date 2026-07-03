@@ -19,7 +19,6 @@ import Noutfound from "./pages/Notfound/notfound";
 import HomePrincipalsDetails from "./pages/HomePrincipalsDetails/HomePrincipalsDetails";
 import OurCommand from "./pages/OurCommand/OurCommand";
 import Contact from "./pages/Contact/contact";
-import Chat from "./components/Chat/Chat";
 import TalentedStudents from "./pages/TalentedS/TalentedStudents";
 import AboutSchool from "./pages/AboutSchool/AboutSchool";
 import Principals from "./pages/Principals/Principals";
@@ -98,7 +97,6 @@ function App() {
     <ScrollTop />
       <Routes>
         <Route path="/" element={<Layout><Home /></Layout>} />
-        <Route path="/chat" element={<Layout><Chat /></Layout>} />
         <Route path="/news" element={<Layout><News /></Layout>} />
         <Route path="/news/:id/details" element={<Layout><NewsDetails /></Layout>} />
         <Route path="/teachers" element={<Layout><Teachers /></Layout>} />
@@ -122,7 +120,6 @@ function App() {
         <Route path="/documentation" element={<Layout><Documentation /></Layout>} />
 
       </Routes>
-      <Chat />
     </>
   );
 }
